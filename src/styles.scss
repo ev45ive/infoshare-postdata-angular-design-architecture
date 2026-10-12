@@ -15,3 +15,23 @@
 }
 
 // .widget .costam a { } - singleton, deep cascade, no encapsulation
+
+/* Prime overrides */
+// .p-button {
+//   background-color: red;
+//   color: white;
+// }
+/* border, hover, active ....  */
+
+:root {
+  /* Deklaracje zmiennych CSS */
+  --p-button-primary-color: red;
+  --p-button-primary-background: red;
+  --p-button-primary-border-color: red;
+  --p-button-primary-hover-background: red;
+  --p-button-primary-hover-border-color: red;
+  --p-button-primary-hover-color: red;
+
+  //   --p-badge-primary-background: var(--p-primary-color);
+  --p-badge-primary-background: red;
+}
