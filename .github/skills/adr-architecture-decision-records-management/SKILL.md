@@ -60,6 +60,8 @@ Skill do zarządzania Architecture Decision Records — dokumentacji decyzji arc
 
 **Jak użyć**: "Stwórz nowy ADR o wyborze state managementu"
 
+Użyj narzędzia #askQuestions żeby zaproponować do dodać do każdej sekcji i użytkownik zatwierdza, zmienia, lub podaje swoją treśc 
+
 ---
 
 ## Struktura Pliku ADR
@@ -79,13 +81,16 @@ Zobacz: [ADR Template](./references/adr-template.md)
 
 ## Rejestr ADR (INDEX.md)
 
-Zobacz: [Registry Template](./references/adr-registry-template.md)
+Plik `docs/adr/INDEX.md` to **pusty rejestr aktualizowany przy każdej zmianie**. Nie zawiera instrukcji ani przykładów.
 
-Każdy ADR musi być wpisany w rejestr:
+Struktura:
+- **Quick Summary** — tabela wszystkich ADR z numerami i statusami
+- **Grouped by Status** — sekcje Accepted / Proposed / Deprecated / Superseded
+- **Statistics** — liczby dla szybkiego przeglądu
 
-| # | Tytuł | Status | Data | Autor |
-|---|-------|--------|------|-------|
-| ADR-001 | Wybór state managementu | Accepted | 2026-10-12 | Team |
+Przy każdym nowym ADR lub zmianie statusu — aktualizujesz odpowiedni wiersz w INDEX.md.
+
+Szablon kompletnego rejestru (dla referecji): [Registry Template](./references/adr-registry-template.md)
 
 ---
 

@@ -2000,3 +2000,1043 @@ _**Agent (copilot/claude-haiku-4.5)**_
 
 Completed: *Create ADR checklist and instructions* (4/7)
 </details></tool-use>
+
+---
+
+_**User (2026-10-12 12:43:21Z)**_
+
+/adr-architecture-decision-records-management nowy projekt
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<think><details><summary>Thought Process</summary>
+Teraz tworzę README.md dla dokumentacji ADR:
+</details></think>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read skill `adr-architecture-decision-records-management`, lines 1 to 50
+
+**Input:**
+
+- endLine: `50`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\.github\skills\adr-architecture-decision-records-management\SKILL.md`
+- startLine: `1`
+
+**Result:**
+
+```
+---
+name: adr-architecture-decision-records-management
+description: "Manage Architecture Decision Records (ADR). Use when: initializing ADR structure in a project; reviewing or searching existing architectural decisions; creating or updating ADR documents and registry."
+argument-hint: "describe what you want to do with ADR (init, search, create, update)"
+disable-model-invocation: true
+user-invocable: true
+---
+
+# Architecture Decision Records (ADR) Management
+
+Skill do zarządzania Architecture Decision Records — dokumentacji decyzji architektonicznych projektu.
+
+## Kiedy Używać
+
+- **Inicjalizacja** — Nowy projekt, nie ma jeszcze struktur ADR
+- **Przegląd** — Szukasz istniejących decyzji, historii zmian
+- **Tworzenie** — Nowa decyzja architektoniczna do udokumentowania
+- **Aktualizacja** — Zmiana statusu, supercedowanie starego ADR
+
+## Trzy Tryby Pracy
+
+### 1️⃣ Inicjalizacja (Init)
+
+**Kiedy**: Pierwszy raz w projekcie, nie ma jeszcze folderu `docs/adr/`
+
+**Co robi**:
+- Tworzy katalog `docs/adr/`
+- Tworzy `docs/adr/INDEX.md` (rejestr ADR)
+- Dodaje szablony referencyj
+
+**Jak użyć**: "Zainicjalizuj strukturę ADR w projekcie"
+
+---
+
+### 2️⃣ Przegląd & Wyszukiwanie (Review)
+
+**Kiedy**: Chcesz zobaczyć istniejące ADR, szukać konkretnej decyzji
+
+**Co robi**:
+- Wyświetla listę wszystkich ADR z numerami i statusami
+- Przeszukuje ADR po słowach kluczowych (context, decision, status)
+- Pokazuje zależności między ADR (które ją zastępują, które na niej bazują)
+
+**Jak użyć**: 
+- "Pokaż wszystkie zaakceptowane ADR"
+- "Szukaj ADR o state managemencie"
+- "Jaka decyzja zastępiła ADR-001?"
+
+---
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir"><details>
+<summary>Tool use: **list_dir**</summary>
+
+Read `docs`
+
+**Input:**
+
+- path: `c:\Projects\infoshare-postdata-angular-design-architecture\docs`
+
+**Result:**
+
+```
+ai-sessions/
+spec/
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read skill `adr-architecture-decision-records-management`: `adr-registry-template.md`, lines 1 to 80
+
+**Input:**
+
+- endLine: `80`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\.github\skills\adr-architecture-decision-records-management\references\adr-registry-template.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# ADR Registry (INDEX.md)
+
+Przechowaj plik jako `docs/adr/INDEX.md`. To główny punkt wejścia do wszystkich decyzji architektonicznych projektu.
+
+---
+
+# Architecture Decision Records
+
+Spis wszystkich decyzji architektonicznych podjętych w projekcie.
+
+> **Jak dodać nowy ADR**: Stwórz plik `ADR-XXX.md` w tym folderze, a następnie wpisz wiersz w tabeli poniżej.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+| [ADR-001](./ADR-001.md) | Architektura state managementu | Accepted | 2026-10-12 | Team | Angular Signals |
+| [ADR-002](./ADR-002.md) | Signal Forms zamiast Reactive Forms | Proposed | 2026-10-12 | Engineer X | Wymaga spike'u |
+| [ADR-003](./ADR-003.md) | Feature-based folder structure | Accepted | 2026-09-15 | Engineer Y | Zamiast ADR-004 |
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+Te decyzje są obowiązkowe dla nowego kodu i istniejącego kodu, jeśli jest refaktoryzowany.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| [ADR-001](./ADR-001.md) | Architektura state managementu | 2026-10-12 | Team | Angular Signals |
+| [ADR-003](./ADR-003.md) | Feature-based folder structure | 2026-09-15 | Engineer Y | |
+
+### 🔷 Proposed (W Dyskusji)
+
+Te decyzje są sugerowane, ale nie zostały jeszcze zaakceptowane. Oczekują spikea lub dalszej dyskusji.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| [ADR-002](./ADR-002.md) | Signal Forms zamiast Reactive Forms | 2026-10-12 | Engineer X | Wymaga spike'u |
+
+### ⚠️ Deprecated (Przestarzałe)
+
+Te decyzje są już nie w użyciu. Stary kod może je jeszcze implementować, ale nowy kod powinien ich unikać.
+
+| # | Tytuł | Data | Autor | Powód |
+|---|-------|------|-------|-------|
+| (brak) | | | | |
+
+### 🔄 Superseded (Zastąpione)
+
+Te decyzje zostały zastąpione przez nowsze ADR. Stary kod pozostaje, ale nowe decyzje budują na tych tutaj.
+
+| # | Tytuł | Data | Zast
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Inicjalizuję strukturę ADR dla projektu. Tworzę `docs/adr/INDEX.md` z rejestr ADR: 
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `INDEX.md`
+
+**Input:**
+
+- content:
+
+````
+# Architecture Decision Records (ADR)
+
+Spis wszystkich decyzji architektonicznych podjętych w projekcie.
+
+> **Jak dodać nowy ADR**: Stwórz plik `ADR-XXX.md` w tym folderze, a następnie wpisz wiersz w tabeli poniżej.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+| | | | | | |
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+Te decyzje są obowiązkowe dla nowego kodu i istniejącego kodu, jeśli jest refaktoryzowany.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| (brak) | | | | |
+
+### 🔷 Proposed (W Dyskusji)
+
+Te decyzje są sugerowane, ale nie zostały jeszcze zaakceptowane. Oczekują spikea lub dalszej dyskusji.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| (brak) | | | | |
+
+### ⚠️ Deprecated (Przestarzałe)
+
+Te decyzje są już nie w użyciu. Stary kod może je jeszcze implementować, ale nowy kod powinien ich unikać.
+
+| # | Tytuł | Data | Autor | Powód |
+|---|-------|------|-------|-------|
+| (brak) | | | | |
+
+### 🔄 Superseded (Zastąpione)
+
+Te decyzje zostały zastąpione przez nowsze ADR. Stary kod pozostaje, ale nowe decyzje budują na tych tutaj.
+
+| # | Tytuł | Data | Zastąpione przez | Link |
+|---|-------|------|------------------|------|
+| (brak) | | | | |
+
+---
+
+## By Topic
+
+Opcjonalnie: grupuj ADR po temacie architektonicznym.
+
+```
+### State Management
+- [ADR-001: Architektura state managementu](./ADR-001.md)
+
+### Architecture & Project Structure
+- [ADR-002: Feature-based folder structure](./ADR-002.md)
+```
+
+---
+
+## Statistics
+
+- **Total ADR**: 0
+- **Accepted**: 0
+- **Proposed**: 0
+- **Superseded**: 0
+- **Deprecated**: 0
+
+---
+
+## How to Add a New ADR
+
+### 1. Check Existing ADR
+Przeszukaj `docs/adr/` — czy decyzja nie jest już udokumentowana?
+
+```bash
+ls docs/adr/ADR-*.md
+grep -i "temat" docs/adr/*.md
+```
+
+### 2. Create File
+Stwórz nowy plik `docs/adr/ADR-XXX.md` (zamień XXX na numer, zaczynając od 001). Użyj [ADR Template](./.github/skills/adr-architecture-decision-records-management/references/adr-template.md).
+
+### 3. Update This Index
+Dodaj wiersz w tabeli `Quick Summary` wyżej. Status powinien być `Proposed` do momentu acceptance.
+
+### 4. Get Approval
+- Przesyłaj do review
+- Dyskusja w kanale #architecture-decisions (lub equiv.)
+- Po approval zmień status na `Accepted`
+
+### 5. Commit & Push
+Commit zarówno ADR jak i `INDEX.md`:
+
+```bash
+git add docs/adr/ADR-XXX.md docs/adr/INDEX.md
+git commit -m "ADR-XXX: [Brief Title]"
+git push
+```
+
+---
+
+## Guidelines
+
+- **Numeracja**: Numeruj sekwencyjnie (ADR-001, ADR-002, ...). Nie usuwaj starych ADR — archiwizuj ze statusem `Deprecated` lub `Superseded`.
+- **Status**: Zmiana statusu ADR = zmiana w `INDEX.md`. Np. `Proposed` → `Accepted` po team vote'cie.
+- **Superseded**: Jeśli ADR-005 zastępuje ADR-002, zmień status ADR-002 na `Superseded by ADR-005`, a w ADR-005 dodaj link do ADR-002.
+- **Short-lived ADR**: Jeśli decyzja okazała się tymczasowa, ustaw status `Deprecated` zamiast usuwać.
+
+---
+
+## Links & Resources
+
+- **Skill**: `/adr-architecture-decision-records-management` — wszystkie komendy
+- **Template**: Użyj szablonu do nowego ADR (dostępny w skill'u)
+- **Checklist**: Czek-lista jakości ADR (dostępna w skill'u)
+- **Related**: [ADR Best Practices](../README.md#Architecture)
+
+````
+
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\INDEX.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\INDEX.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **INDEX.md**</summary>
+
+@@ lines 1-1 @@
+
+````
+# Architecture Decision Records (ADR)
+
+Spis wszystkich decyzji architektonicznych podjętych w projekcie.
+
+> **Jak dodać nowy ADR**: Stwórz plik `ADR-XXX.md` w tym folderze, a następnie wpisz wiersz w tabeli poniżej.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+| | | | | | |
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+Te decyzje są obowiązkowe dla nowego kodu i istniejącego kodu, jeśli jest refaktoryzowany.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| (brak) | | | | |
+
+### 🔷 Proposed (W Dyskusji)
+
+Te decyzje są sugerowane, ale nie zostały jeszcze zaakceptowane. Oczekują spikea lub dalszej dyskusji.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| (brak) | | | | |
+
+### ⚠️ Deprecated (Przestarzałe)
+
+Te decyzje są już nie w użyciu. Stary kod może je jeszcze implementować, ale nowy kod powinien ich unikać.
+
+| # | Tytuł | Data | Autor | Powód |
+|---|-------|------|-------|-------|
+| (brak) | | | | |
+
+### 🔄 Superseded (Zastąpione)
+
+Te decyzje zostały zastąpione przez nowsze ADR. Stary kod pozostaje, ale nowe decyzje budują na tych tutaj.
+
+| # | Tytuł | Data | Zastąpione przez | Link |
+|---|-------|------|------------------|------|
+| (brak) | | | | |
+
+---
+
+## By Topic
+
+Opcjonalnie: grupuj ADR po temacie architektonicznym.
+
+```
+### State Management
+- [ADR-001: Architektura state managementu](./ADR-001.md)
+
+### Architecture & Project Structure
+- [ADR-002: Feature-based folder structure](./ADR-002.md)
+```
+
+---
+
+## Statistics
+
+- **Total ADR**: 0
+- **Accepted**: 0
+- **Proposed**: 0
+- **Superseded**: 0
+- **Deprecated**: 0
+
+---
+
+## How to Add a New ADR
+
+### 1. Check Existing ADR
+Przeszukaj `docs/adr/` — czy decyzja nie jest już udokumentowana?
+
+```bash
+ls docs/adr/ADR-*.md
+grep -i "temat" docs/adr/*.md
+```
+
+### 2. Create File
+Stwórz nowy plik `docs/adr/ADR-XXX.md` (zamień XXX na numer, zaczynając od 001). Użyj [ADR Template](./.github/skills/adr-architecture-decision-records-management/references/adr-template.md).
+
+### 3. Update This Index
+Dodaj wiersz w tabeli `Quick Summary` wyżej. Status powinien być `Proposed` do momentu acceptance.
+
+### 4. Get Approval
+- Przesyłaj do review
+- Dyskusja w kanale #architecture-decisions (lub equiv.)
+- Po approval zmień status na `Accepted`
+
+### 5. Commit & Push
+Commit zarówno ADR jak i `INDEX.md`:
+
+```bash
+git add docs/adr/ADR-XXX.md docs/adr/INDEX.md
+git commit -m "ADR-XXX: [Brief Title]"
+git push
+```
+
+---
+
+## Guidelines
+
+- **Numeracja**: Numeruj sekwencyjnie (ADR-001, ADR-002, ...). Nie usuwaj starych ADR — archiwizuj ze statusem `Deprecated` lub `Superseded`.
+- **Status**: Zmiana statusu ADR = zmiana w `INDEX.md`. Np. `Proposed` → `Accepted` po team vote'cie.
+- **Superseded**: Jeśli ADR-005 zastępuje ADR-002, zmień status ADR-002 na `Superseded by ADR-005`, a w ADR-005 dodaj link do ADR-002.
+- **Short-lived ADR**: Jeśli decyzja okazała się tymczasowa, ustaw status `Deprecated` zamiast usuwać.
+
+---
+
+## Links & Resources
+
+- **Skill**: `/adr-architecture-decision-records-management` — wszystkie komendy
+- **Template**: Użyj szablonu do nowego ADR (dostępny w skill'u)
+- **Checklist**: Czek-lista jakości ADR (dostępna w skill'u)
+- **Related**: [ADR Best Practices](../README.md#Architecture)
+
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Teraz tworzę `README.md` dla dokumentacji ADR: 
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `README.md`
+
+**Input:**
+
+- content:
+
+````
+# Architecture Decision Records (ADR)
+
+Folder zawierający wszystkie Architecture Decision Records — dokumentację ważnych decyzji architektonicznych projektu.
+
+## 🎯 Po co ADR?
+
+ADR to prosta, lekka forma dokumentowania ważnych decyzji architektonicznych. Każde ADR:
+- Wyjaśnia **jaki problem** prowadził do decyzji
+- Dokumentuje **co się zdecydowaliśmy**
+- Pokazuje **konsekwencje** tej decyzji
+- Opisuje **alternatywy** które rozpatrywaliśmy
+
+ADR żyje w gicie razem z kodem — mogą być przeszukiwane, linkowane, wersjonowane, i historyzowane jak wszystko inne w projekcie.
+
+## 📂 Struktura
+
+```
+docs/adr/
+├── INDEX.md              ← 📋 Spis wszystkich ADR (zacznij tutaj!)
+├── ADR-001.md           ← Konkretna decyzja
+├── ADR-002.md
+└── ...
+```
+
+## 🚀 Szybki Start
+
+### Przejrzeć istniejące ADR
+Otwórz [INDEX.md](./INDEX.md) — tam są wszystkie decyzje + statystyki.
+
+### Szukać konkretne ADR
+```bash
+grep -i "state management" docs/adr/*.md
+```
+
+### Stworzić nowy ADR
+
+Użyj skill'u w VS Code:
+```
+/adr-architecture-decision-records-management: stwórz nowy ADR o [temat]
+```
+
+Lub ręcznie:
+1. Skopiuj plik `ADR-001.md` (jeśli istnieje) lub użyj szablonu
+2. Zmień numer (ADR-002, ADR-003, ...)
+3. Wypełnij sekcje: Context, Decision, Consequences, Alternatives
+4. Dodaj wiersz w [INDEX.md](./INDEX.md)
+5. Wyślij do review
+
+## 📝 Struktura ADR
+
+Każde ADR powinno zawierać:
+
+| Sekcja | Co zawiera |
+|--------|-----------|
+| **Status** | `Proposed` / `Accepted` / `Deprecated` / `Superseded` |
+| **Context** | Jaki problem / pytanie się pojawił? (neutralny tone) |
+| **Decision** | Konkretna decyzja (nie pytanie!) |
+| **Consequences** | Plusy, minusy, ryzyka |
+| **Alternatives** | Co rozpatrywaliśmy i dlaczego odrzuciliśmy |
+| **Date & Author** | Kiedy i kto |
+
+## ✅ Checklist Przed Review
+
+- [ ] Context jest **neutralny** (nie propaganda dla wybranej opcji)
+- [ ] Decision to **konkretna akcja** (nie pytanie)
+- [ ] Consequences mają **plusy i minusy** (nie tylko jedno)
+- [ ] Alternatywy są **omówione** (dlaczego ich odrzuciliśmy)
+- [ ] Wpisane w [INDEX.md](./INDEX.md) z numerem i statusem
+- [ ] Status to `Proposed` (przed approval) lub `Accepted` (po approval)
+
+## 🎓 Best Practices
+
+✅ **Robić:**
+- Pisać ADR **przed** lub **zaraz po** spike'u
+- Krótkie (1–2 strony) i konkretne
+- Przechowywać w **gicie**
+- Linkować do kodu, issue, dyskusji
+- Archiwizować stare decyzje (status `Deprecated` / `Superseded`)
+
+❌ **Nie robić:**
+- Czekać aż implementacja będzie gotowa
+- Zbyt szczegółowych (to nie RFC)
+- Usuwać stare ADR — zmień status
+- Pisać ADR dla każdego ticketu — tylko dla decyzji architektonicznych
+
+## 🔍 Komendy Szybkie
+
+```bash
+# Liczba ADR
+wc -l INDEX.md | awk '{print $1 - 10}'
+
+# Pokaż tylko zaakceptowane
+grep "Accepted" docs/adr/*.md
+
+# Szukaj po słowie kluczowym
+grep -r "signals\|state" docs/adr/ | grep -i "decision\|consequences"
+```
+
+## 📚 Skill & Templates
+
+Wszystkie szablony, instrukcje, i czek-listy są dostępne w skill'u:
+
+```
+/adr-architecture-decision-records-management
+```
+
+Tam znajdziesz:
+- Pełny szablon ADR
+- Czek-listę jakości (dla autora i reviewera)
+- Instrukcje inicjalizacji i zarządzania
+
+## 📖 Czytanie Istniejącego ADR
+
+1. Zacznij od [INDEX.md](./INDEX.md) — przegląd wszystkich decyzji
+2. Otwórz konkretne ADR które Cię interesuje (np. [ADR-001](./ADR-001.md))
+3. Czytaj w kolejności: Status → Context → Decision → Consequences → Alternatives
+4. Jeśli jest link do kodu/issue — kliknij i zobacz implementację
+
+## ❓ Pytania?
+
+- Jak dodać nowy ADR? → [INDEX.md](./INDEX.md#how-to-add-a-new-adr)
+- Jaka struktura ADR? → Poczytaj istniejące ADR w tym folderze
+- Co jest w skill'u? → `/adr-architecture-decision-records-management`
+- Coś nie działa? → Sprawdź czek-listę w skill'u
+
+---
+
+**Ostatnia aktualizacja**: 2026-10-12  
+**Status**: 🟢 Aktywne
+
+````
+
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\README.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\README.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **README.md**</summary>
+
+@@ lines 1-1 @@
+
+````
+# Architecture Decision Records (ADR)
+
+Folder zawierający wszystkie Architecture Decision Records — dokumentację ważnych decyzji architektonicznych projektu.
+
+## 🎯 Po co ADR?
+
+ADR to prosta, lekka forma dokumentowania ważnych decyzji architektonicznych. Każde ADR:
+- Wyjaśnia **jaki problem** prowadził do decyzji
+- Dokumentuje **co się zdecydowaliśmy**
+- Pokazuje **konsekwencje** tej decyzji
+- Opisuje **alternatywy** które rozpatrywaliśmy
+
+ADR żyje w gicie razem z kodem — mogą być przeszukiwane, linkowane, wersjonowane, i historyzowane jak wszystko inne w projekcie.
+
+## 📂 Struktura
+
+```
+docs/adr/
+├── INDEX.md              ← 📋 Spis wszystkich ADR (zacznij tutaj!)
+├── ADR-001.md           ← Konkretna decyzja
+├── ADR-002.md
+└── ...
+```
+
+## 🚀 Szybki Start
+
+### Przejrzeć istniejące ADR
+Otwórz [INDEX.md](./INDEX.md) — tam są wszystkie decyzje + statystyki.
+
+### Szukać konkretne ADR
+```bash
+grep -i "state management" docs/adr/*.md
+```
+
+### Stworzić nowy ADR
+
+Użyj skill'u w VS Code:
+```
+/adr-architecture-decision-records-management: stwórz nowy ADR o [temat]
+```
+
+Lub ręcznie:
+1. Skopiuj plik `ADR-001.md` (jeśli istnieje) lub użyj szablonu
+2. Zmień numer (ADR-002, ADR-003, ...)
+3. Wypełnij sekcje: Context, Decision, Consequences, Alternatives
+4. Dodaj wiersz w [INDEX.md](./INDEX.md)
+5. Wyślij do review
+
+## 📝 Struktura ADR
+
+Każde ADR powinno zawierać:
+
+| Sekcja | Co zawiera |
+|--------|-----------|
+| **Status** | `Proposed` / `Accepted` / `Deprecated` / `Superseded` |
+| **Context** | Jaki problem / pytanie się pojawił? (neutralny tone) |
+| **Decision** | Konkretna decyzja (nie pytanie!) |
+| **Consequences** | Plusy, minusy, ryzyka |
+| **Alternatives** | Co rozpatrywaliśmy i dlaczego odrzuciliśmy |
+| **Date & Author** | Kiedy i kto |
+
+## ✅ Checklist Przed Review
+
+- [ ] Context jest **neutralny** (nie propaganda dla wybranej opcji)
+- [ ] Decision to **konkretna akcja** (nie pytanie)
+- [ ] Consequences mają **plusy i minusy** (nie tylko jedno)
+- [ ] Alternatywy są **omówione** (dlaczego ich odrzuciliśmy)
+- [ ] Wpisane w [INDEX.md](./INDEX.md) z numerem i statusem
+- [ ] Status to `Proposed` (przed approval) lub `Accepted` (po approval)
+
+## 🎓 Best Practices
+
+✅ **Robić:**
+- Pisać ADR **przed** lub **zaraz po** spike'u
+- Krótkie (1–2 strony) i konkretne
+- Przechowywać w **gicie**
+- Linkować do kodu, issue, dyskusji
+- Archiwizować stare decyzje (status `Deprecated` / `Superseded`)
+
+❌ **Nie robić:**
+- Czekać aż implementacja będzie gotowa
+- Zbyt szczegółowych (to nie RFC)
+- Usuwać stare ADR — zmień status
+- Pisać ADR dla każdego ticketu — tylko dla decyzji architektonicznych
+
+## 🔍 Komendy Szybkie
+
+```bash
+# Liczba ADR
+wc -l INDEX.md | awk '{print $1 - 10}'
+
+# Pokaż tylko zaakceptowane
+grep "Accepted" docs/adr/*.md
+
+# Szukaj po słowie kluczowym
+grep -r "signals\|state" docs/adr/ | grep -i "decision\|consequences"
+```
+
+## 📚 Skill & Templates
+
+Wszystkie szablony, instrukcje, i czek-listy są dostępne w skill'u:
+
+```
+/adr-architecture-decision-records-management
+```
+
+Tam znajdziesz:
+- Pełny szablon ADR
+- Czek-listę jakości (dla autora i reviewera)
+- Instrukcje inicjalizacji i zarządzania
+
+## 📖 Czytanie Istniejącego ADR
+
+1. Zacznij od [INDEX.md](./INDEX.md) — przegląd wszystkich decyzji
+2. Otwórz konkretne ADR które Cię interesuje (np. [ADR-001](./ADR-001.md))
+3. Czytaj w kolejności: Status → Context → Decision → Consequences → Alternatives
+4. Jeśli jest link do kodu/issue — kliknij i zobacz implementację
+
+## ❓ Pytania?
+
+- Jak dodać nowy ADR? → [INDEX.md](./INDEX.md#how-to-add-a-new-adr)
+- Jaka struktura ADR? → Poczytaj istniejące ADR w tym folderze
+- Co jest w skill'u? → `/adr-architecture-decision-records-management`
+- Coś nie działa? → Sprawdź czek-listę w skill'u
+
+---
+
+**Ostatnia aktualizacja**: 2026-10-12  
+**Status**: 🟢 Aktywne
+
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+✅ **Struktura ADR zainicjalizowana!**
+
+Stworzyłem gotową strukturę dla projektu:
+
+```
+docs/adr/
+├── README.md              (👈 Zacznij tutaj — overview)
+└── INDEX.md              (📋 Rejestr wszystkich ADR)
+```
+
+## Co Zostało Stworzyte
+
+1. **📖 `docs/adr/README.md`**
+   - Porządne wyjaśnienie po co ADR
+   - Instrukcje szybkiego startu
+   - Checklist przed review
+   - Best practices + komendy grep
+
+2. **📋 `docs/adr/INDEX.md`**
+   - Pusty rejestr — gotowy do dodawania ADR
+   - Tabele pogrupowane po statusie (Accepted / Proposed / Deprecated / Superseded)
+   - Instrukcje jak dodawać nowe ADR
+
+## 🚀 Co Teraz?
+
+Możesz:
+- ✏️ **Stworzysz pierwszy ADR** — użyj skilla: `/adr-architecture-decision-records-management: stwórz nowy ADR o [temat]`
+- 🔍 **Przejrzeć strukturę** — otwórz `README.md` lub `INDEX.md`
+- 📝 **Ręcznie dodać ADR** — skopiuj template z skill'u do `docs/adr/ADR-001.md`
+
+Struktura jest w gicie, gotowa do team collaboration 🎯
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 3 todos
+</details></tool-use>
+
+---
+
+_**User (2026-10-12 12:47:07Z)**_
+
+popraw skill - plik docs/adr/INDEX.md nie ma być kopią szablonu, tylko pustą tabelką na rejestr adr aktualizowany przy każdej zmianie 
+
+popraw też istneijacy index.md
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `INDEX.md`, lines 1 to 100
+
+**Input:**
+
+- endLine: `100`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\INDEX.md`
+- startLine: `1`
+
+**Result:**
+
+````
+# Architecture Decision Records (ADR)
+
+Spis wszystkich decyzji architektonicznych podjętych w projekcie.
+
+> **Jak dodać nowy ADR**: Stwórz plik `ADR-XXX.md` w tym folderze, a następnie wpisz wiersz w tabeli poniżej.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+| | | | | | |
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+Te decyzje są obowiązkowe dla nowego kodu i istniejącego kodu, jeśli jest refaktoryzowany.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| (brak) | | | | |
+
+### 🔷 Proposed (W Dyskusji)
+
+Te decyzje są sugerowane, ale nie zostały jeszcze zaakceptowane. Oczekują spikea lub dalszej dyskusji.
+
+| # | Tytuł | Data | Autor | Link |
+|---|-------|------|-------|------|
+| (brak) | | | | |
+
+### ⚠️ Deprecated (Przestarzałe)
+
+Te decyzje są już nie w użyciu. Stary kod może je jeszcze implementować, ale nowy kod powinien ich unikać.
+
+| # | Tytuł | Data | Autor | Powód |
+|---|-------|------|-------|-------|
+| (brak) | | | | |
+
+### 🔄 Superseded (Zastąpione)
+
+Te decyzje zostały zastąpione przez nowsze ADR. Stary kod pozostaje, ale nowe decyzje budują na tych tutaj.
+
+| # | Tytuł | Data | Zastąpione przez | Link |
+|---|-------|------|------------------|------|
+| (brak) | | | | |
+
+---
+
+## By Topic
+
+Opcjonalnie: grupuj ADR po temacie architektonicznym.
+
+```
+### State Management
+- [ADR-001: Architektura state managementu](./ADR-001.md)
+
+### Architecture & Project Structure
+- [ADR-002: Feature-based folder structure](./ADR-002.md)
+```
+
+---
+
+## Statistics
+
+- **Total ADR**: 0
+- **Accepted**: 0
+- **Proposed**: 0
+- **Superseded**: 0
+- **Deprecated**: 0
+
+---
+
+## How to Add a New ADR
+
+### 1. Check Existing ADR
+Przeszukaj `docs/adr/` — czy decyzja nie jest już udokumentowana?
+
+```bash
+ls docs/adr/ADR-*.md
+grep -i "temat" docs/adr/*.md
+```
+
+### 2. Create File
+Stwórz nowy plik `docs/adr/ADR-XXX.
+… (output truncated)
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **SKILL.md**</summary>
+
+@@ lines 84-90 @@
+
+```
+Plik `docs/adr/INDEX.md` to **pusty rejestr aktualizowany przy każdej zmianie**. Nie zawiera instrukcji ani przykładów.
+
+Struktura:
+- **Quick Summary** — tabela wszystkich ADR z numerami i statusami
+- **Grouped by Status** — sekcje Accepted / Proposed / Deprecated / Superseded
+- **Statistics** — liczby dla szybkiego przeglądu
+
+Przy każdym nowym ADR lub zmianie statusu — aktualizujesz odpowiedni wiersz w INDEX.md.
+
+Szablon kompletnego rejestru (dla referecji): [Registry Template](./references/adr-registry-template.md)
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+
+```
+
+```
+
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **INDEX.md**</summary>
+
+@@ lines 3-123 @@
+
+```
+Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę przy każdym nowym ADR lub zmianie statusu.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+| # | Tytuł | Data | Autor |
+|---|-------|------|-------|
+
+### 🔷 Proposed (W Dyskusji)
+
+| # | Tytuł | Data | Autor |
+|---|-------|------|-------|
+
+### ⚠️ Deprecated (Przestarzałe)
+
+| # | Tytuł | Data | Powód |
+|---|-------|------|-------|
+
+### 🔄 Superseded (Zastąpione)
+
+| # | Tytuł | Data | Zastąpione przez |
+|---|-------|------|------------------|
+
+---
+
+## Statistics
+
+- **Total ADR**: 0
+- **Accepted**: 0
+- **Proposed**: 0
+- **Superseded**: 0
+- **Deprecated**: 0
+
+---
+
+## Instrukcje
+
+Szukasz instrukcji jak dodawać ADR? Przejdź do:
+- **[README.md](./README.md)** — overview i quick start
+- **Skill** `/adr-architecture-decision-records-management` — wszystkie komendy i szablony
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+✅ **Poprawione!**
+
+## Co Zmienił em
+
+### 1. **SKILL.md** — Sekcja "Rejestr ADR"
+- Jasno wyjaśniam że `INDEX.md` to **pusty rejestr do aktualizacji**, nie szablon
+- Wskazuję że szablon jest w referencjach (`./references/adr-registry-template.md`)
+- Instrukcje na temat dodawania ADR przeniosłem do README i skill'u
+
+### 2. **`INDEX.md`** — Uproszczony rejestr
+- Tylko pustych tabel bez instrukcji
+- 4 sekcje statusów: Accepted / Proposed / Deprecated / Superseded
+- Statistics na szybki przegląd
+- Na dole link do `README.md` i skill'u (gdzie są instrukcje)
+
+**Teraz `INDEX.md` to rzeczywiście** — wirtualny arkusz kalkulacyjny aktualizowany przy każdej zmianie, bez śmieci instrukcyjnych 📊
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 2 todos
+</details></tool-use>
