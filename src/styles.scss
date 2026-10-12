@@ -1,1 +1,17 @@
 /* You can add global SCSS styles to this file, and also import other style files */
+
+/* THis is not stable - wont survive restart */
+[_nghost-ng-c2229295192] {
+  width: 100%;
+}
+
+/* Utilities - Tailwind  */
+.w-full {
+  width: 100%;
+}
+
+.block {
+  display: block; /* width: full; -> angular.json */
+}
+
+// .widget .costam a { } - singleton, deep cascade, no encapsulation
