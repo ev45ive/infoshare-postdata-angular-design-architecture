@@ -2,11 +2,12 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { Badge } from 'primeng/badge';
 
 @Component({
   selector: 'app-search-form',
   standalone: true,
-  imports: [CommonModule, InputTextModule, ButtonModule],
+  imports: [CommonModule, InputTextModule, ButtonModule, Badge],
   template: `
     <!-- <div class="w-full"></div> -->
     <input
@@ -16,10 +17,22 @@ import { ButtonModule } from 'primeng/button';
       class="flex-1"
     />
     <button pButton label="Search" icon="pi pi-search" severity="primary">Search</button>
+
+    <p-badge [value]="2" class="badge-danger" />
   `,
   // encapsulation: ViewEncapsulation.None,
   styles: [
     `
+      /* Powód? Nie wiem. Bo tak mi kazali */
+      :host ::ng-deep p-badge {
+        color: red;
+      }
+
+      /* Powód? Semantyczny -> Niebezpieczny */
+      p-badge.badge-danger {
+        color: red;
+      }
+
       /* [_content-ng-c2229295192] */
       button {
       } /* only my template elemetns */
