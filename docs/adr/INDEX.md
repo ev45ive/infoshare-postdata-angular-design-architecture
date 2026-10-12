@@ -8,6 +8,7 @@ Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę 
 
 | # | Tytuł | Status | Data | Autor | Notes |
 |---|-------|--------|------|-------|-------|
+| ADR-001 | Feature-Based Architecture with DIP | 🔷 Proposed | 2026-10-12 | Team | DIP + public-api boundaries |
 
 ---
 
@@ -22,6 +23,7 @@ Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę 
 
 | # | Tytuł | Data | Autor |
 |---|-------|------|-------|
+| [ADR-001](./ADR-001.md) | Feature-Based Architecture with DIP | 2026-10-12 | Team |
 
 ### ⚠️ Deprecated (Przestarzałe)
 
@@ -37,9 +39,9 @@ Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę 
 
 ## Statistics
 
-- **Total ADR**: 0
+- **Total ADR**: 1
 - **Accepted**: 0
-- **Proposed**: 0
+- **Proposed**: 1
 - **Superseded**: 0
 - **Deprecated**: 0
 

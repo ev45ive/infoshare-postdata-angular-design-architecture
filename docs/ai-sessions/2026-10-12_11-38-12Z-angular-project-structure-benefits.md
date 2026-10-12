@@ -1214,3 +1214,2220 @@ export class DealsPageComponent {
 | **Onboarding** | Nowy dev wie co może importować (public-api.ts) |
 
 Czy chcesz, żeby pokazać konkretny przykład refactoringu waszego projektu? 🚀
+
+---
+
+_**User (2026-10-12 12:49:24Z)**_
+
+/adr-architecture-decision-records-management  nowy ADR
+
+podsumowanie najważniejszych zasad w /docs/ARCHITECTURE.md
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<think><details><summary>Thought Process</summary>
+Perfekt! Tworzę teraz:
+
+1. **ADR-001.md** — pełna dokumentacja decyzji
+2. Zaktualizuję **INDEX.md**
+3. Podsumowanie w **/docs/ARCHITECTURE.md**
+</details></think>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Świetnie! Stworzę nowy ADR dokumentujący decyzję o architekturze z DIP + public-api boundaries, i podsumowanie w `/docs/ARCHITECTURE.md`.
+
+Najpierw kilka pytań, żeby poprawnie udokumentować decyzję: 
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="vscode_askQuestions"><details>
+<summary>Tool use: **vscode_askQuestions**</summary>
+
+Analyzing your answers...
+
+**Input:**
+
+- questions:
+
+```
+[
+  {
+    "allowFreeformInput": true,
+    "header": "problem_context",
+    "message": "Np: skomplikowana struktura projektu, circular dependencies, brak skalowania, trudne testowanie, etc.",
+    "question": "Jaki był główny problem/ból którym wywoływała ta decyzja?"
+  },
+  {
+    "header": "decision_title",
+    "options": [
+      {
+        "label": "Modular Architecture: Core | Features | Shared with DIP",
+        "recommended": true
+      },
+      {
+        "label": "Layered Architecture with Public API Boundaries"
+      },
+      {
+        "label": "Feature-Based Architecture with Dependency Inversion"
+      },
+      {
+        "label": "Custom Title:"
+      }
+    ],
+    "question": "Jaki tytuł ADR?"
+  },
+  {
+    "header": "status",
+    "options": [
+      {
+        "label": "Proposed - do dyskusji i zatwierdzenia",
+        "recommended": true
+      },
+      {
+        "label": "Accepted - już wdrożone"
+      }
+    ],
+    "question": "Jaki status ADR?"
+  },
+  {
+    "header": "timeline",
+    "options": [
+      {
+        "label": "Natychmiast (high priority)"
+      },
+      {
+        "label": "W kolejnych 2-4 tygodniach (medium)"
+      },
+      {
+        "label": "Long-term (low priority)"
+      }
+    ],
+    "question": "Kiedy ta decyzja powinna być wdrożona?"
+  },
+  {
+    "header": "effort",
+    "options": [
+      {
+        "label": "Mały (1-2 dni) - struktura już gotowa"
+      },
+      {
+        "label": "Średni (1-2 tygodnie) - duży refactoring"
+      },
+      {
+        "label": "Duży (miesiąc+) - spora część projektu"
+      }
+    ],
+    "question": "Jaki nakład pracy na refactoring?"
+  }
+]
+```
+
+
+**Result:**
+
+```
+{"answers":{"problem_context":{"selected":[],"freeText":"brak spójności, bezpieczeńśtwa w refaktoryzacji czy zmianie ","skipped":false},"decision_title":{"selected":["Feature-Based Architecture with Dependency Inversion"],"freeText":null,"skipped":false},"status":{"selected":["Proposed - do dyskusji i zatwierdzenia"],"freeText":null,"skipped":false},"timeline":{"selected":["Natychmiast (high priority)"],"freeText":null,"skipped":false},"effort":{"selected":["Mały (1-2 dni) - struktura już gotowa"],"freeText":null,"skipped":false}}}
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="list_dir"><details>
+<summary>Tool use: **list_dir**</summary>
+
+Read `adr`
+
+**Input:**
+
+- path: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr`
+
+**Result:**
+
+```
+INDEX.md
+README.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `README.md`, lines 1 to 50
+
+**Input:**
+
+- endLine: `50`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\README.md`
+- startLine: `1`
+
+**Result:**
+
+````
+# Architecture Decision Records (ADR)
+
+Folder zawierający wszystkie Architecture Decision Records — dokumentację ważnych decyzji architektonicznych projektu.
+
+## 🎯 Po co ADR?
+
+ADR to prosta, lekka forma dokumentowania ważnych decyzji architektonicznych. Każde ADR:
+- Wyjaśnia **jaki problem** prowadził do decyzji
+- Dokumentuje **co się zdecydowaliśmy**
+- Pokazuje **konsekwencje** tej decyzji
+- Opisuje **alternatywy** które rozpatrywaliśmy
+
+ADR żyje w gicie razem z kodem — mogą być przeszukiwane, linkowane, wersjonowane, i historyzowane jak wszystko inne w projekcie.
+
+## 📂 Struktura
+
+```
+docs/adr/
+├── INDEX.md              ← 📋 Spis wszystkich ADR (zacznij tutaj!)
+├── ADR-001.md           ← Konkretna decyzja
+├── ADR-002.md
+└── ...
+```
+
+## 🚀 Szybki Start
+
+### Przejrzeć istniejące ADR
+Otwórz [INDEX.md](./INDEX.md) — tam są wszystkie decyzje + statystyki.
+
+### Szukać konkretne ADR
+```bash
+grep -i "state management" docs/adr/*.md
+```
+
+### Stworzić nowy ADR
+
+Użyj skill'u w VS Code:
+```
+/adr-architecture-decision-records-management: stwórz nowy ADR o [temat]
+```
+
+Lub ręcznie:
+1. Skopiuj plik `ADR-001.md` (jeśli istnieje) lub użyj szablonu
+2. Zmień numer (ADR-002, ADR-003, ...)
+3. Wypełnij sekcje: Context, Decision, Consequences, Alternatives
+4. Dodaj wiersz w [INDEX.md](./INDEX.md)
+5. Wyślij do review
+
+## 📝 Struktura ADR
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Doskonale! Teraz stworzę nowy ADR z tymi informacjami. Będzie to **ADR-001** — Modular Architecture z DIP. 
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `INDEX.md`, lines 1 to 15
+
+**Input:**
+
+- endLine: `15`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\INDEX.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Architecture Decision Records (ADR)
+
+Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę przy każdym nowym ADR lub zmianie statusu.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+
+---
+
+## Grouped by Status
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Perfekt! Tworzę teraz:
+
+1. **ADR-001.md** — pełna dokumentacja decyzji
+2. Zaktualizuję **`INDEX.md`**
+3. Podsumowanie w **/docs/ARCHITECTURE.md** 
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `INDEX.md`
+
+**Input:**
+
+- endLine: `60`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\INDEX.md`
+- startLine: `1`
+
+**Result:**
+
+```
+# Architecture Decision Records (ADR)
+
+Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę przy każdym nowym ADR lub zmianie statusu.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+| # | Tytuł | Data | Autor |
+|---|-------|------|-------|
+
+### 🔷 Proposed (W Dyskusji)
+
+| # | Tytuł | Data | Autor |
+|---|-------|------|-------|
+
+### ⚠️ Deprecated (Przestarzałe)
+
+| # | Tytuł | Data | Powód |
+|---|-------|------|-------|
+
+### 🔄 Superseded (Zastąpione)
+
+| # | Tytuł | Data | Zastąpione przez |
+|---|-------|------|------------------|
+
+---
+
+## Statistics
+
+- **Total ADR**: 0
+- **Accepted**: 0
+- **Proposed**: 0
+- **Superseded**: 0
+- **Deprecated**: 0
+
+---
+
+## Instrukcje
+
+Szukasz instrukcji jak dodawać ADR? Przejdź do:
+- **[README.md](./README.md)** — overview i quick start
+- **Skill** `/adr-architecture-decision-records-management` — wszystkie komendy i szablony
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Poczekaj, chciałbym stworzyć te pliki. Sprawdzę czy mam dostęp do narzędzi edycji: 
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+Searched for regex `file.*edit|write.*file|create.*file`, 16 results
+
+**Input:**
+
+- isRegexp: `true`
+- maxResults: `3`
+- query: `file.*edit|write.*file|create.*file`
+
+**Result:**
+
+```
+Found 16 matches in 1 file for "file.*edit|write.*file|create.*file" (showing 3 matches in 1 file)
+
+docs/ai-sessions/2026-10-12_09-18-48Z-data-odciecia.md
+218:Created memory file `plan.md`
+495:The memory file has been edited. Here's the result of running `cat -n` on a snippet of /memories/session/plan.md:
+559:### **Relevant Files to Edit**
+... (13 more matches in this file)
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Nie mam dostępu do narzędzi edycji plików. Pozwól, że wydrukuję gotowe struktury dla Ciebie — możesz je skopiować bezpośrednio:
+
+---
+
+## **📄 ADR-001.md** — Feature-Based Architecture with Dependency Inversion
+
+```markdown
+# ADR-001: Feature-Based Architecture with Dependency Inversion (DIP)
+
+**Status**: Proposed  
+**Date**: 2026-10-12  
+**Author**: Team  
+**Related Issues**: -  
+
+---
+
+## Context
+
+Obecna struktura projektu Angular nie ma jasnych granic między modułami, co powoduje:
+- ❌ Brak spójności w refaktoryzacji — niepewność co można zmieniać
+- ❌ Niskie bezpieczeństwo — łatwe powstanie circular dependencies
+- ❌ Trudne testowanie — komponenty zależą od konkretnych implementacji
+- ❌ Brak skalowania — dodanie nowej feature może mieć nieoczekiwane efekty uboczne
+- ❌ Trudne onboarding — nowi developerzy nie wiedzą jak organizować kod
+
+Projekt rośnie i potrzebuje architektonicznej dyscypliny.
+
+---
+
+## Decision
+
+Implementujemy **Feature-Based Architecture** z trzema głównymi warstwami:
+
+### 1. **Core Layer** (`/src/app/core/`)
+- Singleton services (auth, HTTP, config, state)
+- Publikuje **TYLKO** publiczne interfejsy i injection tokens
+- Wewnętrzne implementacje (`*.impl.ts`) są prywatne
+- Export via `public-api.ts` (barrel file)
+
+### 2. **Features Layer** (`/src/app/features/*/`)
+- Niezależne domeny biznesowe (deals, contacts, etc.)
+- Rooted components (routed pages) jako entry points
+- Lokalne UI componenty i services
+- Publikuje TYLKO modele i publiczne service interfaces via `public-api.ts`
+
+### 3. **Shared Layer** (`/src/app/shared/`)
+- Komponenty UI bez domeny biznesowej (Button, Card, Modal)
+- Utility funkcje (pure functions, helpers, guards)
+- Nie zależy z core ani features
+- Export via `public-api.ts`
+
+### Path Mappings (`tsconfig.json`)
+
+```json
+"paths": {
+  "@core": ["src/app/core/public-api.ts"],
+  "@core/*": ["src/app/core/public-api.ts"],
+  "@features": ["src/app/features/public-api.ts"],
+  "@features/*": ["src/app/features/*/public-api.ts"],
+  "@shared": ["src/app/shared/public-api.ts"]
+}
+```
+
+### Dependency Direction
+
+```
+features/  →  shared/
+   ↓            ↑
+features/  →  core/
+             
+❌ NIGDY:
+  - core → features
+  - shared → core
+  - feature-a → feature-b
+```
+
+### DIP Implementation
+
+- Każdy service eksportuje **interface** (nie implementacji)
+- Każdy service ma **injection token**
+- Wdrażanie i konfiguracja DI ukryte w `providers.ts`
+- Feature zależy od interfejsu, nie od konkretnej klasy
+
+**Przykład:**
+
+```typescript
+// ✅ core/public-api.ts — PUBLICZNE
+export type { IAuthService } from './auth/auth.service';
+export { AUTH_SERVICE } from './auth/auth.service';
+
+// 🔒 core/auth/auth.service.impl.ts — PRYWATNE
+export class AuthServiceImpl implements IAuthService { ... }
+```
+
+---
+
+## Consequences
+
+### ✅ Pozytywne
+
+- **Bezpieczeństwo refaktoryzacji** — Zmienisz implementację w jednym miejscu
+- **Testowalnośc** — Mock service poprzez token, nie zmieniaj impetu
+- **Skalowanie** — Nowe features nie wpływają na istniejący kod
+- **Jasne granice** — ESLint rules egzekwują architekturę
+- **DI Elastyczność** — Łatwa zamiana implementacji bez zmiany kodu
+
+### ⚠️ Negatywne
+
+- **Wstępny nak ład pracy** — Refactoring istniejącego kodu (~1-2 dni)
+- **Więcej plików** — `public-api.ts`, `*.impl.ts`, `*.token.ts` (ale czytelne)
+- **Krzywa uczenia** — Nowe konwencje do wyjaśnienia nowym devom
+
+### 🔧 Wymagane Narzędzia
+
+- ESLint rule `@nx/enforce-module-boundaries` (lub custom rule `no-restricted-imports`)
+- TypeScript path mappings w `tsconfig.json`
+- Dokumentacja w `/docs/ARCHITECTURE.md`
+
+---
+
+## Alternatives Considered
+
+### 1. **Flat Structure** (bez warstw)
+❌ Brak granic → circular dependencies → trudne testowanie
+
+### 2. **Shared Module + Features** (bez core)
+❌ Brak centralnej konfiguracji DI → duplikacja kodu
+
+### 3. **NgModules z ProvideIn** (bez public-api)
+❌ Mniej kontroli nad granicami → możliwe importy z prywatnych ścieżek
+
+### 4. **Monorepo z Nx** (zamiast single app)
+⚠️ Więcej overhead, zbyt dużo dla aktualnego rozmiaru projektu
+
+---
+
+## Implementation Plan
+
+1. **Phase 1** (~1 dzień): Skonfiguruj path mappings + ESLint rules
+2. **Phase 2** (~1 dzień): Refactor `core/` na DIP (interfaces, tokens, providers)
+3. **Phase 3** (~2-3 dni): Refactor `features/` na public-api pattern
+4. **Phase 4**: Dokumentacja + onboarding
+
+---
+
+## References
+
+- Angular Best Practices: https://angular.dev/guide/styleguide
+- Dependency Inversion Principle: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+- ADR Format: https://adr.github.io/
+
+---
+
+## Next Steps
+
+- [ ] Zatwierdzenie przez tech lead
+- [ ] Kod review i feedback
+- [ ] Wdrażanie w Phase 1
+- [ ] Aktualizacja dokumentacji
+```
+
+---
+
+## **📋 INDEX.md** — Zaktualizowany rejestr
+
+```markdown
+# Architecture Decision Records (ADR)
+
+Rejestr wszystkich decyzji architektonicznych projektu. Aktualizuj tę tabelkę przy każdym nowym ADR lub zmianie statusu.
+
+---
+
+## Quick Summary
+
+| # | Tytuł | Status | Data | Autor | Notes |
+|---|-------|--------|------|-------|-------|
+| ADR-001 | Feature-Based Architecture with DIP | 🔷 Proposed | 2026-10-12 | Team | DIP + public-api boundaries |
+
+---
+
+## Grouped by Status
+
+### ✅ Accepted (Aktywne)
+
+| # | Tytuł | Data | Autor |
+|---|-------|------|-------|
+
+### 🔷 Proposed (W Dyskusji)
+
+| # | Tytuł | Data | Autor |
+|---|-------|------|-------|
+| ADR-001 | Feature-Based Architecture with DIP | 2026-10-12 | Team |
+
+### ⚠️ Deprecated (Przestarzałe)
+
+| # | Tytuł | Data | Powód |
+|---|-------|------|-------|
+
+### 🔄 Superseded (Zastąpione)
+
+| # | Tytuł | Data | Zastąpione przez |
+|---|-------|------|------------------|
+
+---
+
+## Statistics
+
+- **Total ADR**: 1
+- **Accepted**: 0
+- **Proposed**: 1
+- **Superseded**: 0
+- **Deprecated**: 0
+
+---
+
+## Instrukcje
+
+Szukasz instrukcji jak dodawać ADR? Przejdź do:
+- **`README.md`** — overview i quick start
+- **Skill** `/adr-architecture-decision-records-management` — wszystkie komendy i szablony
+```
+
+---
+
+## **📘 /docs/ARCHITECTURE.md** — Podsumowanie Architektury
+
+```markdown
+# Architecture Guidelines
+
+Dokument ten opisuje architekturę projektu i zasady organizacji kodu.
+
+---
+
+## 📐 Struktura Projektu
+
+```
+src/app/
+├── routing.ts               # Root routing
+├── main.ts                  # Bootstrap
+│
+├── core/                    # Singleton services, DI config
+│   ├── public-api.ts        # 🔓 PUBLIC exports only
+│   ├── core.providers.ts    # 🔒 DI configuration
+│   │
+│   ├── auth/
+│   │   ├── auth.service.ts              # 🔓 Public interface
+│   │   ├── auth.service.impl.ts         # 🔒 Implementation
+│   │   └── auth.token.ts                # 🔒 Injection token
+│   │
+│   ├── api/
+│   │   ├── api.service.ts               # 🔓 Public interface
+│   │   ├── api.service.impl.ts          # 🔒 Implementation
+│   │   ├── http.interceptor.ts          # 🔒 Internal
+│   │   └── api.token.ts                 # 🔒 Token
+│   │
+│   └── config/
+│       ├── config.service.ts            # 🔓 Interface
+│       └── config.token.ts              # 🔒 Token
+│
+├── features/                # Business domains (lazy-loaded)
+│   ├── public-api.ts        # 🔓 Feature index
+│   │
+│   ├── deals/
+│   │   ├── public-api.ts                # 🔓 PUBLIC: services, types, routes
+│   │   ├── deals.routes.ts              # 🔒 Routing config
+│   │   │
+│   │   ├── pages/                       # 🔒 Routed components
+│   │   │   └── deals-page.component.ts
+│   │   │
+│   │   ├── ui/                          # 🔒 Feature-specific components
+│   │   │   ├── deal-card.component.ts
+│   │   │   └── deal-filter.component.ts
+│   │   │
+│   │   ├── model/                       # 🔓 Types & interfaces
+│   │   │   └── deal.model.ts
+│   │   │
+│   │   ├── services/                    # 🔒 Feature services
+│   │   │   ├── deals.service.ts         # Interface
+│   │   │   ├── deals.service.impl.ts    # Implementation
+│   │   │   └── deals.token.ts           # Token
+│   │   │
+│   │   └── store/                       # 🔒 Local state
+│   │       └── deals.signals.ts
+│   │
+│   ├── contacts/ ...                    # Druga feature (sama struktura)
+│   └── <feature>/
+│
+└── shared/                  # Reusable components & utilities
+    ├── public-api.ts        # 🔓 PUBLIC exports
+    │
+    ├── ui/                  # 🔓 Generic UI components
+    │   ├── components/
+    │   │   ├── button.component.ts
+    │   │   ├── card.component.ts
+    │   │   └── modal.component.ts
+    │   └── pipes/
+    │       ├── date.pipe.ts
+    │       └── currency.pipe.ts
+    │
+    └── utils/               # 🔓 Pure functions
+        ├── formatters.ts
+        ├── validators.ts
+        └── helpers.ts
+```
+
+---
+
+## 🎯 Dependency Flow (Zezwolone 
+
+** — overview i quick start
+- **Skill** `/adr-architecture-decision-records-management` — wszystkie komendy i szablony
+```
+
+---
+
+## **📘 /docs/ARCHITECTURE.md** — Podsumowanie Architektury
+
+```markdown
+# Architecture Guidelines
+
+Dokument ten opisuje architekturę projektu i zasady organizacji kodu.
+
+---
+
+## 📐 Struktura Projektu
+
+```
+src/app/
+├── routing.ts               # Root routing
+├── main.ts                  # Bootstrap
+│
+├── core/                    # Singleton services, DI config
+│   ├── public-api.ts        # 🔓 PUBLIC exports only
+│   ├── core.providers.ts    # 🔒 DI configuration
+│   │
+│   ├── auth/
+│   │   ├── auth.service.ts              # 🔓 Public interface
+│   │   ├── auth.service.impl.ts         # 🔒 Implementation
+│   │   └── auth.token.ts                # 🔒 Injection token
+│   │
+│   ├── api/
+│   │   ├── api.service.ts               # 🔓 Public interface
+│   │   ├── api.service.impl.ts          # 🔒 Implementation
+│   │   ├── http.interceptor.ts          # 🔒 Internal
+│   │   └── api.token.ts                 # 🔒 Token
+│   │
+│   └── config/
+│       ├── config.service.ts            # 🔓 Interface
+│       └── config.token.ts              # 🔒 Token
+│
+├── features/                # Business domains (lazy-loaded)
+│   ├── public-api.ts        # 🔓 Feature index
+│   │
+│   ├── deals/
+│   │   ├── public-api.ts                # 🔓 PUBLIC: services, types, routes
+│   │   ├── deals.routes.ts              # 🔒 Routing config
+│   │   │
+│   │   ├── pages/                       # 🔒 Routed components
+│   │   │   └── deals-page.component.ts
+│   │   │
+│   │   ├── ui/                          # 🔒 Feature-specific components
+│   │   │   ├── deal-card.component.ts
+│   │   │   └── deal-filter.component.ts
+│   │   │
+│   │   ├── model/                       # 🔓 Types & interfaces
+│   │   │   └── deal.model.ts
+│   │   │
+│   │   ├── services/                    # 🔒 Feature services
+│   │   │   ├── deals.service.ts         # Interface
+│   │   │   ├── deals.service.impl.ts    # Implementation
+│   │   │   └── deals.token.ts           # Token
+│   │   │
+│   │   └── store/                       # 🔒 Local state
+│   │       └── deals.signals.ts
+│   │
+│   ├── contacts/ ...                    # Druga feature (sama struktura)
+│   └── <feature>/
+│
+└── shared/                  # Reusable components & utilities
+    ├── public-api.ts        # 🔓 PUBLIC exports
+    │
+    ├── ui/                  # 🔓 Generic UI components
+    │   ├── components/
+    │   │   ├── button.component.ts
+    │   │   ├── card.component.ts
+    │   │   └── modal.component.ts
+    │   └── pipes/
+    │       ├── date.pipe.ts
+    │       └── currency.pipe.ts
+    │
+    └── utils/               # 🔓 Pure functions
+        ├── formatters.ts
+        ├── validators.ts
+        └── helpers.ts
+```
+
+---
+
+## 🎯 Dependency Flow (Zezwolone Kierunki)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    features/                            │
+│  (Deals, Contacts, Reports, etc.)                       │
+│  ✅ może zależeć z: core, shared, inne features         │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼ (imports via @core)
+┌─────────────────────────────────────────────────────────┐
+│                     core/                               │
+│  (Auth, API, Config)                                    │
+│  ✅ može zależeć z: stdlib, external libs              │
+│  ❌ NIGDY nie zależy z features ani shared              │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼ (imports via @shared)
+┌─────────────────────────────────────────────────────────┐
+│                     shared/                             │
+│  (UI Components, Utilities)                             │
+│  ✅ može zależeć z: stdlib, external libs              │
+│  ❌ NIGDY nie zależy z core ani features                │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Zasady
+
+1. ✅ **Features** mogą importować z `@core` i `@shared`
+2. ✅ **Features** mogą importować z innych **features** TYLKO poprzez ich `public-api.ts`
+3. ✅ **Core** publikuje TYLKO publiczne interfaces, tokeny, providery
+4. ✅ **Shared** nie zna o `core` ani `features`
+5. ❌ **Core** nigdy nie importuje z `features` ani `shared`
+6. ❌ **Shared** nigdy nie importuje z `core` ani `features`
+7. ❌ **Feature A** nigdy nie importuje z `features/B/` — zawsze `@features/b`
+
+---
+
+## 🔐 Public API Pattern
+
+Każdy moduł (core, features, shared) publikuje **TYLKO** publiczne elementy:
+
+### ✅ Co eksportować w `public-api.ts`
+
+```typescript
+// Publiczne typy
+export type { Deal } from './model/deal.model';
+export type { IDealsService } from './services/deals.service';
+
+// Publiczne tokeny (dla DI)
+export { DEALS_SERVICE } from './services/deals.service';
+export { DEALS_CONFIG } from './deals.config';
+
+// Publiczne providery (dla konfiguracji)
+export { provideDeals } from './deals.providers';
+
+// Publiczne routing
+export { DEALS_ROUTES } from './deals.routes';
+```
+
+### ❌ Co NIE eksportować
+
+```typescript
+// ❌ Konkretne implementacje
+export { DealsServiceImpl } from './services/deals.service.impl';
+
+// ❌ Prywatne komponenty
+export { DealsPageComponent } from './pages/deals-page.component';
+export { DealCardComponent } from './ui/deal-card.component';
+
+// ❌ Prywatne helpery
+export { formatDealName } from './utils/deal.formatter';
+
+// ❌ Wewnętrzne tokeny
+export { DEALS_CACHE_TOKEN } from './cache/deals.cache.token';
+```
+
+---
+
+## 💉 Dependency Inversion Pattern
+
+### Service Interface
+
+```typescript
+// ✅ public-api.ts — eksportuj
+export interface IAuthService {
+  login(email: string, password: string): Observable<void>;
+  logout(): void;
+  isAuthenticated$(): Observable<boolean>;
+}
+
+export const AUTH_SERVICE = new InjectionToken<IAuthService>('core.auth');
+```
+
+### Service Implementation
+
+```typescript
+// 🔒 auth.service.impl.ts — prywatny
+export class AuthServiceImpl implements IAuthService {
+  constructor(private httpClient: HttpClient) {}
+  
+  login(email: string, password: string): Observable<void> {
+    return this.httpClient.post<void>('/auth/login', { email, password });
+  }
+  
+  logout(): void { /* ... */ }
+  isAuthenticated$(): Observable<boolean> { /* ... */ }
+}
+```
+
+### DI Configuration
+
+```typescript
+// 🔒 core.providers.ts — prywatne
+export function provideCore() {
+  return [
+    provideHttpClient(),
+    {
+      provide: AUTH_SERVICE,
+      useClass: AuthServiceImpl  // ← mapuj token na implementację
+    }
+  ];
+}
+```
+
+### Usage w Feature
+
+```typescript
+// ✅ Feature importuje TYLKO interfejs i token
+import { AUTH_SERVICE, type IAuthService } from '@core';
+
+@Component({...})
+export class DealsPageComponent {
+  private auth = inject(AUTH_SERVICE);  // ← Inject token
+  
+  loadDeals() {
+    return this.auth.isAuthenticated$().pipe(
+      switchMap(() => this.dealsService.load())
+    );
+  }
+}
+```
+
+---
+
+## 📝 Path Mappings (`tsconfig.json`)
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // Core — public-api only
+      "@core": ["src/app/core/public-api.ts"],
+      "@core/*": ["src/app/core/public-api.ts"],
+      
+      // Features — każda ma swoją public-api
+      "@features": ["src/app/features/public-api.ts"],
+      "@features/*": ["src/app/features/*/public-api.ts"],
+      
+      // Shared — public-api
+      "@shared": ["src/app/shared/public-api.ts"],
+      "@shared/*": ["src/app/shared/public-api.ts"],
+      
+      // Environments
+      "@env": ["src/environments"]
+    }
+  }
+}
+```
+
+---
+
+## 🛡️ ESLint Rules
+
+### Zabraniaj prywatnych importów
+
+```json
+{
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "@core/auth/auth.service.impl",
+          "@core/*/private*",
+          "@core/*/*.impl",
+          "@features/*/services/*.impl",
+          "@features/*/pages/*",
+          "@features/*/ui/*"
+        ],
+        "message": "❌ Importuj z public-api.ts!"
+      }
+    ]
+  }
+}
+```
+
+### Egzekwuj kierunki zależności
+
+```json
+{
+  "rules": {
+    "@nx/enforce-module-boundaries": [
+      "error",
+      {
+        "depConstraints": [
+          {
+            "sourceTag": "scope:feature",
+            "onlyDependsOnTags": ["scope:shared", "scope:core"]
+          },
+          {
+            "sourceTag": "scope:shared",
+            "onlyDependsOnTags": ["scope:shared"]
+          },
+          {
+            "sourceTag": "scope:core",
+            "onlyDependsOnTags": []
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+---
+
+## ✅ Checklist — Gdzie umieścić Kod?
+
+| Artefakt | Gdzie? | Eksportować? |
+|----------|--------|--------------|
+| **Service interface** | `core/auth/auth.service.ts` | ✅ public-api.ts |
+| **Service implementation** | `core/auth/auth.service.impl.ts` | ❌ Nigdy |
+| **Injection token** | `core/auth/auth.token.ts` | ✅ public-api.ts |
+| **DI provider** | `core/core.providers.ts` | ✅ public-api.ts |
+| **Feature interface** | `features/deals/model/deal.ts` | ✅ public-api.ts |
+| **Routed component** | `features/deals/pages/deals-page.component.ts` | ❌ Nigdy |
+| **UI component** | `features/deals/ui/deal-card.component.ts` | ❌ Nigdy |
+| **UI component** (generic) | `shared/ui/button.component.ts` | ✅ public-api.ts |
+| **Utility function** | `shared/utils/formatters.ts` | ✅ public-api.ts |
+
+---
+
+## 📚 References
+
+- **ADR-001**: Feature-Based Architecture with DIP
+- **Angular Styleguide**: https://angular.dev/guide/styleguide
+- **Dependency Inversion**: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+- **Public API Pattern**: https://github.com/angular/angular/blob/main/packages/core/public-api.ts
+
+---
+
+## 🔄 Zmiana / Feedback
+
+Znalazłeś błąd lub chcesz coś zmienić w architekturze?
+1. Stwórz nowy ADR (propozycja zmiany)
+2. Dyskusja w team
+3. Po zatwierdzeniu — refactoring
+
+Patrz: docs/adr/ dla listy wszystkich decyzji.
+```
+
+---
+
+## 📌 Podsumowanie
+
+Jeśli włączysz narzędzia edycji, mogę je bezpośrednio skopiować do plików. Na razie masz gotowe treści:
+
+✅ **ADR-001.md** — Pełna dokumentacja decyzji architektonicznej  
+✅ **INDEX.md** — Zaktualizowany rejestr (1 proposed ADR)  
+✅ **/docs/ARCHITECTURE.md** — Praktyczne wytyczne (struktura, rules, checklist)
+
+Wszystkie trzy razem tworzą spójny system znormalizowanej architekury z DIP i public-api boundaries. 🎯
+
+Czy włączyć narzędzia edycji, żebym mógł skopiować pliki do projektu?---
+
+## 📌 Podsumowanie
+
+Jeśli włączysz narzędzia edycji, mogę je bezpośrednio skopiować do plików. Na razie masz gotowe treści:
+
+✅ **ADR-001.md** — Pełna dokumentacja decyzji architektonicznej  
+✅ **INDEX.md** — Zaktualizowany rejestr (1 proposed ADR)  
+✅ **/docs/ARCHITECTURE.md** — Praktyczne wytyczne (struktura, rules, checklist)
+
+Wszystkie trzy razem tworzą spójny system znormalizowanej architekury z DIP i public-api boundaries. 🎯
+
+Czy włączyć narzędzia edycji, żebym mógł skopiować pliki do projektu?
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 3 todos
+</details></tool-use>
+
+---
+
+_**User (2026-10-12 12:52:31Z)**_
+
+ok
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `ADR-001.md`
+
+**Input:**
+
+- content:
+
+````
+# ADR-001: Feature-Based Architecture with Dependency Inversion (DIP)
+
+**Status**: Proposed  
+**Date**: 2026-10-12  
+**Author**: Team  
+**Related Issues**: -  
+
+---
+
+## Context
+
+Obecna struktura projektu Angular nie ma jasnych granic między modułami, co powoduje:
+- ❌ Brak spójności w refaktoryzacji — niepewność co można zmieniać
+- ❌ Niskie bezpieczeństwo — łatwe powstanie circular dependencies
+- ❌ Trudne testowanie — komponenty zależą od konkretnych implementacji
+- ❌ Brak skalowania — dodanie nowej feature może mieć nieoczekiwane efekty uboczne
+- ❌ Trudne onboarding — nowi developerzy nie wiedzą jak organizować kod
+
+Projekt rośnie i potrzebuje architektonicznej dyscypliny.
+
+---
+
+## Decision
+
+Implementujemy **Feature-Based Architecture** z trzema głównymi warstwami:
+
+### 1. **Core Layer** (`/src/app/core/`)
+- Singleton services (auth, HTTP, config, state)
+- Publikuje **TYLKO** publiczne interfejsy i injection tokens
+- Wewnętrzne implementacje (`*.impl.ts`) są prywatne
+- Export via `public-api.ts` (barrel file)
+
+### 2. **Features Layer** (`/src/app/features/*/`)
+- Niezależne domeny biznesowe (deals, contacts, etc.)
+- Rooted components (routed pages) jako entry points
+- Lokalne UI componenty i services
+- Publikuje TYLKO modele i publiczne service interfaces via `public-api.ts`
+
+### 3. **Shared Layer** (`/src/app/shared/`)
+- Komponenty UI bez domeny biznesowej (Button, Card, Modal)
+- Utility funkcje (pure functions, helpers, guards)
+- Nie zależy z core ani features
+- Export via `public-api.ts`
+
+### Path Mappings (`tsconfig.json`)
+
+```json
+"paths": {
+  "@core": ["src/app/core/public-api.ts"],
+  "@core/*": ["src/app/core/public-api.ts"],
+  "@features": ["src/app/features/public-api.ts"],
+  "@features/*": ["src/app/features/*/public-api.ts"],
+  "@shared": ["src/app/shared/public-api.ts"]
+}
+```
+
+### Dependency Direction
+
+```
+features/  →  shared/
+   ↓            ↑
+features/  →  core/
+             
+❌ NIGDY:
+  - core → features
+  - shared → core
+  - feature-a → feature-b
+```
+
+### DIP Implementation
+
+- Każdy service eksportuje **interface** (nie implementacji)
+- Każdy service ma **injection token**
+- Wdrażanie i konfiguracja DI ukryta w `providers.ts`
+- Feature zależy od interfejsu, nie od konkretnej klasy
+
+**Przykład:**
+
+```typescript
+// ✅ core/public-api.ts — PUBLICZNE
+export type { IAuthService } from './auth/auth.service';
+export { AUTH_SERVICE } from './auth/auth.service';
+
+// 🔒 core/auth/auth.service.impl.ts — PRYWATNE
+export class AuthServiceImpl implements IAuthService { ... }
+```
+
+---
+
+## Consequences
+
+### ✅ Pozytywne
+
+- **Bezpieczeństwo refaktoryzacji** — Zmienisz implementację w jednym miejscu
+- **Testowalnośc** — Mock service poprzez token, nie zmieniaj impetu
+- **Skalowanie** — Nowe features nie wpływają na istniejący kod
+- **Jasne granice** — ESLint rules egzekwują architekturę
+- **DI Elastyczność** — Łatwa zamiana implementacji bez zmiany kodu
+
+### ⚠️ Negatywne
+
+- **Wstępny nakład pracy** — Refactoring istniejącego kodu (~1-2 dni)
+- **Więcej plików** — `public-api.ts`, `*.impl.ts`, `*.token.ts` (ale czytelne)
+- **Krzywa uczenia** — Nowe konwencje do wyjaśnienia nowym devom
+
+### 🔧 Wymagane Narzędzia
+
+- ESLint rule `@nx/enforce-module-boundaries` (lub custom rule `no-restricted-imports`)
+- TypeScript path mappings w `tsconfig.json`
+- Dokumentacja w `/docs/ARCHITECTURE.md`
+
+---
+
+## Alternatives Considered
+
+### 1. **Flat Structure** (bez warstw)
+❌ Brak granic → circular dependencies → trudne testowanie
+
+### 2. **Shared Module + Features** (bez core)
+❌ Brak centralnej konfiguracji DI → duplikacja kodu
+
+### 3. **NgModules z ProvideIn** (bez public-api)
+❌ Mniej kontroli nad granicami → możliwe importy z prywatnych ścieżek
+
+### 4. **Monorepo z Nx** (zamiast single app)
+⚠️ Więcej overhead, zbyt dużo dla aktualnego rozmiaru projektu
+
+---
+
+## Implementation Plan
+
+1. **Phase 1** (~1 dzień): Skonfiguruj path mappings + ESLint rules
+2. **Phase 2** (~1 dzień): Refactor `core/` na DIP (interfaces, tokens, providers)
+3. **Phase 3** (~2-3 dni): Refactor `features/` na public-api pattern
+4. **Phase 4**: Dokumentacja + onboarding
+
+---
+
+## References
+
+- Angular Best Practices: https://angular.dev/guide/styleguide
+- Dependency Inversion Principle: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+- ADR Format: https://adr.github.io/
+
+---
+
+## Next Steps
+
+- [ ] Zatwierdzenie przez tech lead
+- [ ] Kod review i feedback
+- [ ] Wdrażanie w Phase 1
+- [ ] Aktualizacja dokumentacji
+
+````
+
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\ADR-001.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-postdata-angular-design-architecture\docs\adr\ADR-001.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **ADR-001.md**</summary>
+
+@@ lines 1-1 @@
+
+````
+# ADR-001: Feature-Based Architecture with Dependency Inversion (DIP)
+
+**Status**: Proposed  
+**Date**: 2026-10-12  
+**Author**: Team  
+**Related Issues**: -  
+
+---
+
+## Context
+
+Obecna struktura projektu Angular nie ma jasnych granic między modułami, co powoduje:
+- ❌ Brak spójności w refaktoryzacji — niepewność co można zmieniać
+- ❌ Niskie bezpieczeństwo — łatwe powstanie circular dependencies
+- ❌ Trudne testowanie — komponenty zależą od konkretnych implementacji
+- ❌ Brak skalowania — dodanie nowej feature może mieć nieoczekiwane efekty uboczne
+- ❌ Trudne onboarding — nowi developerzy nie wiedzą jak organizować kod
+
+Projekt rośnie i potrzebuje architektonicznej dyscypliny.
+
+---
+
+## Decision
+
+Implementujemy **Feature-Based Architecture** z trzema głównymi warstwami:
+
+### 1. **Core Layer** (`/src/app/core/`)
+- Singleton services (auth, HTTP, config, state)
+- Publikuje **TYLKO** publiczne interfejsy i injection tokens
+- Wewnętrzne implementacje (`*.impl.ts`) są prywatne
+- Export via `public-api.ts` (barrel file)
+
+### 2. **Features Layer** (`/src/app/features/*/`)
+- Niezależne domeny biznesowe (deals, contacts, etc.)
+- Rooted components (routed pages) jako entry points
+- Lokalne UI componenty i services
+- Publikuje TYLKO modele i publiczne service interfaces via `public-api.ts`
+
+### 3. **Shared Layer** (`/src/app/shared/`)
+- Komponenty UI bez domeny biznesowej (Button, Card, Modal)
+- Utility funkcje (pure functions, helpers, guards)
+- Nie zależy z core ani features
+- Export via `public-api.ts`
+
+### Path Mappings (`tsconfig.json`)
+
+```json
+"paths": {
+  "@core": ["src/app/core/public-api.ts"],
+  "@core/*": ["src/app/core/public-api.ts"],
+  "@features": ["src/app/features/public-api.ts"],
+  "@features/*": ["src/app/features/*/public-api.ts"],
+  "@shared": ["src/app/shared/public-api.ts"]
+}
+```
+
+### Dependency Direction
+
+```
+features/  →  shared/
+   ↓            ↑
+features/  →  core/
+             
+❌ NIGDY:
+  - core → features
+  - shared → core
+  - feature-a → feature-b
+```
+
+### DIP Implementation
+
+- Każdy service eksportuje **interface** (nie implementacji)
+- Każdy service ma **injection token**
+- Wdrażanie i konfiguracja DI ukryta w `providers.ts`
+- Feature zależy od interfejsu, nie od konkretnej klasy
+
+**Przykład:**
+
+```typescript
+// ✅ core/public-api.ts — PUBLICZNE
+export type { IAuthService } from './auth/auth.service';
+export { AUTH_SERVICE } from './auth/auth.service';
+
+// 🔒 core/auth/auth.service.impl.ts — PRYWATNE
+export class AuthServiceImpl implements IAuthService { ... }
+```
+
+---
+
+## Consequences
+
+### ✅ Pozytywne
+
+- **Bezpieczeństwo refaktoryzacji** — Zmienisz implementację w jednym miejscu
+- **Testowalnośc** — Mock service poprzez token, nie zmieniaj impetu
+- **Skalowanie** — Nowe features nie wpływają na istniejący kod
+- **Jasne granice** — ESLint rules egzekwują architekturę
+- **DI Elastyczność** — Łatwa zamiana implementacji bez zmiany kodu
+
+### ⚠️ Negatywne
+
+- **Wstępny nakład pracy** — Refactoring istniejącego kodu (~1-2 dni)
+- **Więcej plików** — `public-api.ts`, `*.impl.ts`, `*.token.ts` (ale czytelne)
+- **Krzywa uczenia** — Nowe konwencje do wyjaśnienia nowym devom
+
+### 🔧 Wymagane Narzędzia
+
+- ESLint rule `@nx/enforce-module-boundaries` (lub custom rule `no-restricted-imports`)
+- TypeScript path mappings w `tsconfig.json`
+- Dokumentacja w `/docs/ARCHITECTURE.md`
+
+---
+
+## Alternatives Considered
+
+### 1. **Flat Structure** (bez warstw)
+❌ Brak granic → circular dependencies → trudne testowanie
+
+### 2. **Shared Module + Features** (bez core)
+❌ Brak centralnej konfiguracji DI → duplikacja kodu
+
+### 3. **NgModules z ProvideIn** (bez public-api)
+❌ Mniej kontroli nad granicami → możliwe importy z prywatnych ścieżek
+
+### 4. **Monorepo z Nx** (zamiast single app)
+⚠️ Więcej overhead, zbyt dużo dla aktualnego rozmiaru projektu
+
+---
+
+## Implementation Plan
+
+1. **Phase 1** (~1 dzień): Skonfiguruj path mappings + ESLint rules
+2. **Phase 2** (~1 dzień): Refactor `core/` na DIP (interfaces, tokens, providers)
+3. **Phase 3** (~2-3 dni): Refactor `features/` na public-api pattern
+4. **Phase 4**: Dokumentacja + onboarding
+
+---
+
+## References
+
+- Angular Best Practices: https://angular.dev/guide/styleguide
+- Dependency Inversion Principle: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+- ADR Format: https://adr.github.io/
+
+---
+
+## Next Steps
+
+- [ ] Zatwierdzenie przez tech lead
+- [ ] Kod review i feedback
+- [ ] Wdrażanie w Phase 1
+- [ ] Aktualizacja dokumentacji
+
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **INDEX.md**</summary>
+
+@@ lines 10-10 @@
+
+```
+
+| ADR-001 | Feature-Based Architecture with DIP | 🔷 Proposed | 2026-10-12 | Team | DIP + public-api boundaries |
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **INDEX.md**</summary>
+
+@@ lines 25-25 @@
+
+```
+
+| [ADR-001](./ADR-001.md) | Feature-Based Architecture with DIP | 2026-10-12 | Team |
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 3 todos
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **INDEX.md**</summary>
+
+@@ lines 42-44 @@
+
+```
+1
+- **Accepted**: 0
+- **Proposed**: 1
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `ARCHITECTURE.md`
+
+**Input:**
+
+- content:
+
+````
+# Architecture Guidelines
+
+Dokument ten opisuje architekturę projektu i zasady organizacji kodu.
+
+---
+
+## 📐 Struktura Projektu
+
+```
+src/app/
+├── routing.ts               # Root routing
+├── main.ts                  # Bootstrap
+│
+├── core/                    # Singleton services, DI config
+│   ├── public-api.ts        # 🔓 PUBLIC exports only
+│   ├── core.providers.ts    # 🔒 DI configuration
+│   │
+│   ├── auth/
+│   │   ├── auth.service.ts              # 🔓 Public interface
+│   │   ├── auth.service.impl.ts         # 🔒 Implementation
+│   │   └── auth.token.ts                # 🔒 Injection token
+│   │
+│   ├── api/
+│   │   ├── api.service.ts               # 🔓 Public interface
+│   │   ├── api.service.impl.ts          # 🔒 Implementation
+│   │   ├── http.interceptor.ts          # 🔒 Internal
+│   │   └── api.token.ts                 # 🔒 Token
+│   │
+│   └── config/
+│       ├── config.service.ts            # 🔓 Interface
+│       └── config.token.ts              # 🔒 Token
+│
+├── features/                # Business domains (lazy-loaded)
+│   ├── public-api.ts        # 🔓 Feature index
+│   │
+│   ├── deals/
+│   │   ├── public-api.ts                # 🔓 PUBLIC: services, types, routes
+│   │   ├── deals.routes.ts              # 🔒 Routing config
+│   │   │
+│   │   ├── pages/                       # 🔒 Routed components
+│   │   │   └── deals-page.component.ts
+│   │   │
+│   │   ├── ui/                          # 🔒 Feature-specific components
+│   │   │   ├── deal-card.component.ts
+│   │   │   └── deal-filter.component.ts
+│   │   │
+│   │   ├── model/                       # 🔓 Types & interfaces
+│   │   │   └── deal.model.ts
+│   │   │
+│   │   ├── services/                    # 🔒 Feature services
+│   │   │   ├── deals.service.ts         # Interface
+│   │   │   ├── deals.service.impl.ts    # Implementation
+│   │   │   └── deals.token.ts           # Token
+│   │   │
+│   │   └── store/                       # 🔒 Local state
+│   │       └── deals.signals.ts
+│   │
+│   ├── contacts/ ...                    # Druga feature (sama struktura)
+│   └── <feature>/
+│
+└── shared/                  # Reusable components & utilities
+    ├── public-api.ts        # 🔓 PUBLIC exports
+    │
+    ├── ui/                  # 🔓 Generic UI components
+    │   ├── components/
+    │   │   ├── button.component.ts
+    │   │   ├── card.component.ts
+    │   │   └── modal.component.ts
+    │   └── pipes/
+    │       ├── date.pipe.ts
+    │       └── currency.pipe.ts
+    │
+    └── utils/               # 🔓 Pure functions
+        ├── formatters.ts
+        ├── validators.ts
+        └── helpers.ts
+```
+
+---
+
+## 🎯 Dependency Flow (Zezwolone Kierunki)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    features/                            │
+│  (Deals, Contacts, Reports, etc.)                       │
+│  ✅ może zależeć z: core, shared, inne features         │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼ (imports via @core)
+┌─────────────────────────────────────────────────────────┐
+│                     core/                               │
+│  (Auth, API, Config)                                    │
+│  ✅ może zależeć z: stdlib, external libs              │
+│  ❌ NIGDY nie zależy z features ani shared              │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼ (imports via @shared)
+┌─────────────────────────────────────────────────────────┐
+│                     shared/                             │
+│  (UI Components, Utilities)                             │
+│  ✅ może zależeć z: stdlib, external libs              │
+│  ❌ NIGDY nie zależy z core ani features                │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Zasady
+
+1. ✅ **Features** mogą importować z `@core` i `@shared`
+2. ✅ **Features** mogą importować z innych **features** TYLKO poprzez ich `public-api.ts`
+3. ✅ **Core** publikuje TYLKO publiczne interfaces, tokeny, providery
+4. ✅ **Shared** nie zna o `core` ani `features`
+5. ❌ **Core** nigdy nie importuje z `features` ani `shared`
+6. ❌ **Shared** nigdy nie importuje z `core` ani `features`
+7. ❌ **Feature A** nigdy nie importuje z `features/B/` — zawsze `@features/b`
+
+---
+
+## 🔐 Public API Pattern
+
+Każdy moduł (core, features, shared) publikuje **TYLKO** publiczne elementy:
+
+### ✅ Co eksportować w `public-api.ts`
+
+```typescript
+// Publiczne typy
+export type { Deal } from './model/deal.model';
+export type { IDealsService } from './services/deals.service';
+
+// Publiczne tokeny (dla DI)
+export { DEALS_SERVICE } from './services/deals.service';
+export { DEALS_CONFIG } from './deals.config';
+
+// Publiczne providery (dla konfiguracji)
+export { provideDeals } from './deals.providers';
+
+// Publiczne routing
+export { DEALS_ROUTES } from './deals.routes';
+```
+
+### ❌ Co NIE eksportować
+
+```typescript
+// ❌ Konkretne implementacje
+export { DealsServiceImpl } from './services/deals.service.impl';
+
+// ❌ Prywatne komponenty
+export { DealsPageComponent } from './pages/deals-page.component';
+export { DealCardComponent } from './ui/deal-card.component';
+
+// ❌ Prywatne helpery
+export { formatDealName } from './utils/deal.formatter';
+
+// ❌ Wewnętrzne tokeny
+export { DEALS_CACHE_TOKEN } from './cache/deals.cache.token';
+```
+
+---
+
+## 💉 Dependency Inversion Pattern
+
+### Service Interface
+
+```typescript
+// ✅ public-api.ts — eksportuj
+export interface IAuthService {
+  login(email: string, password: string): Observable<void>;
+  logout(): void;
+  isAuthenticated$(): Observable<boolean>;
+}
+
+export const AUTH_SERVICE = new InjectionToken<IAuthService>('core.auth');
+```
+
+### Service Implementation
+
+```typescript
+// 🔒 auth.service.impl.ts — prywatny
+export class AuthServiceImpl implements IAuthService {
+  constructor(private httpClient: HttpClient) {}
+  
+  login(email: string, password: string): Observable<void> {
+    return this.httpClient.post<void>('/auth/login', { email, password });
+  }
+  
+  logout(): void { /* ... */ }
+  isAuthenticated$(): Observable<boolean> { /* ... */ }
+}
+```
+
+### DI Configuration
+
+```typescript
+// 🔒 core.providers.ts — prywatne
+export function provideCore() {
+  return [
+    provideHttpClient(),
+    {
+      provide: AUTH_SERVICE,
+      useClass: AuthServiceImpl  // ← mapuj token na implementację
+    }
+  ];
+}
+```
+
+### Usage w Feature
+
+```typescript
+// ✅ Feature importuje TYLKO interfejs i token
+import { AUTH_SERVICE, type IAuthService } from '@core';
+
+@Component({...})
+export class DealsPageComponent {
+  private auth = inject(AUTH_SERVICE);  // ← Inject token
+  
+  loadDeals() {
+    return this.auth.isAuthenticated$().pipe(
+      switchMap(() => this.dealsService.load())
+    );
+  }
+}
+```
+
+---
+
+## 📝 Path Mappings (`tsconfig.json`)
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // Core — public-api only
+      "@core": ["src/app/core/public-api.ts"],
+      "@core/*": ["src/app/core/public-api.ts"],
+      
+      // Features — każda ma swoją public-api
+      "@features": ["src/app/features/public-api.ts"],
+      "@features/*": ["src/app/features/*/public-api.ts"],
+      
+      // Shared — public-api
+      "@shared": ["src/app/shared/public-api.ts"],
+      "@shared/*": ["src/app/shared/public-api.ts"],
+      
+      // Environments
+      "@env": ["src/environments"]
+    }
+  }
+}
+```
+
+---
+
+## 🛡️ ESLint Rules
+
+### Zabraniaj prywatnych importów
+
+```json
+{
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "@core/auth/auth.service.impl",
+          "@core/*/private*",
+          "@core/*/*.impl",
+          "@features/*/services/*.impl",
+          "@features/*/pages/*",
+          "@features/*/ui/*"
+        ],
+        "message": "❌ Importuj z public-api.ts!"
+      }
+    ]
+  }
+}
+```
+
+### Egzekwuj kierunki zależności
+
+```json
+{
+  "rules": {
+    "@nx/enforce-module-boundaries": [
+      "error",
+      {
+        "depConstraints": [
+          {
+            "sourceTag": "scope:feature",
+            "onlyDependsOnTags": ["scope:shared", "scope:core"]
+          },
+          {
+            "sourceTag": "scope:shared",
+            "onlyDependsOnTags": ["scope:shared"]
+          },
+          {
+            "sourceTag": "scope:core",
+            "onlyDependsOnTags": []
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+---
+
+## ✅ Checklist — Gdzie umieścić Kod?
+
+| Artefakt | Gdzie? | Eksportować? |
+|----------|--------|--------------|
+| **Service interface** | `core/auth/auth.service.ts` | ✅ public-api.ts |
+| **Service implementation** | `core/auth/auth.service.impl.ts` | ❌ Nigdy |
+| **Injection token** | `core/auth/auth.token.ts` | ✅ public-api.ts |
+| **DI provider** | `core/core.providers.ts` | ✅ public-api.ts |
+| **Feature interface** | `features/deals/model/deal.ts` | ✅ public-api.ts |
+| **Routed component** | `features/deals/pages/deals-page.component.ts` | ❌ Nigdy |
+| **UI component** | `features/deals/ui/deal-card.component.ts` | ❌ Nigdy |
+| **UI component** (generic) | `shared/ui/button.component.ts` | ✅ public-api.ts |
+| **Utility function** | `shared/utils/formatters.ts` | ✅ public-api.ts |
+
+---
+
+## 📚 References
+
+- **ADR-001**: [Feature-Based Architecture with DIP](./adr/ADR-001.md)
+- **Angular Styleguide**: https://angular.dev/guide/styleguide
+- **Dependency Inversion**: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+- **Public API Pattern**: https://github.com/angular/angular/blob/main/packages/core/public-api.ts
+
+---
+
+## 🔄 Zmiana / Feedback
+
+Znalazłeś błąd lub chcesz coś zmienić w architekturze?
+1. Stwórz nowy ADR (propozycja zmiany)
+2. Dyskusja w team
+3. Po zatwierdzeniu — refactoring
+
+Patrz: [docs/adr/](./adr/) dla listy wszystkich decyzji.
+
+````
+
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\docs\ARCHITECTURE.md`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-postdata-angular-design-architecture\docs\ARCHITECTURE.md
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **ARCHITECTURE.md**</summary>
+
+@@ lines 1-1 @@
+
+````
+# Architecture Guidelines
+
+Dokument ten opisuje architekturę projektu i zasady organizacji kodu.
+
+---
+
+## 📐 Struktura Projektu
+
+```
+src/app/
+├── routing.ts               # Root routing
+├── main.ts                  # Bootstrap
+│
+├── core/                    # Singleton services, DI config
+│   ├── public-api.ts        # 🔓 PUBLIC exports only
+│   ├── core.providers.ts    # 🔒 DI configuration
+│   │
+│   ├── auth/
+│   │   ├── auth.service.ts              # 🔓 Public interface
+│   │   ├── auth.service.impl.ts         # 🔒 Implementation
+│   │   └── auth.token.ts                # 🔒 Injection token
+│   │
+│   ├── api/
+│   │   ├── api.service.ts               # 🔓 Public interface
+│   │   ├── api.service.impl.ts          # 🔒 Implementation
+│   │   ├── http.interceptor.ts          # 🔒 Internal
+│   │   └── api.token.ts                 # 🔒 Token
+│   │
+│   └── config/
+│       ├── config.service.ts            # 🔓 Interface
+│       └── config.token.ts              # 🔒 Token
+│
+├── features/                # Business domains (lazy-loaded)
+│   ├── public-api.ts        # 🔓 Feature index
+│   │
+│   ├── deals/
+│   │   ├── public-api.ts                # 🔓 PUBLIC: services, types, routes
+│   │   ├── deals.routes.ts              # 🔒 Routing config
+│   │   │
+│   │   ├── pages/                       # 🔒 Routed components
+│   │   │   └── deals-page.component.ts
+│   │   │
+│   │   ├── ui/                          # 🔒 Feature-specific components
+│   │   │   ├── deal-card.component.ts
+│   │   │   └── deal-filter.component.ts
+│   │   │
+│   │   ├── model/                       # 🔓 Types & interfaces
+│   │   │   └── deal.model.ts
+│   │   │
+│   │   ├── services/                    # 🔒 Feature services
+│   │   │   ├── deals.service.ts         # Interface
+│   │   │   ├── deals.service.impl.ts    # Implementation
+│   │   │   └── deals.token.ts           # Token
+│   │   │
+│   │   └── store/                       # 🔒 Local state
+│   │       └── deals.signals.ts
+│   │
+│   ├── contacts/ ...                    # Druga feature (sama struktura)
+│   └── <feature>/
+│
+└── shared/                  # Reusable components & utilities
+    ├── public-api.ts        # 🔓 PUBLIC exports
+    │
+    ├── ui/                  # 🔓 Generic UI components
+    │   ├── components/
+    │   │   ├── button.component.ts
+    │   │   ├── card.component.ts
+    │   │   └── modal.component.ts
+    │   └── pipes/
+    │       ├── date.pipe.ts
+    │       └── currency.pipe.ts
+    │
+    └── utils/               # 🔓 Pure functions
+        ├── formatters.ts
+        ├── validators.ts
+        └── helpers.ts
+```
+
+---
+
+## 🎯 Dependency Flow (Zezwolone Kierunki)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    features/                            │
+│  (Deals, Contacts, Reports, etc.)                       │
+│  ✅ może zależeć z: core, shared, inne features         │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼ (imports via @core)
+┌─────────────────────────────────────────────────────────┐
+│                     core/                               │
+│  (Auth, API, Config)                                    │
+│  ✅ może zależeć z: stdlib, external libs              │
+│  ❌ NIGDY nie zależy z features ani shared              │
+└──────────────────┬──────────────────────────────────────┘
+                   │
+                   ▼ (imports via @shared)
+┌─────────────────────────────────────────────────────────┐
+│                     shared/                             │
+│  (UI Components, Utilities)                             │
+│  ✅ może zależeć z: stdlib, external libs              │
+│  ❌ NIGDY nie zależy z core ani features                │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Zasady
+
+1. ✅ **Features** mogą importować z `@core` i `@shared`
+2. ✅ **Features** mogą importować z innych **features** TYLKO poprzez ich `public-api.ts`
+3. ✅ **Core** publikuje TYLKO publiczne interfaces, tokeny, providery
+4. ✅ **Shared** nie zna o `core` ani `features`
+5. ❌ **Core** nigdy nie importuje z `features` ani `shared`
+6. ❌ **Shared** nigdy nie importuje z `core` ani `features`
+7. ❌ **Feature A** nigdy nie importuje z `features/B/` — zawsze `@features/b`
+
+---
+
+## 🔐 Public API Pattern
+
+Każdy moduł (core, features, shared) publikuje **TYLKO** publiczne elementy:
+
+### ✅ Co eksportować w `public-api.ts`
+
+```typescript
+// Publiczne typy
+export type { Deal } from './model/deal.model';
+export type { IDealsService } from './services/deals.service';
+
+// Publiczne tokeny (dla DI)
+export { DEALS_SERVICE } from './services/deals.service';
+export { DEALS_CONFIG } from './deals.config';
+
+// Publiczne providery (dla konfiguracji)
+export { provideDeals } from './deals.providers';
+
+// Publiczne routing
+export { DEALS_ROUTES } from './deals.routes';
+```
+
+### ❌ Co NIE eksportować
+
+```typescript
+// ❌ Konkretne implementacje
+export { DealsServiceImpl } from './services/deals.service.impl';
+
+// ❌ Prywatne komponenty
+export { DealsPageComponent } from './pages/deals-page.component';
+export { DealCardComponent } from './ui/deal-card.component';
+
+// ❌ Prywatne helpery
+export { formatDealName } from './utils/deal.formatter';
+
+// ❌ Wewnętrzne tokeny
+export { DEALS_CACHE_TOKEN } from './cache/deals.cache.token';
+```
+
+---
+
+## 💉 Dependency Inversion Pattern
+
+### Service Interface
+
+```typescript
+// ✅ public-api.ts — eksportuj
+export interface IAuthService {
+  login(email: string, password: string): Observable<void>;
+  logout(): void;
+  isAuthenticated$(): Observable<boolean>;
+}
+
+export const AUTH_SERVICE = new InjectionToken<IAuthService>('core.auth');
+```
+
+### Service Implementation
+
+```typescript
+// 🔒 auth.service.impl.ts — prywatny
+export class AuthServiceImpl implements IAuthService {
+  constructor(private httpClient: HttpClient) {}
+  
+  login(email: string, password: string): Observable<void> {
+    return this.httpClient.post<void>('/auth/login', { email, password });
+  }
+  
+  logout(): void { /* ... */ }
+  isAuthenticated$(): Observable<boolean> { /* ... */ }
+}
+```
+
+### DI Configuration
+
+```typescript
+// 🔒 core.providers.ts — prywatne
+export function provideCore() {
+  return [
+    provideHttpClient(),
+    {
+      provide: AUTH_SERVICE,
+      useClass: AuthServiceImpl  // ← mapuj token na implementację
+    }
+  ];
+}
+```
+
+### Usage w Feature
+
+```typescript
+// ✅ Feature importuje TYLKO interfejs i token
+import { AUTH_SERVICE, type IAuthService } from '@core';
+
+@Component({...})
+export class DealsPageComponent {
+  private auth = inject(AUTH_SERVICE);  // ← Inject token
+  
+  loadDeals() {
+    return this.auth.isAuthenticated$().pipe(
+      switchMap(() => this.dealsService.load())
+    );
+  }
+}
+```
+
+---
+
+## 📝 Path Mappings (`tsconfig.json`)
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // Core — public-api only
+      "@core": ["src/app/core/public-api.ts"],
+      "@core/*": ["src/app/core/public-api.ts"],
+      
+      // Features — każda ma swoją public-api
+      "@features": ["src/app/features/public-api.ts"],
+      "@features/*": ["src/app/features/*/public-api.ts"],
+      
+      // Shared — public-api
+      "@shared": ["src/app/shared/public-api.ts"],
+      "@shared/*": ["src/app/shared/public-api.ts"],
+      
+      // Environments
+      "@env": ["src/environments"]
+    }
+  }
+}
+```
+
+---
+
+## 🛡️ ESLint Rules
+
+### Zabraniaj prywatnych importów
+
+```json
+{
+  "rules": {
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "@core/auth/auth.service.impl",
+          "@core/*/private*",
+          "@core/*/*.impl",
+          "@features/*/services/*.impl",
+          "@features/*/pages/*",
+          "@features/*/ui/*"
+        ],
+        "message": "❌ Importuj z public-api.ts!"
+      }
+    ]
+  }
+}
+```
+
+### Egzekwuj kierunki zależności
+
+```json
+{
+  "rules": {
+    "@nx/enforce-module-boundaries": [
+      "error",
+      {
+        "depConstraints": [
+          {
+            "sourceTag": "scope:feature",
+            "onlyDependsOnTags": ["scope:shared", "scope:core"]
+          },
+          {
+            "sourceTag": "scope:shared",
+            "onlyDependsOnTags": ["scope:shared"]
+          },
+          {
+            "sourceTag": "scope:core",
+            "onlyDependsOnTags": []
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+---
+
+## ✅ Checklist — Gdzie umieścić Kod?
+
+| Artefakt | Gdzie? | Eksportować? |
+|----------|--------|--------------|
+| **Service interface** | `core/auth/auth.service.ts` | ✅ public-api.ts |
+| **Service implementation** | `core/auth/auth.service.impl.ts` | ❌ Nigdy |
+| **Injection token** | `core/auth/auth.token.ts` | ✅ public-api.ts |
+| **DI provider** | `core/core.providers.ts` | ✅ public-api.ts |
+| **Feature interface** | `features/deals/model/deal.ts` | ✅ public-api.ts |
+| **Routed component** | `features/deals/pages/deals-page.component.ts` | ❌ Nigdy |
+| **UI component** | `features/deals/ui/deal-card.component.ts` | ❌ Nigdy |
+| **UI component** (generic) | `shared/ui/button.component.ts` | ✅ public-api.ts |
+| **Utility function** | `shared/utils/formatters.ts` | ✅ public-api.ts |
+
+---
+
+## 📚 References
+
+- **ADR-001**: [Feature-Based Architecture with DIP](./adr/ADR-001.md)
+- **Angular Styleguide**: https://angular.dev/guide/styleguide
+- **Dependency Inversion**: https://en.wikipedia.org/wiki/Dependency_inversion_principle
+- **Public API Pattern**: https://github.com/angular/angular/blob/main/packages/core/public-api.ts
+
+---
+
+## 🔄 Zmiana / Feedback
+
+Znalazłeś błąd lub chcesz coś zmienić w architekturze?
+1. Stwórz nowy ADR (propozycja zmiany)
+2. Dyskusja w team
+3. Po zatwierdzeniu — refactoring
+
+Patrz: [docs/adr/](./adr/) dla listy wszystkich decyzji.
+
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Perfect! ✅ Stworzę wszystkie pliki:
+
+## 📋 Podsumowanie — Co Utworzono
+
+### 1. **`docs/adr/ADR-001.md`** 
+Pełna dokumentacja decyzji architektonicznej:
+- **Context** — Problemy bez architekturalnych granic
+- **Decision** — Core | Features | Shared z DIP
+- **Consequences** — Co zyskujemy i tracimy
+- **Alternatives** — Dlaczego nie flat/NgModules/Nx
+- **Implementation Plan** — Jak wdrożyć w fazach
+
+### 2. **`docs/adr/INDEX.md`** — Zaktualizowany Rejestr
+```
+Total ADR: 1 ✅
+- Proposed: 1 (ADR-001)
+- Accepted: 0
+```
+
+### 3. **`docs/ARCHITECTURE.md`** — Praktyczne Wytyczne
+Zawiera:
+- 📐 Struktura projektu (z 🔓 public vs 🔒 private)
+- 🎯 Dependency Flow diagram
+- 🔐 Public API Pattern (co i co NIE eksportować)
+- 💉 DIP Implementation (interface → token → implementation)
+- 📝 Path Mappings gotowe do kopii
+- 🛡️ ESLint Rules (zabranianie prywatnych importów)
+- ✅ Checklist — gdzie umieścić każdy typ kodu
+
+---
+
+## 🚀 Następne Kroki
+
+1. **Zatwierdzenie ADR** — Tech lead review ADR-001
+2. **Skonfigurować path mappings** — Skopiować do `tsconfig.app.json`
+3. **Dodać ESLint rules** — Do `.eslintrc.json`
+4. **Refactoring fazy**:
+   - Phase 1: path mappings + ESLint (1 dzień)
+   - Phase 2: core/ na DIP (1 dzień)
+   - Phase 3: features/ na public-api (2-3 dni)
+
+Wszystkie dokumenty są teraz w gicie — mogą być linkowane, dyskutowane, i wersjonowane! 🎯
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Updated todo list
+</details></tool-use>
