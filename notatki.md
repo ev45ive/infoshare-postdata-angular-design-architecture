@@ -37,3 +37,6 @@ ng new postdata
     --zoneless true  
     --ai-config vscode 
 
+
+# Storybook vs angular 22
+npm i --legacy-peer-deps
