@@ -40,3 +40,32 @@ ng new postdata
 
 # Storybook vs angular 22
 npm i --legacy-peer-deps
+
+# App Structure Outline
+
+```
+src/app/
+    - routing.ts
+    - main.ts
+
+    - core/
+        - auth
+        - api
+        - tokens
+        - config
+        - ... 
+
+    - features/
+        - deals/
+            - pages/    # logical / routed
+            - ui/       # presentation
+            - model/
+        - contacts/
+            - ...
+        - <feature_name>/
+            - .../  
+
+    - shared/
+        - ui/
+        - utils/
+```
