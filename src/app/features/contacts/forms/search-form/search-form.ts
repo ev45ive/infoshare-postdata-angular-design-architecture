@@ -30,7 +30,11 @@ import { Badge } from 'primeng/badge';
 
       /* Powód? Semantyczny -> Niebezpieczny */
       p-badge.badge-danger {
-        color: red;
+        // color: red; // override
+      }
+
+      :host {
+        --p-button-primary-color: green; /* Token -> Dependency Inversion (Injection) */
       }
 
       /* [_content-ng-c2229295192] */
