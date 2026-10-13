@@ -21,7 +21,9 @@ const stages = Object.keys(DealStageLabel) as DealStage[];
           }
         </select>
       </label>
+      
       <app-deal-status-badge [stage]="stage()" />
+
     </div>
   `,
 })

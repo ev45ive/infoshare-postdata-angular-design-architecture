@@ -1,12 +1,15 @@
 import { Component, computed, input } from '@angular/core';
 import { Badge } from 'primeng/badge';
 
+/* === DEAL STAGES CONFIG === */
+
 export const DealStageLabel = {
   new: 'New',
   negotiation: 'Negotiation',
   proposal: 'Proposal',
   'closed-won': 'Closed (won)',
   'closed-lost': 'Closed (lost)',
+  // suspended: '...'
 } as const;
 
 export type DealStage = keyof typeof DealStageLabel;
@@ -18,7 +21,10 @@ export const DealStageClasses: Record<DealStage, string> = {
   proposal: 'bg-violet-100 text-violet-800',
   'closed-won': 'bg-green-100 text-green-800',
   'closed-lost': 'bg-red-100 text-red-800',
+  // suspended: '...'
 };
+
+/* === END DEAL STAGES CONFIG === */
 
 const UnknownStageClasses = 'bg-surface-100 text-surface-700';
 
