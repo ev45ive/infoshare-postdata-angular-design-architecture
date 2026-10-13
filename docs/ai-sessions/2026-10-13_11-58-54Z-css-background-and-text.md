@@ -38,3 +38,317 @@ _**Agent (copilot/claude-sonnet-5.5)**_
 4. Should the colors be Tailwind classes, CSS variables from `tokens.css`, or PrimeNG theme tokens?
 
 My default suggestion is option 1 if the colors stay local, or option 4 if they should come from the design system. Answer the questions, then switch to Agent mode so I can implement it.
+
+---
+
+_**User (2026-10-13 12:03:14Z)**_
+
+1. use ts map  - stage -> tailwind classes string
+
+---
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `deal-status-badge.ts`
+
+**Input:**
+
+- endLine: `50`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.ts`
+- startLine: `1`
+
+**Result:**
+
+```
+import { Component, computed, input } from '@angular/core';
+import { Badge } from 'primeng/badge';
+import { NgClass } from '../../../../../../node_modules/@angular/common/types/_common_module-chunk';
+
+export const DealStageLabel = {
+  new: 'New',
+  negotiation: 'Negotiation',
+  proposal: 'Proposal',
+  'closed-won': 'Closed (won)',
+  'closed-lost': 'Closed (lost)',
+} as const;
+
+// mapping - stage -> css colors ??
+
+export type DealStage = keyof typeof DealStageLabel;
+
+@Component({
+  imports: [Badge, NgClass],
+  selector: 'app-deal-status-badge',
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+  template: ` <p-badge [value]="stageLabel()" [ngClass]="{}" /> `,
+})
+export class DealStatusBadge {
+  stage = input<DealStage | null>(null);
+
+  // label = DealStageLabel[this.stage()]; // construtor before render
+
+  // computed(fn) - EXCEL: ""=SUM(A1,B2)" // tracks A1,B2
+
+  stageLabel = computed(() => {
+    const stage = this.stage();
+    
+    if (stage) return DealStageLabel[stage];
+
+    return 'Unknown';
+  });
+}
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `angular-development.instructions.md`, lines 1 to 120
+
+**Input:**
+
+- endLine: `120`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\.github\instructions\angular-development.instructions.md`
+- startLine: `1`
+
+**Result:**
+
+````
+---
+description: "Use when writing Angular components, services, and templates in src/. Covers Angular v22+ best practices: standalone components, signals, Signal Forms, native control flow, accessibility (WCAG AA), and TypeScript strict mode."
+applyTo: "src/**/*.ts, src/**/*.html"
+---
+
+# Angular v22+ Development Guidelines
+
+Standards for this project: standalone components (default), signals for state, Signal Forms, type-safe reactive patterns, and WCAG AA accessibility compliance.
+
+## TypeScript Conventions
+
+### Type Safety
+- **Strict mode is enforced.** Enable `noImplicitAny`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, and `noPropertyAccessFromIndexSignature`.
+- **Avoid `any`**. Use `unknown` when the type is genuinely uncertain, then narrow it.
+- **Type inference wins.** If TypeScript infers the type correctly, omit the annotation:
+  ```typescript
+  const count = signal(0);  // ✅ inferred as Signal<number>
+  const count: Signal<number> = signal(0);  // ❌ redundant
+  ```
+
+### Import Paths
+- Use path aliases from `tsconfig.json`: `@core`, `@shared`, `@features`.
+- Respect the dependency flow: **features → core → shared** (reverse imports forbidden).
+- Import from `public-api.ts` only; never reach into feature/module internals.
+
+---
+
+## Standalone Components (Default)
+
+### Component Declaration
+- **Do NOT write `standalone: true`.** It is the default in Angular v22+; setting it is redundant and clutters the code.
+- **Always use standalone components.** NgModules are legacy; use standalone for all new components.
+
+```typescript
+// ✅ v22+ default
+@Component({
+  selector: 'app-button',
+  imports: [NgIf, NgFor, AsyncPipe],  // Explicit imports only
+  template: `...`,
+  styles: [`...`],
+})
+export class ButtonComponent {}
+
+// ❌ Legacy—do not write
+@Component({
+  selector: 'app-button',
+  standalone: true,  // Redundant in v22+
+  imports: [...],
+  template: `...`,
+})
+export class ButtonComponent {}
+```
+
+### Chan
+… (output truncated)
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="memory"><details>
+<summary>Tool use: **memory**</summary>
+
+Read memory `primeng-tailwind-setup.md`
+
+**Input:**
+
+- command: `view`
+- path: `/memories/repo/primeng-tailwind-setup.md`
+
+**Result:**
+
+````
+Here's the content of /memories/repo/primeng-tailwind-setup.md with line numbers:
+     1	# PrimeNG + Tailwind + PrimeIcons Setup (infoshare-postdata-angular-design-architecture)
+     2	
+     3	**Date**: 2026-10-12  
+     4	**Angular Version**: 22.2.0  
+     5	**Setup Complete**: ✅
+     6	
+     7	## Package Versions
+     8	
+     9	```json
+    10	{
+    11	  "primeng": "22.1.2",
+    12	  "@primeuix/themes": "3.0.1",
+    13	  "primeicons": "8.0.2",
+    14	  "tailwindcss": "4.3.3",
+    15	  "@tailwindcss/postcss": "4.3.3",
+    16	  "postcss": "8.5.29",
+    17	  "tailwindcss-primeui": "0.6.1"
+    18	}
+    19	```
+    20	
+    21	## Installation Command
+    22	
+    23	```bash
+    24	npm install primeng @primeuix/themes tailwindcss @tailwindcss/postcss postcss tailwindcss-primeui primeicons --force
+    25	```
+    26	
+    27	## Configuration Files
+    28	
+    29	### 1. `.postcssrc.json` (root)
+    30	```json
+    31	{
+    32	  "plugins": {
+    33	    "@tailwindcss/postcss": {}
+    34	  }
+    35	}
+    36	```
+    37	**Purpose**: Enables PostCSS v4 processing for Tailwind in Angular build pipeline.
+    38	
+    39	### 2. `src/styles.css` (new file)
+    40	```css
+    41	@tailwind base;
+    42	@tailwind components;
+    43	@tailwind utilities;
+    44	
+    45	@import "primeicons/primeicons.css";
+    46	```
+    47	**Purpose**: Primary stylesheet processed by PostCSS. Tailwind v4 directives must be in CSS (not SCSS).
+    48	
+    49	### 3. `src/styles.scss`
+    50	Cleared of Tailwind/CSS code. Now for SCSS-only global styles only.
+    51	
+    52	### 4. `angular.json` - styles array
+    53	```json
+    54	"styles": ["src/styles.css", "src/styles.scss"]
+    55	```
+    56	**Order**: CSS processed first (PostCSS), then SCSS (Angular SCSS compiler).
+    57	
+    58	### 5. `src/app/app.config.ts` - PrimeNG provider
+    59	```typescript
+    60	import { ApplicationConfig } from '@angular/core';
+    61	import { provideBrowserGlobalErrorListeners, provideRouter } from '@angular/router';
+    62	import
+… (output truncated)
+````
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.ts**</summary>
+
+@@ lines 41-41 @@
+
+```
+
+  stageClasses = computed(() => {
+    const stage = this.stage();
+
+    return stage ? DealStageClasses[stage] : UnknownStageClasses;
+  });
+
+```
+
+@@ lines 25-25 @@
+
+```
+class]="stageClasses()
+```
+
+@@ lines 18-18 @@ (deleted)
+
+@@ lines 13-15 @@
+
+```
+export type DealStage = keyof typeof DealStageLabel;
+
+// Full class names must stay literal so Tailwind can detect them.
+export const DealStageClasses: Record<DealStage, string> = {
+  new: 'bg-sky-100 text-sky-800',
+  negotiation: 'bg-amber-100 text-amber-800',
+  proposal: 'bg-violet-100 text-violet-800',
+  'closed-won': 'bg-green-100 text-green-800',
+  'closed-lost': 'bg-red-100 text-red-800',
+};
+
+const UnknownStageClasses = 'bg-surface-100 text-surface-700'
+```
+
+@@ lines 3-4 @@ (deleted)
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="get_errors"><details>
+<summary>Tool use: **get_errors**</summary>
+
+Checked `deal-status-badge.ts`, no problems found
+
+**Input:**
+
+- filePaths:
+
+```
+[
+  "c:\\Projects\\infoshare-postdata-angular-design-architecture\\src\\app\\features\\deals\\ui\\deal-status-badge\\deal-status-badge.ts"
+]
+```
+
+
+**Result:**
+
+```
+<errors path="c:\\Projects\\infoshare-postdata-angular-design-architecture\\src\\app\\features\\deals\\ui\\deal-status-badge\\deal-status-badge.ts">
+No errors found
+</errors>
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+I added the stage → Tailwind classes map to `src/app/features/deals/ui/deal-status-badge/deal-status-badge.ts`. I checked for compile errors only. I haven't looked at the badge in the browser.
+
+- **Map:**  is a , so adding a stage without a color is a compile error. The classes are `bg-*-100 text-*-800`. A missing stage falls back to `bg-surface-100 text-surface-700`.
+- **Template:**  is a  bound with `[class]` on `p-badge`.
+- **Cleanup:** I removed the broken `NgClass` import and the empty `[ngClass]`.
+
+The Tailwind utilities should override the PrimeNG badge background because the `primeng` CSS layer comes before the utilities in your config. If the colors don't show, check that the classes land on the element carrying `.p-badge`. In that case, switch from `[class]` to `[styleClass]`.
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 1 todo
+</details></tool-use>
