@@ -48,6 +48,7 @@
     "@vitest/coverage-v8": "latest",
     "playwright": "latest",
     "prettier": "^3.8.1",
+    "remark-gfm": "^4.0.1",
     "storybook": "^10.6.1",
     "typescript": "~6.0.2",
     "vite": "latest",

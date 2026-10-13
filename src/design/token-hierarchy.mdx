@@ -1,4 +1,3 @@
-
 # Token Hierarchy
 
 **Reference / System Tokens**
@@ -23,32 +22,125 @@ CSS · Angular directives · hostDirectives · CVA
 
 # Token hierarchy
 
-| Poziom | Przykłady | Zasada |
-|--------|--------|--------|
-| Reference | `blue-600`, `gray-100`, `spacing-2`, `radius-md` | Surowe wartości, niezależne od zastosowania |
-| System | `control-height`, `content-max-width`, `font-body` | Wspólne reguły systemu |
-| Semantic | `surface`, `on-surface`, `primary`, `danger`, `focus-ring` | Znaczenie i przeznaczenie |
-| Component | `button-bg`, `card-padding`, `grid-row-height` | Kontrakt konkretnego komponentu |
-| Instance | Jeden przycisk, panel lub DataGrid | Lokalna konfiguracja/wyjątek |
+| Poziom    | Przykłady                                                  | Zasada                                      |
+| --------- | ---------------------------------------------------------- | ------------------------------------------- |
+| Reference | `blue-600`, `gray-100`, `spacing-2`, `radius-md`           | Surowe wartości, niezależne od zastosowania |
+| System    | `control-height`, `content-max-width`, `font-body`         | Wspólne reguły systemu                      |
+| Semantic  | `surface`, `on-surface`, `primary`, `danger`, `focus-ring` | Znaczenie i przeznaczenie                   |
+| Component | `button-bg`, `card-padding`, `grid-row-height`             | Kontrakt konkretnego komponentu             |
+| Instance  | Jeden przycisk, panel lub DataGrid                         | Lokalna konfiguracja/wyjątek                |
 
-To odpowiada zasadniczo podejściu PrimeNG: primitive → semantic → component. 
-
+To odpowiada zasadniczo podejściu PrimeNG: primitive → semantic → component.
 
 ---
 
 ### Zalecany zestaw kategorii
 
-| Kategoria | Reference / system | Semantic |
-|--------|--------|--------|
-| Color | `blue-600`, `gray-50` | `primary`, `surface`, `danger` |
-| Text | `font-size-sm`, `weight-semibold` | `body`, `heading`, `caption` |
-| Spacing | `space-1`, `space-2`, `space-4` | `control-padding`, `panel-gap` |
-| Sizing | `size-8`, `size-10` | `control-height`, `touch-target` |
-| Radius | `radius-sm`, `radius-lg` | `control-radius`, `surface-radius` |
-| Elevation | `shadow-sm`, `shadow-lg` | `raised`, `overlay`, `modal` |
-| Borders | `1px`, `2px` | `border-subtle`, `border-strong` |
-| Motion | `duration-fast`, `ease-standard` | `expand-motion`, `interactive-motion` |
-| Layers | Numeric z-index scale | `dropdown`, `popover`, `modal`, `toast` |
-| Breakpoints | Screen sizes | Layout adaptations / container rules |
+| Kategoria   | Reference / system                | Semantic                                |
+| ----------- | --------------------------------- | --------------------------------------- |
+| Color       | `blue-600`, `gray-50`             | `primary`, `surface`, `danger`          |
+| Text        | `font-size-sm`, `weight-semibold` | `body`, `heading`, `caption`            |
+| Spacing     | `space-1`, `space-2`, `space-4`   | `control-padding`, `panel-gap`          |
+| Sizing      | `size-8`, `size-10`               | `control-height`, `touch-target`        |
+| Radius      | `radius-sm`, `radius-lg`          | `control-radius`, `surface-radius`      |
+| Elevation   | `shadow-sm`, `shadow-lg`          | `raised`, `overlay`, `modal`            |
+| Borders     | `1px`, `2px`                      | `border-subtle`, `border-strong`        |
+| Motion      | `duration-fast`, `ease-standard`  | `expand-motion`, `interactive-motion`   |
+| Layers      | Numeric z-index scale             | `dropdown`, `popover`, `modal`, `toast` |
+| Breakpoints | Screen sizes                      | Layout adaptations / container rules    |
 
 Opinionated rule: **Don't tokenize every CSS value.** Tokenize values that are repeated, represent a design decision, or are expected to change together.
+
+<main class="mx-auto max-w-6xl space-y-8">
+  <header>
+    <p class="text-sm font-semibold uppercase tracking-widest text-indigo-600">
+      Lightweight Design System · Angular
+    </p>
+    <h1 class="mt-2 text-3xl font-bold">Model architektury</h1>
+    <p class="mt-2 text-slate-600">
+      Design system dostarcza domyślne wartości i kontrakty stylowania.
+    </p>
+  </header>
+  <section class="overflow-x-auto rounded-xl bg-white p-5 shadow-sm">
+    <h2 class="mb-3 text-xl font-bold">Graf zależności wartości</h2>
+    <table class="min-w-full text-left text-sm">
+      <thead class="border-b text-slate-500">
+        <tr>
+          <th class="p-2">Warstwa</th>
+          <th class="p-2">Przykłady</th>
+          <th class="p-2">Rola</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y">
+        <tr>
+          <td class="p-2">Reference / System</td>
+          <td class="p-2">Palety, spacing, sizing, typografia</td>
+          <td class="p-2">Wspólne wartości</td>
+        </tr>
+        <tr>
+          <td class="p-2">Semantic</td>
+          <td class="p-2">surface, text, primary, danger</td>
+          <td class="p-2">Znaczenie w kontekście</td>
+        </tr>
+        <tr>
+          <td class="p-2">Component</td>
+          <td class="p-2">button-bg, card-padding</td>
+          <td class="p-2">Kontrakt komponentu</td>
+        </tr>
+        <tr>
+          <td class="p-2">Component + variants + states</td>
+          <td class="p-2">CSS, dyrektywy Angular, hostDirectives, CVA</td>
+          <td class="p-2">Zastosowanie stylu</td>
+        </tr>
+        <tr>
+          <td class="p-2">Override surfaces</td>
+          <td class="p-2">Theme, feature, instancja, utility</td>
+          <td class="p-2">Lokalne dostosowanie</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="mt-4 rounded-lg bg-indigo-50 p-3 text-sm">
+      To graf pochodzenia wartości, a nie kolejność kaskady CSS.
+    </p>
+  </section>
+  <section>
+    <h2 class="mb-3 text-xl font-bold">Cztery niezależne mechanizmy</h2>
+    <div class="grid gap-4 md:grid-cols-2">
+      <article class="rounded-xl bg-white p-5 shadow-sm">
+        <h3 class="font-bold">Pochodzenie</h3>
+        <p class="mt-2 text-sm">Reference → semantic → component</p>
+        <div class="mt-4 flex gap-2">
+          <span class="rounded bg-blue-600 px-3 py-2 text-white">blue-600</span>
+          <span>→</span>
+          <span class="rounded bg-indigo-600 px-3 py-2 text-white">primary</span>
+        </div>
+      </article>
+      <article class="rounded-xl bg-white p-5 shadow-sm">
+        <h3 class="font-bold">Pierwszeństwo</h3>
+        <p class="mt-2 text-sm">Warstwy mówią, która deklaracja wygrywa.</p>
+        <div class="mt-4 flex gap-2">
+          <span class="rounded bg-slate-200 px-3 py-2">components</span>
+          <span class="rounded bg-indigo-100 px-3 py-2">utilities</span>
+        </div>
+      </article>
+      <article class="rounded-xl bg-white p-5 shadow-sm">
+        <h3 class="font-bold">Zasięg</h3>
+        <p class="mt-2 text-sm">Encapsulation ogranicza zasięg reguły.</p>
+        <div class="mt-4 rounded border border-dashed p-3">
+          <span class="rounded bg-emerald-100 px-3 py-2">host</span> · granica komponentu
+        </div>
+      </article>
+      <article class="rounded-xl bg-white p-5 shadow-sm">
+        <h3 class="font-bold">Moment zastosowania</h3>
+        <p class="mt-2 text-sm">Wariant lub stan wybiera odmianę wyglądu.</p>
+        <div class="mt-4 flex gap-2">
+          <button class="rounded bg-indigo-600 px-3 py-2 text-white">primary</button>
+          <button class="rounded bg-red-600 px-3 py-2 text-white">danger</button>
+          <button disabled="" class="rounded bg-slate-300 px-3 py-2">
+            disabled
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
