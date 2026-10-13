@@ -1,0 +1,271 @@
+<div class="p-8 space-y-12">
+  <h1 class="text-3xl font-bold">Tailwind Spacing Hierarchy Showcase</h1>
+
+  <!-- SECTION 1: Spacing Scale Reference -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">1. Spacing Scale (0.25rem = 4px base unit)</h2>
+    <div class="grid grid-cols-5 gap-4">
+      <div class="flex flex-col items-center">
+        <div class="h-6 bg-blue-500 mb-2" style="width: 0.25rem;"></div>
+        <span class="text-sm">p-0.5 (2px)</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="h-6 bg-blue-500 mb-2" style="width: 0.5rem;"></div>
+        <span class="text-sm">p-1 (4px)</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="h-6 bg-blue-500 mb-2" style="width: 1rem;"></div>
+        <span class="text-sm">p-2 (8px)</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="h-6 bg-blue-500 mb-2" style="width: 1.5rem;"></div>
+        <span class="text-sm">p-3 (12px)</span>
+      </div>
+      <div class="flex flex-col items-center">
+        <div class="h-6 bg-blue-500 mb-2" style="width: 2rem;"></div>
+        <span class="text-sm">p-4 (16px)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Margin Utilities (all directions) -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">2. Margin Utilities</h2>
+    
+    <!-- Margin: All sides -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">All sides: m-[1-12]</p>
+      <div class="space-y-2">
+        <div class="m-2 bg-red-200 p-2 border-2 border-red-500">m-2 (0.5rem)</div>
+        <div class="m-4 bg-red-200 p-2 border-2 border-red-500">m-4 (1rem)</div>
+        <div class="m-6 bg-red-200 p-2 border-2 border-red-500">m-6 (1.5rem)</div>
+      </div>
+    </div>
+
+    <!-- Margin: X-axis (left & right) -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Horizontal: mx-[1-12]</p>
+      <div class="space-y-2">
+        <div class="mx-2 bg-orange-200 p-2 border-2 border-orange-500">mx-2</div>
+        <div class="mx-4 bg-orange-200 p-2 border-2 border-orange-500">mx-4</div>
+        <div class="mx-8 bg-orange-200 p-2 border-2 border-orange-500">mx-8</div>
+      </div>
+    </div>
+
+    <!-- Margin: Y-axis (top & bottom) -->
+    <div class="bg-gray-100 p-4 rounded space-y-4">
+      <p class="text-sm font-mono text-gray-600">Vertical: my-[1-12]</p>
+      <div class="my-2 bg-green-200 p-2 border-2 border-green-500">my-2</div>
+      <div class="my-4 bg-green-200 p-2 border-2 border-green-500">my-4</div>
+      <div class="my-8 bg-green-200 p-2 border-2 border-green-500">my-8</div>
+    </div>
+
+    <!-- Margin: Individual sides -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Individual: mt, mb, ml, mr</p>
+      <div class="ml-8 mb-4 bg-purple-200 p-2 border-2 border-purple-500">ml-8 (margin-left)</div>
+      <div class="mr-8 mb-4 bg-purple-200 p-2 border-2 border-purple-500">mr-8 (margin-right)</div>
+      <div class="mt-4 bg-purple-200 p-2 border-2 border-purple-500">mt-4 (margin-top)</div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: Padding Utilities (all directions) -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">3. Padding Utilities</h2>
+    
+    <!-- Padding: All sides -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">All sides: p-[1-12]</p>
+      <div class="space-y-2">
+        <div class="bg-blue-200 border-2 border-blue-500"><div class="p-2 bg-blue-400">p-2 (0.5rem)</div></div>
+        <div class="bg-blue-200 border-2 border-blue-500"><div class="p-4 bg-blue-400">p-4 (1rem)</div></div>
+        <div class="bg-blue-200 border-2 border-blue-500"><div class="p-8 bg-blue-400">p-8 (2rem)</div></div>
+      </div>
+    </div>
+
+    <!-- Padding: X-axis -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Horizontal: px-[1-12]</p>
+      <div class="space-y-2">
+        <div class="bg-teal-200 border-2 border-teal-500"><div class="px-2 bg-teal-400">px-2</div></div>
+        <div class="bg-teal-200 border-2 border-teal-500"><div class="px-6 bg-teal-400">px-6</div></div>
+        <div class="bg-teal-200 border-2 border-teal-500"><div class="px-10 bg-teal-400">px-10</div></div>
+      </div>
+    </div>
+
+    <!-- Padding: Y-axis -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Vertical: py-[1-12]</p>
+      <div class="space-y-2">
+        <div class="bg-pink-200 border-2 border-pink-500"><div class="py-2 bg-pink-400">py-2</div></div>
+        <div class="bg-pink-200 border-2 border-pink-500"><div class="py-4 bg-pink-400">py-4</div></div>
+        <div class="bg-pink-200 border-2 border-pink-500"><div class="py-8 bg-pink-400">py-8</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: Gap (Flexbox & Grid) -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">4. Gap Utilities (Flex & Grid)</h2>
+    
+    <!-- Gap in Flex -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Flexbox: gap-[1-12]</p>
+      <div class="space-y-3">
+        <div class="flex gap-2">
+          <div class="bg-red-400 p-2 text-white">Item</div>
+          <div class="bg-red-400 p-2 text-white">Item</div>
+          <div class="bg-red-400 p-2 text-white">Item</div>
+        </div>
+        <p class="text-xs text-gray-600">gap-2</p>
+        
+        <div class="flex gap-4">
+          <div class="bg-red-400 p-2 text-white">Item</div>
+          <div class="bg-red-400 p-2 text-white">Item</div>
+          <div class="bg-red-400 p-2 text-white">Item</div>
+        </div>
+        <p class="text-xs text-gray-600">gap-4</p>
+
+        <div class="flex gap-8">
+          <div class="bg-red-400 p-2 text-white">Item</div>
+          <div class="bg-red-400 p-2 text-white">Item</div>
+          <div class="bg-red-400 p-2 text-white">Item</div>
+        </div>
+        <p class="text-xs text-gray-600">gap-8</p>
+      </div>
+    </div>
+
+    <!-- Gap in Grid -->
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Grid: gap-[1-12]</p>
+      <div class="grid grid-cols-3 gap-3 mb-4">
+        <div class="bg-blue-400 p-4 text-white">Cell</div>
+        <div class="bg-blue-400 p-4 text-white">Cell</div>
+        <div class="bg-blue-400 p-4 text-white">Cell</div>
+      </div>
+      <p class="text-xs text-gray-600 mb-3">gap-3</p>
+
+      <div class="grid grid-cols-3 gap-6">
+        <div class="bg-blue-400 p-4 text-white">Cell</div>
+        <div class="bg-blue-400 p-4 text-white">Cell</div>
+        <div class="bg-blue-400 p-4 text-white">Cell</div>
+      </div>
+      <p class="text-xs text-gray-600">gap-6</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: Space-Between -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">5. Space-Between Utilities</h2>
+    
+    <div class="bg-gray-100 p-4 rounded space-y-3">
+      <p class="text-sm font-mono text-gray-600">Vertical: space-y-[1-12]</p>
+      <div class="space-y-1">
+        <div class="bg-amber-200 p-2">Item 1</div>
+        <div class="bg-amber-200 p-2">Item 2</div>
+        <div class="bg-amber-200 p-2">Item 3</div>
+      </div>
+      <p class="text-xs text-gray-600">space-y-1</p>
+
+      <div class="space-y-3">
+        <div class="bg-amber-200 p-2">Item 1</div>
+        <div class="bg-amber-200 p-2">Item 2</div>
+        <div class="bg-amber-200 p-2">Item 3</div>
+      </div>
+      <p class="text-xs text-gray-600">space-y-3</p>
+
+      <div class="space-y-6">
+        <div class="bg-amber-200 p-2">Item 1</div>
+        <div class="bg-amber-200 p-2">Item 2</div>
+        <div class="bg-amber-200 p-2">Item 3</div>
+      </div>
+      <p class="text-xs text-gray-600">space-y-6</p>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded">
+      <p class="text-sm font-mono mb-3 text-gray-600">Horizontal: space-x-[1-12]</p>
+      <div class="flex space-x-2 mb-3">
+        <div class="bg-indigo-300 px-3 py-2">A</div>
+        <div class="bg-indigo-300 px-3 py-2">B</div>
+        <div class="bg-indigo-300 px-3 py-2">C</div>
+      </div>
+      <p class="text-xs text-gray-600 mb-3">space-x-2</p>
+
+      <div class="flex space-x-4">
+        <div class="bg-indigo-300 px-3 py-2">A</div>
+        <div class="bg-indigo-300 px-3 py-2">B</div>
+        <div class="bg-indigo-300 px-3 py-2">C</div>
+      </div>
+      <p class="text-xs text-gray-600">space-x-4</p>
+    </div>
+  </section>
+
+  <!-- SECTION 6: Systematic Combinations -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">6. Systematic Combinations (Real-world example)</h2>
+    
+    <div class="bg-linear-to-r from-gray-50 to-gray-100 border-2 border-gray-300 rounded-lg">
+      <!-- Card header -->
+      <div class="px-6 py-4 bg-gray-900 text-white rounded-t-lg">
+        <h3 class="text-lg font-bold">Card Title</h3>
+      </div>
+
+      <!-- Card content -->
+      <div class="px-6 py-4">
+        <p class="mb-4">This example shows how spacing works together:</p>
+        <ul class="space-y-2 ml-4 mb-6">
+          <li class="text-sm"><span class="font-mono">px-6 py-4</span> = horizontal & vertical padding</li>
+          <li class="text-sm"><span class="font-mono">space-y-2</span> = gap between list items</li>
+          <li class="text-sm"><span class="font-mono">mb-6</span> = margin below the list</li>
+        </ul>
+      </div>
+
+      <!-- Card footer -->
+      <div class="px-6 py-4 bg-gray-100 border-t border-gray-300 flex gap-3 rounded-b-lg">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Button 1</button>
+        <button class="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">Button 2</button>
+      </div>
+    </div>
+
+    <p class="text-xs text-gray-600 italic">The card demonstrates px, py, mb, gap, and nested spacing hierarchy</p>
+  </section>
+
+  <!-- SECTION 7: Summary Table -->
+  <section class="space-y-4">
+    <h2 class="text-2xl font-semibold border-b-2 pb-2">7. Quick Reference</h2>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse border border-gray-300 text-sm">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border border-gray-300 p-2 text-left">Utility</th>
+            <th class="border border-gray-300 p-2 text-left">Use Case</th>
+            <th class="border border-gray-300 p-2 text-left">Scale (0.25rem = 4px)</th>
+          </tr>
+        </thead>
+        <tbody class="text-xs">
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-300 p-2 font-mono">m / mx / my</td>
+            <td class="border border-gray-300 p-2">Element outer spacing</td>
+            <td class="border border-gray-300 p-2">1-12 (4px - 48px)</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-300 p-2 font-mono">p / px / py</td>
+            <td class="border border-gray-300 p-2">Element inner spacing</td>
+            <td class="border border-gray-300 p-2">1-12 (4px - 48px)</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-300 p-2 font-mono">gap</td>
+            <td class="border border-gray-300 p-2">Flex/Grid item spacing</td>
+            <td class="border border-gray-300 p-2">1-12 (4px - 48px)</td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="border border-gray-300 p-2 font-mono">space-y / space-x</td>
+            <td class="border border-gray-300 p-2">Child element margins</td>
+            <td class="border border-gray-300 p-2">1-12 (4px - 48px)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>

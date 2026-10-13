@@ -1,6 +1,10 @@
 @import 'primeicons/primeicons.css';
 
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  --spacing: 4px;
+}
 
 /* Global card base styles */
 .card-base {
