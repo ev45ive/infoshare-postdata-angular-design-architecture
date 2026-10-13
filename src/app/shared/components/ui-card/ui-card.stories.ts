@@ -21,8 +21,7 @@ export const Primary: Story = {
     props: args,
     template: `<div class="grid gap-5">
         
-    <ui-card title="Simple card">
-
+    <ui-card title="Simple card title">
 
         <!-- <div class="text-2xl mb-1.5">Simple card</div> -->
 
@@ -34,9 +33,9 @@ export const Primary: Story = {
     
     <ui-card>
         
-        <div class="text-2xl mb-2">Simple card</div>
+        <div ui-card-title class="text-2xl mb-2">Complex card title</div>
 
-        <button class="-mt-[65.5px] ms-auto">Test</button>  <!-- Hidden coupling -->
+        <button ui-card-title class="-mt-[65.5px] mr-auto">Test</button>  Hidden coupling
         
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
