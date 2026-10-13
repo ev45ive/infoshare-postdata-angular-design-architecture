@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { UiCard } from '../ui-card/ui-card';
 
 @Component({
-  imports: [],
+  imports: [UiCard],
   selector: 'app-scratchpad',
   styles: `
     :host {
