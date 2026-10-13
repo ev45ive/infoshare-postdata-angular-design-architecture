@@ -20,9 +20,10 @@ export const Primary: Story = {
   render: (args) => ({
     props: args,
     template: `<div class="grid gap-5">
-    <ui-card>
+        
+    <ui-card title="Simple card">
 
-        <h1 class="text-2xl mb-1.5">Simple card</h1>
+        <!-- <div class="text-2xl mb-1.5">Simple card</div> -->
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
         repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
@@ -40,6 +41,29 @@ export const Primary: Story = {
         
     </ui-card>
     
-    </div>`,
+
+    <!-- 
+    # Encapsulation 
+        - What will stay the same - hide inside - <ui-card>
+        - What will change - expose outside <ui-card title=""> Content </ui-card>
+        
+    -->
+    
+    <!-- Hardcoded / Duplicated Card Semantics -->
+    <!-- <div class="border surface rounded shadow ... " -->
+        
+    <!-- CSS Card Semantics -->
+    <!-- <div class="ui-card ui-card--modifikator " -->
+        
+    <!-- Prime Component Card Semantics -->
+    <!-- <p-card class="p-card-override"></p-card> -->
+    
+    <!-- APP Component Card Semantics -->
+    <!-- <ui-card> -->
+
+    <!-- Overriding base class ??? -->
+    <!-- <ui-card> -->
+
+</div>`,
   }),
 };
