@@ -21,13 +21,12 @@ const stages = Object.keys(DealStageLabel) as DealStage[];
           }
         </select>
       </label>
-      
-      <app-deal-status-badge [stage]="stage()" />
 
+      <app-deal-status-badge [stage]="stage()" />
     </div>
   `,
 })
-class StoryWrapper {
+export class StoryWrapper {
   stage = signal<DealStage>('new');
   stages = stages;
 }
@@ -45,7 +44,7 @@ export default meta;
 type Story = StoryObj<DealStatusBadge>;
 
 export const Dynamic: Story = {
-  render: () => ({ component: StoryWrapper, props: {} }),
+  render: () => ({ component: StoryWrapper, props: {}, template: '<app-deal-status-badge/>' }),
 };
 
 export const New: Story = { args: { stage: 'new' } };

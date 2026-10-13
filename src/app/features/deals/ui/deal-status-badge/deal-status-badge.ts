@@ -32,11 +32,20 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
   imports: [Badge],
   selector: 'app-deal-status-badge',
   styles: `
-    :host {
-      display: block;
-    }
+    // :host p-badge {
+    //   background-color: red;
+    //   color: blue;
+    // }
+
+    // Reflect state to DOM / CSS
+    :host([data-deal-stage="new"]){ color: hotpink; }
+    :host([data-deal-stage="negotiation"]){ color: green; }
+
   `,
-  template: ` <p-badge [value]="stageLabel()" [class]="stageClasses()" /> `,
+  template: ` <p-badge [value]="stageLabel()" />`,
+  host: {
+    '[attr.data-deal-stage]': 'stage()', // component state reflection
+  },
 })
 export class DealStatusBadge {
   stage = input<DealStage | null>(null);
@@ -48,11 +57,5 @@ export class DealStatusBadge {
     if (stage) return DealStageLabel[stage];
 
     return 'Unknown';
-  });
-
-  stageClasses = computed(() => {
-    const stage = this.stage();
-
-    return stage ? DealStageClasses[stage] : UnknownStageClasses;
   });
 }
