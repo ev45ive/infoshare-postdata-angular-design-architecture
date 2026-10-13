@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { CardModule } from 'primeng/card';
 
 @Component({
-  imports: [],
+  imports: [CardModule],
   selector: 'ui-card',
   styles: [
     `
@@ -11,6 +12,10 @@ import { Component } from '@angular/core';
     `,
   ],
   // templateUrl: './ui-card.html',
-  template: `<p>ui-card works!</p> `,
+  template: `
+    <p-card>
+      <ng-content #content></ng-content>
+    </p-card>
+  `,
 })
 export class UiCard {}

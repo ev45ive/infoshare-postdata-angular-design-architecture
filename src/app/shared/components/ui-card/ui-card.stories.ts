@@ -19,6 +19,27 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   render: (args) => ({
     props: args,
-    template: `<ui-card />`,
+    template: `<div class="grid gap-5">
+    <ui-card>
+
+        <h1 class="text-2xl mb-1.5">Simple card</h1>
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
+        repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+        ratione quam perferendis esse, cupiditate neque quas!
+
+    </ui-card>
+    
+    <ui-card>
+        
+        <div class="text-2xl mb-2">Simple card</div>
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
+        repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
+        ratione quam perferendis esse, cupiditate neque quas!
+        
+    </ui-card>
+    
+    </div>`,
   }),
 };
