@@ -380,3 +380,375 @@ Two smaller problems:
 -  is no longer used, because the CSS-variable approach replaced the `[class]` binding. Keep one approach or the other.
 
 If you want, I can fix the CSS (variables, comments, all five stages) or revert to the `[class]` map. The `[class]` map is simpler, since Tailwind generates the colors for you.
+
+---
+
+_**User (2026-10-13 13:33:13Z)**_
+
+why chrome says   --badge-text-color is undefined in #attachment:deal-status-badge.ts 
+
+---
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+Chrome reports `--badge-text-color` as undefined because the variable it points to doesn't exist. I haven't opened devtools, so this comes from reading the code.
+
+1. **`--color-surface-100` and `--color-surface-700` are never defined.**
+   - In `src/styles.css` the `@theme inline` block only defines `--color-surface`, with no shades. Tailwind v4 has no built-in `surface` palette, and `tailwindcss-primeui` isn't imported.
+   - `@theme inline` also inlines values into utilities instead of emitting `:root` variables.
+   - When a custom property uses `var(--missing)` with no fallback, the property becomes invalid at computed-value time. That includes `--badge-text-color: var(--color-surface-100)` in `:root` and in the  rule. Devtools then shows `--badge-text-color` as undefined.
+   - PrimeNG defines `--p-surface-100` and `--p-surface-700`. Use those, or add a fallback such as `var(--color-surface-100, #f1f5f9)`.
+
+2. **The `//` comments still break the component styles.**
+   - The `// API` block is now commented line by line, but the `//` text still glues onto the next selector. As a result `p-badge { ... }` and `:host([data-deal-stage='new'])` are dropped, and only the  rule survives.
+   - Use `/* */` comments in inline styles.
+
+3. **Sky colors may not be emitted.** Tailwind v4 only emits `--color-*` theme variables it sees used. `--color-sky-100` and `--color-sky-800` are emitted only because  happens to contain `bg-sky-100` and `text-sky-800`. If you drop that map, add `@theme static { ... }`, or use `--color-sky-*` through utilities.
+
+4. **The border variable has a typo.** `--badge-boder-color` should be `--badge-border-color`.
+
+If you want, I can fix these in the file.
+
+---
+
+_**User (2026-10-13 13:35:28Z)**_
+
+create minimal ref palette for surface/on-surface or map to exisrting tailwind/primeng palette colors
+
+---
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `styles.css`
+
+**Input:**
+
+- endLine: `60`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\styles.css`
+- startLine: `1`
+
+**Result:**
+
+```
+@import 'primeicons/primeicons.css';
+
+@import 'tailwindcss';
+
+@theme {
+  --spacing: 4px;
+}
+
+/* Bridge to Tailwind utilities (bg-primary, text-on-primary, ...) */
+@theme {
+  /* --color-* - expands into bg-color, text-color, bolder-color */
+
+  --color-primary: var(--color-pink-500);
+
+  --color-surface: var(--sys-color-surface);
+  --color-on-surface: var(--sys-color-on-surface);
+  --color-primary: var(--sys-color-primary);
+  --color-on-primary: var(--sys-color-on-primary);
+  --color-danger: var(--sys-color-danger);
+}
+
+:root {
+  --badge-text-color: var(--color-surface-100);
+  --badge-bg-color: var(--color-surface-700);
+  --badge-border-color: currentColor;
+}
+
+/* 
+
+https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities
+
+ui-surface-1
+ui-surface-2
+ui-surface-... 
+
+@utility ui-surface-* {
+  background: var(--ds-surface-*);
+  color: var(--ds-on-surface-*);
+  border: 1px solid var(--ds-border-*);
+} 
+
+*/
+
+/* Global card base styles */
+.card-base {
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+  border: 2px solid var(--surface-300);
+  padding: 2rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.card-base:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `tokens.css`, lines 1 to 80
+
+**Input:**
+
+- endLine: `80`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\design\tokens.css`
+- startLine: `1`
+
+**Result:**
+
+```
+/*
+  Naming: --<tier>-<category>-<role>[-<variant>][-<state>]
+  Tiers:  ref (raw values) -> sys (meaning, themeable) -> com (per component)
+  Rule:   components read only com-*; com-* read only sys-*; sys-* read only ref-*.
+  Partial on purpose: only the tokens needed by the examples are defined.
+*/
+
+/* 
+
+# Token Tiers
+
+- Reference (ref-*): raw neutral, blue and red values, plus a small space and radius scale.
+    - Palettes, spacing, sizing, typography, radius, shadows, motion
+
+- System (sys-*): semantic roles such as surface, on-surface, border, primary, danger and focus ring. A [data-theme='dark'] block overrides only this tier.
+    - Surface, text, primary, danger, success, focus, border, elevation
+
+- Component (com-*): one full button example (primary and danger, with hover states) and a text input. A .promo-banner rule shows a local override with a fallback.
+    - Button, Card, Panel, DataGrid, Tabs, Dialog
+
+- Tailwind bridge: an @theme inline block exposes a few sys-* colors as Tailwind colors (bg-primary, text-on-primary and so on).
+    - Selected, Hover, Disabled
+*/
+
+@layer theme {
+  /* Reference - raw palette and scales, never used directly in components */
+  :root {
+    --ref-neutral-0: #ffffff;
+    --ref-neutral-100: #f3f4f6;
+    --ref-neutral-300: #d1d5db;
+    --ref-neutral-700: #374151;
+    --ref-neutral-900: #111827;
+    --ref-neutral-950: #030712;
+
+    --ref-blue-300: #93c5fd;
+    --ref-blue-600: #2563eb;
+    --ref-blue-700: #1d4ed8;
+
+    --ref-red-600: #dc2626;
+    --ref-red-700: #b91c1c;
+
+    --ref-space-1: 0.25rem;
+    --ref-space-2: 0.5rem;
+    --ref-space-3: 0.75rem;
+    --ref-space-4: 1rem;
+
+    --ref-radius-sm: 0.25rem;
+    --ref-radius-md: 0.5rem;
+  }
+
+  /* System - semantic roles; the only tier a theme needs to override */
+  :root {
+    --sys-color-surface: var(--ref-neutral-0);
+    --sys-color-surface-muted: var(--ref-neutral-100);
+    --sys-color-on-surface: var(--ref-neutral-950);
+   
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+No matches found. Your search pattern might be excluded completely by either the search.exclude settings or .*ignore files.
+If you believe that it should have results, you can check into the .*ignore files and the exclude setting (here are some excluded patterns for reference:[**/node_modules,**/bower_components,**/*.code-search]).
+Then if you want to include those files you can call the tool again by setting "includeIgnoredFiles" to true.
+
+**Input:**
+
+- includePattern: `{angular.json,src/**,.storybook/**}`
+- isRegexp: `false`
+- query: `tokens.css`
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+No matches found. Your search pattern might be excluded completely by either the search.exclude settings or .*ignore files.
+If you believe that it should have results, you can check into the .*ignore files and the exclude setting (here are some excluded patterns for reference:[**/node_modules,**/bower_components,**/*.code-search]).
+Then if you want to include those files you can call the tool again by setting "includeIgnoredFiles" to true.
+
+**Input:**
+
+- includePattern: `**/*.{json,ts,css,html,mdx}`
+- isRegexp: `false`
+- query: `design/tokens`
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+Searched for text `styles` (`**/angular.json`), 9 results
+
+**Input:**
+
+- includePattern: `angular.json`
+- isRegexp: `false`
+- query: `styles`
+
+**Result:**
+
+```
+Found 9 matches in 1 file for "styles"
+
+angular.json
+57:            "styles": [
+58:              "src/styles.css",
+59:              "src/styles.scss"
+104:            "styles": [
+105:              "src/styles.css",
+106:              "src/styles.scss"
+116:            "styles": [
+117:              "src/styles.css",
+118:              "src/styles.scss"
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+Searched for text `css` (`**/.storybook/**`), 6 results
+
+**Input:**
+
+- includePattern: `**/.storybook/**`
+- isRegexp: `false`
+- query: `css`
+
+**Result:**
+
+```
+Found 6 matches in 2 files for "css"
+
+.storybook/preview.ts
+6:import '../src/styles.css';
+7:import './styles.css';
+18:              cssLayer: {
+23:              cssVariables: {
+
+.storybook/typings.d.ts
+6:declare module '*.css';
+7:declare module '*.scss';
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+Searched for text `import` (`**/.storybook/**`), 15 results
+
+**Input:**
+
+- includePattern: `.storybook/**`
+- isRegexp: `false`
+- query: `import`
+
+**Result:**
+
+```
+Found 15 matches in 4 files for "import"
+
+.storybook/main.ts
+1:import type { StorybookConfig } from '@storybook/angular-vite';
+2:import remarkGfm from 'remark-gfm';
+30:    const { mergeConfig } = await import('vite');
+31:    const { default: tsconfigPaths } = await import('vite-tsconfig-paths');
+
+.storybook/preview.ts
+1:import type { Preview } from '@storybook/angular-vite';
+2:import { applicationConfig } from '@storybook/angular-vite';
+3:import { providePrimeNG } from 'primeng/config';
+4:import { provideRouter } from '@angular/router';
+5:import Aura from '@primeuix/themes/aura';
+6:import '../src/styles.css';
+7:import './styles.css';
+
+.storybook/styles.css
+26:  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+31:  font-family: "primeicons" !important;
+36:  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+
+.storybook/tsconfig.json
+5:    "allowSyntheticDefaultImports": true,
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **styles.css**</summary>
+
+@@ lines 23-24 @@
+
+```
+sys-color-on-surface);
+  --badge-bg-color: var(--sys-color-surface-muted
+```
+
+@@ lines 16-16 @@
+
+```
+surface-100: var(--ref-neutral-100);
+  --color-surface-300: var(--ref-neutral-300);
+  --color-surface-700: var(--ref-neutral-700);
+  --color-
+```
+
+@@ lines 4-4 @@
+
+```
+@import './design/tokens.css';
+
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+I mapped the surface shades to your existing neutral tokens in `src/styles.css` instead of adding a new palette. I haven't run the app or Storybook, so this is untested.
+
+- **`tokens.css` import:** `src/design/tokens.css` wasn't imported anywhere, so every `--ref-*` and `--sys-*` variable was undefined. That also broke `--color-primary` and `--color-surface`. I added `@import './design/tokens.css';` after the Tailwind import.
+- **Surface shades:** `--color-surface-100/300/700` now point to `--ref-neutral-100/300/700`. Tailwind's `bg-surface-100` and `text-surface-700` now exist, and  in the badge uses them.
+- **Badge defaults:** `--badge-bg-color` is now `--sys-color-surface-muted` and `--badge-text-color` is `--sys-color-on-surface`. The default badge is light with dark text, and both values follow the dark theme.
+
+Three things to check:
+- `--ref-neutral-*` only has the 0, 100, 300, 700, 900 and 950 steps. Other shades such as `surface-500` would need extra `--ref-neutral-*` values in `tokens.css`.
+- The `.card-base` rule still reads `var(--surface-300)`, which is undefined. Change it to `var(--color-surface-300)` if you want that border to work.
+- The component styles in `src/app/features/deals/ui/deal-status-badge/deal-status-badge.ts` still use `//` comments, the `--badge-boder-color` typo and the old `--color-surface-*` names in the  rule. I haven't changed that file.
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 3 todos
+</details></tool-use>

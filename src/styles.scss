@@ -35,14 +35,3 @@
   //   --p-badge-primary-background: var(--p-primary-color);
   --p-badge-primary-background: red;
 }
-
-/* Component overrides */
-/* @import 'componetns/badge/overrides.css */
-
-.bo-ida-swieta-badges-override app-deal-status-badge {
-  --badge-bg-color-override: red;
-}
-
-app-deal-status-badge.bo-ida-swieta-override {
-  --badge-bg-color-override: red;
-}

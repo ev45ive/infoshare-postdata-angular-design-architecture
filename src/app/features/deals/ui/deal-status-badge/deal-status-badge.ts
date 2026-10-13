@@ -33,18 +33,18 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
   selector: 'app-deal-status-badge',
   styles: `
     // API
-    :host {
-      // Co to robi?
-      --badge-text-color: var(--badge-text-color-override, var(--color-surface-100));
-      --badge-bg-color: var(--badge-bg-color-override, var(--color-surface-700));
-      --badge-border-color: currentColor;
-    }
+    // :host {
+    //   // Co to robi?
+    //   --badge-text-color: var(--badge-text-color-override, var(--color-surface-100));
+    //   --badge-bg-color: var(--badge-bg-color-override, var(--color-surface-700));
+    //   --badge-border-color: currentColor;
+    // }
 
     // Structure:
     p-badge {
-      background-color: var(--badge-bg-color);
       color: var(--badge-text-color);
-      border-color: var(--badge-boder-color);
+      background-color: var(--badge-bg-color);
+      border-color: var(--badge-border-color);
     }
 
     // Variants / Overrides / State

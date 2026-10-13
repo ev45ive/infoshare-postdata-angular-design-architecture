@@ -1,22 +1,45 @@
 @import 'primeicons/primeicons.css';
 
 @import 'tailwindcss';
+@import './design/tokens.css';
 
 @theme {
   --spacing: 4px;
 }
 
 /* Bridge to Tailwind utilities (bg-primary, text-on-primary, ...) */
-@theme inline {
+@theme {
   /* --color-* - expands into bg-color, text-color, bolder-color */
 
   --color-primary: var(--color-pink-500);
 
   --color-surface: var(--sys-color-surface);
+  --color-surface-100: var(--ref-neutral-100);
+  --color-surface-300: var(--ref-neutral-300);
+  --color-surface-700: var(--ref-neutral-700);
   --color-on-surface: var(--sys-color-on-surface);
   --color-primary: var(--sys-color-primary);
   --color-on-primary: var(--sys-color-on-primary);
   --color-danger: var(--sys-color-danger);
+}
+
+/* Component base tokens -> Sys/Ref tokens */
+/* @include "design/componetns/badge.tokens.css" */
+:root {
+  --badge-text-color: var(--sys-color-on-surface);
+  --badge-bg-color: var(--sys-color-surface-muted);
+  --badge-border-color: currentColor;
+}
+
+/* Component overrides */
+/* @import 'componetns/badge/overrides.css */
+
+.bo-ida-swieta-badges-override app-deal-status-badge {
+  --badge-bg-color-override: red;
+}
+
+app-deal-status-badge.bo-ida-swieta-override {
+  --badge-bg-color-override: red;
 }
 
 /* 
@@ -34,7 +57,6 @@ ui-surface-...
 } 
 
 */
-
 
 /* Global card base styles */
 .card-base {
