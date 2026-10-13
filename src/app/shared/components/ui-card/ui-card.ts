@@ -28,6 +28,11 @@ export class UiCard {
   // Content / Params (optional/default)
   title = input('');
 
+
+  //
+  // Configuration driven 
+  //
+
   // Flags:
 
   // icon = input()
@@ -35,9 +40,15 @@ export class UiCard {
   // disabled = input()
   // someRandomFlag = input()
   // sameFlagAsPrimeNG = input()
-
+  
   // Configs
-
+  
   // passThrough = input<PTConfig>()
   // config = input<UICARDCONFIG>()
+  
+  // Orthogonal Variants
+  
+  // isBig = input()
+  // isSmall  = input()
+  // size = input<'small|'medium;|'large'>()
 }
