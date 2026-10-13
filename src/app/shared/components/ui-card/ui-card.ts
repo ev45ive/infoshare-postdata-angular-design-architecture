@@ -75,7 +75,7 @@ export class UiCardFooter {}
 @Component({
   imports: [CardModule],
   selector: 'ui-card-actions',
-  template: `<div class="py-2">
+  template: `<div class="py-2 flex justify-between">
     <ng-content />
 
     <ng-content select="button,[uiButton]" />

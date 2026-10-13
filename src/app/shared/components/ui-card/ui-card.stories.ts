@@ -52,8 +52,9 @@ export const Primary: Story = {
         repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
         ratione quam perferendis esse, cupiditate neque quas!
 
-        <ui-card-actions>
+        <ui-card-actions spread="full">
             <!-- <button pButton intent="success" class="mr-5">Save</button> - is layout my responsibility? -->
+            <button pButton intent="success" class="mr-5">Save</button>
             <button pButton intent="danger">Delete</button>
         </ui-card-actions>
         
