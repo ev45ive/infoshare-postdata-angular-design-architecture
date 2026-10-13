@@ -6,6 +6,20 @@
   --spacing: 4px;
 }
 
+/* Bridge to Tailwind utilities (bg-primary, text-on-primary, ...) */
+@theme inline {
+  /* --color-* - expands into bg-color, text-color, bolder-color */
+
+  --color-primary: var(--color-pink-500);
+
+  --color-surface: var(--sys-color-surface);
+  --color-on-surface: var(--sys-color-on-surface);
+  --color-primary: var(--sys-color-primary);
+  --color-on-primary: var(--sys-color-on-primary);
+  --color-danger: var(--sys-color-danger);
+}
+
+
 /* Global card base styles */
 .card-base {
   background-color: #f3f4f6;

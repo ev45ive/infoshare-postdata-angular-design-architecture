@@ -1,0 +1,139 @@
+/*
+  Naming: --<tier>-<category>-<role>[-<variant>][-<state>]
+  Tiers:  ref (raw values) -> sys (meaning, themeable) -> com (per component)
+  Rule:   components read only com-*; com-* read only sys-*; sys-* read only ref-*.
+  Partial on purpose: only the tokens needed by the examples are defined.
+*/
+
+/* 
+
+# Token Tiers
+
+- Reference (ref-*): raw neutral, blue and red values, plus a small space and radius scale.
+    - Palettes, spacing, sizing, typography, radius, shadows, motion
+
+- System (sys-*): semantic roles such as surface, on-surface, border, primary, danger and focus ring. A [data-theme='dark'] block overrides only this tier.
+    - Surface, text, primary, danger, success, focus, border, elevation
+
+- Component (com-*): one full button example (primary and danger, with hover states) and a text input. A .promo-banner rule shows a local override with a fallback.
+    - Button, Card, Panel, DataGrid, Tabs, Dialog
+
+- Tailwind bridge: an @theme inline block exposes a few sys-* colors as Tailwind colors (bg-primary, text-on-primary and so on).
+    - Selected, Hover, Disabled
+*/
+
+@layer theme {
+  /* Reference - raw palette and scales, never used directly in components */
+  :root {
+    --ref-neutral-0: #ffffff;
+    --ref-neutral-100: #f3f4f6;
+    --ref-neutral-300: #d1d5db;
+    --ref-neutral-700: #374151;
+    --ref-neutral-900: #111827;
+    --ref-neutral-950: #030712;
+
+    --ref-blue-300: #93c5fd;
+    --ref-blue-600: #2563eb;
+    --ref-blue-700: #1d4ed8;
+
+    --ref-red-600: #dc2626;
+    --ref-red-700: #b91c1c;
+
+    --ref-space-1: 0.25rem;
+    --ref-space-2: 0.5rem;
+    --ref-space-3: 0.75rem;
+    --ref-space-4: 1rem;
+
+    --ref-radius-sm: 0.25rem;
+    --ref-radius-md: 0.5rem;
+  }
+
+  /* System - semantic roles; the only tier a theme needs to override */
+  :root {
+    --sys-color-surface: var(--ref-neutral-0);
+    --sys-color-surface-muted: var(--ref-neutral-100);
+    --sys-color-on-surface: var(--ref-neutral-950);
+    --sys-color-border: var(--ref-neutral-300);
+
+    --sys-color-primary: var(--ref-blue-600);
+    --sys-color-primary-hover: var(--ref-blue-700);
+    --sys-color-on-primary: var(--ref-neutral-0);
+
+    --sys-color-danger: var(--ref-red-600);
+    --sys-color-danger-hover: var(--ref-red-700);
+    --sys-color-on-danger: var(--ref-neutral-0);
+
+    --sys-color-focus-ring: var(--ref-blue-600);
+
+    --sys-space-inline: var(--ref-space-4);
+    --sys-space-stack: var(--ref-space-2);
+    --sys-radius-control: var(--ref-radius-md);
+  }
+
+  /* Dark theme - remaps sys roles only, ref and com stay untouched */
+  [data-theme='dark'] {
+    --sys-color-surface: var(--ref-neutral-950);
+    --sys-color-surface-muted: var(--ref-neutral-900);
+    --sys-color-on-surface: var(--ref-neutral-100);
+    --sys-color-border: var(--ref-neutral-700);
+
+    --sys-color-primary: var(--ref-blue-300);
+    --sys-color-primary-hover: var(--ref-blue-600);
+    --sys-color-on-primary: var(--ref-neutral-950);
+
+    --sys-color-focus-ring: var(--ref-blue-300);
+  }
+
+  /* Component - button; variants/states are defined once, the component only consumes them */
+  :root {
+    --com-button-padding-block: var(--ref-space-2);
+    --com-button-padding-inline: var(--sys-space-inline);
+    --com-button-radius: var(--sys-radius-control);
+
+    /* primary (default) */
+    --com-button-surface: var(--sys-color-primary);
+    --com-button-surface-hover: var(--sys-color-primary-hover);
+    --com-button-on-surface: var(--sys-color-on-primary);
+
+    /* danger variant */
+    --com-button-danger-surface: var(--sys-color-danger);
+    --com-button-danger-surface-hover: var(--sys-color-danger-hover);
+    --com-button-danger-on-surface: var(--sys-color-on-danger);
+
+    --com-button-focus-ring: var(--sys-color-focus-ring);
+  }
+
+  /* Component - text input */
+  :root {
+    --com-input-surface: var(--sys-color-surface);
+    --com-input-on-surface: var(--sys-color-on-surface);
+    --com-input-border: var(--sys-color-border);
+    --com-input-border-focus: var(--sys-color-focus-ring);
+    --com-input-border-invalid: var(--sys-color-danger);
+    --com-input-radius: var(--sys-radius-control);
+  }
+
+  /* Local override - a single instance re-points one com token, with a fallback to the default */
+  .promo-banner {
+    --com-button-surface-hover: var(--promo-button-surface-hover, var(--ref-blue-300));
+  }
+}
+
+/* EXAMPLE: Manual mapping to CSS classes  */
+/* .bg-primary{ background-color: var(--sys-color-primary); } */
+
+/* EXAMPLE: SCSS mixin mapping to CSS classes  */
+/* @for @mixin bgColor($colors...  */
+
+/* Bridge to Tailwind utilities (bg-primary, text-on-primary, ...) */
+@theme inline {
+  /* --color-* - expands into bg-color, text-color, bolder-color */
+
+  --color-primary: var(--color-pink-500);
+
+  --color-surface: var(--sys-color-surface);
+  --color-on-surface: var(--sys-color-on-surface);
+  --color-primary: var(--sys-color-primary);
+  --color-on-primary: var(--sys-color-on-primary);
+  --color-danger: var(--sys-color-danger);
+}
