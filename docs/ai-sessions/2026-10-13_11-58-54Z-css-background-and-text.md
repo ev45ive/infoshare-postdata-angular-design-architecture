@@ -352,3 +352,31 @@ _**Agent (copilot/claude-sonnet-5.5)**_
 
 Created 1 todo
 </details></tool-use>
+
+---
+
+_**User (2026-10-13 12:56:19Z)**_
+
+why variants dont change color
+
+---
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+The variants don't change color for four reasons, all in the  block of `src/app/features/deals/ui/deal-status-badge/deal-status-badge.ts`. I haven't run it, so this comes from reading the file.
+
+1. **`//` comments in inline styles.** Component  are plain CSS, not SCSS. In CSS, `// API :host { ... }` is parsed as one invalid selector, so the browser drops the rule. That removes the `:host` defaults, the `p-badge` rule and the  variant, so the  variant never applies. Use `/* ... */` comments, or move the styles to a `.scss` file.
+
+2. **Wrong variable names.**
+   - `--bg-sky-100`, `--text-sky-800` and `--bg-surface-100` don't exist. Tailwind v4 theme variables are named like `--color-sky-100` and `--color-sky-800`. PrimeNG surface variables are `--p-surface-100` and `--p-surface-700`.
+   - An unresolved `var()` makes the property invalid at computed-value time, so the color is dropped.
+
+3. **Swapped values.** The default `--badge-text-color` is set to `--bg-surface-100` and `--badge-bg-color` to `--text-surface-700`. The  variant has the same swap. It also repeats the default values, so it wouldn't look different anyway.
+
+4. **Typo.** `--badge-border-color` is defined, but the rule reads `--badge-boder-color`.
+
+Two smaller problems:
+-  is `private` but the template uses it. With strict templates this is a compile error. Make it `protected`.
+-  is no longer used, because the CSS-variable approach replaced the `[class]` binding. Keep one approach or the other.
+
+If you want, I can fix the CSS (variables, comments, all five stages) or revert to the `[class]` map. The `[class]` map is simpler, since Tailwind generates the colors for you.
