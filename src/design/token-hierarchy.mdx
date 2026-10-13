@@ -20,3 +20,35 @@ Button, Card, Panel, DataGrid, Tabs, Dialog
 CSS · Angular directives · hostDirectives · CVA
 
 ---
+
+# Token hierarchy
+
+| Poziom | Przykłady | Zasada |
+|--------|--------|--------|
+| Reference | `blue-600`, `gray-100`, `spacing-2`, `radius-md` | Surowe wartości, niezależne od zastosowania |
+| System | `control-height`, `content-max-width`, `font-body` | Wspólne reguły systemu |
+| Semantic | `surface`, `on-surface`, `primary`, `danger`, `focus-ring` | Znaczenie i przeznaczenie |
+| Component | `button-bg`, `card-padding`, `grid-row-height` | Kontrakt konkretnego komponentu |
+| Instance | Jeden przycisk, panel lub DataGrid | Lokalna konfiguracja/wyjątek |
+
+To odpowiada zasadniczo podejściu PrimeNG: primitive → semantic → component. 
+
+
+---
+
+### Zalecany zestaw kategorii
+
+| Kategoria | Reference / system | Semantic |
+|--------|--------|--------|
+| Color | `blue-600`, `gray-50` | `primary`, `surface`, `danger` |
+| Text | `font-size-sm`, `weight-semibold` | `body`, `heading`, `caption` |
+| Spacing | `space-1`, `space-2`, `space-4` | `control-padding`, `panel-gap` |
+| Sizing | `size-8`, `size-10` | `control-height`, `touch-target` |
+| Radius | `radius-sm`, `radius-lg` | `control-radius`, `surface-radius` |
+| Elevation | `shadow-sm`, `shadow-lg` | `raised`, `overlay`, `modal` |
+| Borders | `1px`, `2px` | `border-subtle`, `border-strong` |
+| Motion | `duration-fast`, `ease-standard` | `expand-motion`, `interactive-motion` |
+| Layers | Numeric z-index scale | `dropdown`, `popover`, `modal`, `toast` |
+| Breakpoints | Screen sizes | Layout adaptations / container rules |
+
+Opinionated rule: **Don't tokenize every CSS value.** Tokenize values that are repeated, represent a design decision, or are expected to change together.

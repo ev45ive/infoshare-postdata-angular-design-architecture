@@ -19,6 +19,22 @@
   --color-danger: var(--sys-color-danger);
 }
 
+/* 
+
+https://tailwindcss.com/docs/adding-custom-styles#adding-custom-utilities
+
+ui-surface-1
+ui-surface-2
+ui-surface-... 
+
+@utility ui-surface-* {
+  background: var(--ds-surface-*);
+  color: var(--ds-on-surface-*);
+  border: 1px solid var(--ds-border-*);
+} 
+
+*/
+
 
 /* Global card base styles */
 .card-base {
