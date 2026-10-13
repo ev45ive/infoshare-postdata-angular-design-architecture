@@ -50,6 +50,7 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
 export class DealStatusBadge {
   stage = input<DealStage | null>(null);
 
+
   // computed(fn) - EXCEL: ""=SUM(A1,B2)" // tracks A1,B2
   private stageLabel = computed(() => {
     const stage = this.stage();

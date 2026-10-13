@@ -81,3 +81,5 @@ npm run storybook
 https://m3.material.io/foundations/design-tokens/overview
 https://v21.primeng.org/theming/styled#architecture
 
+# @Input -> input() signal
+https://angular.dev/reference/migrations/signal-inputs
