@@ -38,8 +38,8 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
     // }
 
     // Reflect state to DOM / CSS
-    :host([data-deal-stage="new"]){ color: hotpink; }
-    :host([data-deal-stage="negotiation"]){ color: green; }
+    :host([data-deal-stage="new"]) p-badge { color: hotpink;  background-color: blue;}
+    :host([data-deal-stage="negotiation"]) p-badge { color: green; }
 
   `,
   template: ` <p-badge [value]="stageLabel()" />`,
@@ -51,7 +51,7 @@ export class DealStatusBadge {
   stage = input<DealStage | null>(null);
 
   // computed(fn) - EXCEL: ""=SUM(A1,B2)" // tracks A1,B2
-  stageLabel = computed(() => {
+  private stageLabel = computed(() => {
     const stage = this.stage();
 
     if (stage) return DealStageLabel[stage];
