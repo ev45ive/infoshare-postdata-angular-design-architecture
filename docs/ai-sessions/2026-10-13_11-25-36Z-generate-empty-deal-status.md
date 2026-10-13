@@ -575,3 +575,717 @@ _**Agent (copilot/claude-sonnet-5.5)**_
  in `deal-status-badge.ts` now imports  from `primeng/badge`. The placeholder template is replaced with `<p-badge value="Status" />`. The editor reports no errors in that file. I haven't run the app or Storybook.
 
 The `value="Status"` text is a placeholder, so change it to whatever the badge should show.
+
+---
+
+_**User (2026-10-13 11:37:34Z)**_
+
+add local enum for deal stages
+ -  status -> Label
+
+new -> 'New'
+...
+negotiation ... 
+propsoal ... 
+closed-lost -> 'Closed (lost)'
+
+
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `deal-status-badge.ts`
+
+**Input:**
+
+- endLine: `20`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.ts`
+- startLine: `1`
+
+**Result:**
+
+```
+import { Component, input } from '@angular/core';
+import { Badge } from 'primeng/badge';
+
+@Component({
+  imports: [Badge],
+  selector: 'app-deal-status-badge',
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+  template: ` <p-badge [value]="stage()" /> `,
+})
+export class DealStatusBadge {
+  stage = input('')
+}
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.ts**</summary>
+
+@@ lines 1-15 @@
+
+```
+computed, input } from '@angular/core';
+import { Badge } from 'primeng/badge';
+
+enum DealStageLabel {
+  New = 'New',
+  Negotiation = 'Negotiation',
+  Proposal = 'Proposal',
+  ClosedLost = 'Closed (lost)',
+}
+
+@Component({
+  imports: [Badge],
+  selector: 'app-deal-status-badge',
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+  template: ` <p-badge [value]="stageLabel()" /> `,
+})
+export class DealStatusBadge {
+  stage = input('');
+  stageLabel = computed(() => DealStageLabel[this.stage() as keyof typeof DealStageLabel] || this.stage());
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Added  enum with the four stages mapping to their display labels, and a  computed that looks up the label (falls back to the input value if not found). Updated the template to use .
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 2 todos
+</details></tool-use>
+
+---
+
+_**User (2026-10-13 11:38:33Z)**_
+
+change to object map/dict
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.ts**</summary>
+
+@@ lines 4-10 @@
+
+```
+const DealStageLabel = {
+  New: 'New',
+  Negotiation: 'Negotiation',
+  Proposal: 'Proposal',
+  ClosedWon: 'Closed (won)',
+  ClosedLost: 'Closed (lost)',
+} as const;
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Changed  to a `const` object with `as const` for type safety. The computed function works identically.
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 2 todos
+</details></tool-use>
+
+---
+
+_**User (2026-10-13 11:48:02Z)**_
+
+add <select> that changes current stage dynamicaly
+
+Story with multiple static stages
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.stories.ts**</summary>
+
+@@ lines 2-20 @@
+
+```
+Component, signal } from '@angular/core';
+import { DealStatusBadge } from './deal-status-badge';
+
+const stages = ['New', 'Negotiation', 'Proposal', 'ClosedWon', 'ClosedLost'];
+
+@Component({
+  selector: 'app-story-wrapper',
+  standalone: true,
+  imports: [DealStatusBadge],
+  template: `
+    <div class="flex flex-col gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-2">Select Stage:</label>
+        <select (change)="stage.set($event.target.value)" [value]="stage()" class="border rounded px-2 py-1">
+          @for (s of stages; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+      </div>
+      <app-deal-status-badge [stage]="stage()" />
+    </div>
+  `,
+})
+class StoryWrapperComponent {
+  stage = signal('New');
+  stages = stages;
+}
+
+const meta: Meta<DealStatusBadge> = {
+  title: 'Features/Deals/DealStatusBadge',
+  component: DealStatusBadge,
+  tags: ['autodocs'],
+  argTypes: {},
+};
+
+export default meta;
+type Story = StoryObj<DealStatusBadge>;
+
+export const Dynamic: Story = {
+  render: () => ({
+    component: StoryWrapperComponent,
+  }),
+};
+
+export const New: Story = {
+  render: () => ({
+    component: DealStatusBadge,
+    props: { stage: 'New' },
+    template: `<app-deal-status-badge [stage]="'New'" />`,
+  }),
+};
+
+export const Negotiation: Story = {
+  render: () => ({
+    component: DealStatusBadge,
+    props: { stage: 'Negotiation' },
+    template: `<app-deal-status-badge [stage]="'Negotiation'" />`,
+  }),
+};
+
+export const Proposal: Story = {
+  render: () => ({
+    component: DealStatusBadge,
+    props: { stage: 'Proposal' },
+    template: `<app-deal-status-badge [stage]="'Proposal'" />`,
+  }),
+};
+
+export const ClosedWon: Story = {
+  render: () => ({
+    component: DealStatusBadge,
+    props: { stage: 'ClosedWon' },
+    template: `<app-deal-status-badge [stage]="'ClosedWon'" />`,
+  }),
+};
+
+export const ClosedLost: Story = {
+  render: () => ({
+    component: DealStatusBadge,
+    props: { stage: 'ClosedLost' },
+    template: `<app-deal-status-badge [stage]="'ClosedLost'
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Added a `Dynamic` story with an interactive `<select>` dropdown that changes the stage in real time, plus individual static stories for each stage (`New`, `Negotiation`, `Proposal`, `ClosedWon`, `ClosedLost`).
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 2 todos
+</details></tool-use>
+
+---
+
+_**User (2026-10-13 11:50:56Z)**_
+
+join those as one story with variants
+
+---
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.stories.ts**</summary>
+
+@@ lines 38-88 @@
+
+```
+
+    stage: {
+      control: { type: 'select' },
+      options: stages,
+    },
+  },
+};
+
+export default meta;
+type Story = StoryObj<DealStatusBadge>;
+
+export const Primary: Story = {
+  args: { stage: 'New' },
+};
+
+export const Dynamic: Story = {
+  render: () => ({
+    component: StoryWrapperComponent,
+  }),
+};
+
+export const New: Story = {
+  args: { stage: 'New' },
+};
+
+export const Negotiation: Story = {
+  args: { stage: 'Negotiation' },
+};
+
+export const Proposal: Story = {
+  args: { stage: 'Proposal' },
+};
+
+export const ClosedWon: Story = {
+  args: { stage: 'ClosedWon' },
+};
+
+export const ClosedLost: Story = {
+  args: { stage: 'ClosedLost' }
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+Simplified the stories. Each stage variant (New, Negotiation, Proposal, ClosedWon, ClosedLost) now uses Storybook's built-in `argTypes` control with a select dropdown. All variants share the same component rendering logic—just different `args` values. The `Dynamic` story still has the wrapper component with its own interactive select.
+
+_**Agent (copilot/claude-haiku-4.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 1 todo
+</details></tool-use>
+
+---
+
+_**User (2026-10-13 11:55:24Z)**_
+
+doent work, no <select> visible
+
+---
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `deal-status-badge.ts`, lines 1 to 30
+
+**Input:**
+
+- endLine: `30`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.ts`
+- startLine: `1`
+
+**Result:**
+
+```
+import { Component, computed, input, signal } from '@angular/core';
+import { Badge } from 'primeng/badge';
+
+export const DealStageLabel = {
+  new: 'New',
+  negotiation: 'Negotiation',
+  proposal: 'Proposal',
+  'closed-won': 'Closed (won)',
+  'closed-lost': 'Closed (lost)',
+} as const;
+
+type DealStage = keyof typeof DealStageLabel;
+
+@Component({
+  imports: [Badge],
+  selector: 'app-deal-status-badge',
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+  template: ` <p-badge [value]="stageLabel()" /> `,
+})
+export class DealStatusBadge {
+  stage = signal<DealStage | null>(null);
+
+  // label = DealStageLabel[this.stage()]; // construtor before render
+
+  // computed(fn) - EXCEL: ""=SUM(A1,B2)" // tracks A1,B2
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `deal-status-badge.ts`, lines 26 to 39
+
+**Input:**
+
+- endLine: `60`
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.ts`
+- startLine: `26`
+
+**Result:**
+
+```
+
+  // label = DealStageLabel[this.stage()]; // construtor before render
+
+  // computed(fn) - EXCEL: ""=SUM(A1,B2)" // tracks A1,B2
+
+  stageLabel = computed(() => {
+    const stage = this.stage();
+    
+    if (stage) return DealStageLabel[stage];
+
+    return 'Unknown';
+  });
+}
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `deal-status-badge.stories.ts.new`
+
+**Input:**
+
+- content: ``
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.stories.ts.new`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.stories.ts.new
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.ts**</summary>
+
+@@ lines 25-25 @@
+
+```
+input
+```
+
+@@ lines 12-12 @@
+
+```
+export 
+```
+
+@@ lines 1-1 @@ (deleted)
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.stories.ts.new**</summary>
+
+@@ lines 1-1 @@ (deleted)
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` rm src/app/features/deals/ui/deal-status-badge/deal-status-badge.stories.ts.new`
+
+Remove stray empty file created by mistake
+
+```bash
+rm src/app/features/deals/ui/deal-status-badge/deal-status-badge.stories.ts.new
+```
+
+**Result:**
+
+```
+
+
+Command produced no output
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+Now rewrite the story file. 
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="multi_replace_string_in_file"><details>
+<summary>Tool use: **multi_replace_string_in_file**</summary>
+
+Multi-Replace String in Files
+
+**Input:**
+
+- explanation: `Fix stories: use real stage keys, args-based stories, working wrapper`
+- replacements: `[{"filePath": "c:\\Projects\\infoshare-postdata-angular-design-architecture\\src\\app\\features\\deals\\ui\\deal-status-badge\\deal-status-badge.stories.ts", "newString">"import type { Meta, StoryObj } from '@storybook/angular-vite';\nimport { Component, signal } from '@angular/core';\nimport { DealStageLabel, DealStage, DealStatusBadge } from './deal-status-badge';\n\nconst stages = Object.keys(DealStageLabel) as DealStage[];\n\n@Component({\n  selector: 'app-story-wrapper',\n  imports: [DealStatusBadge],\n  template: `\n    <div class=\"flex flex-col gap-4\">\n      <label class=\"flex flex-col gap-2 text-sm font-medium\">\n        Select stage\n        <select\n          (change)=\"stage.set($any($event.target).value)\"\n          [value]=\"stage()\"\n          class=\"border rounded px-2 py-1\"\n        >\n          @for (s of stages; track s) {\n            <option [value]=\"s\">{{ s }}</option>\n          }\n        </select>\n      </label>\n      <app-deal-status-badge [stage]=\"stage()\" />\n    </div>\n  `,\n})\nclass StoryWrapper {\n  stage = signal<DealStage>('new');\n  stages = stages;\n}\n\nconst meta: Meta<DealStatusBadge> = {\n  title: 'Features/Deals/DealStatusBadge',\n  component: DealStatusBadge,\n  tags: ['autodocs'],\n  argTypes: {\n    stage: { control: 'select', options: stages },\n  },\n};\n\nexport default meta;\ntype Story = StoryObj<DealStatusBadge>;\n\nexport const Dynamic: Story = {\n  render: () => ({ component: StoryWrapper }),\n};\n\nexport const New: Story = { args: { stage: 'new' } };\nexport const Negotiation: Story = { args: { stage: 'negotiation' } };\nexport const Proposal: Story = { args: { stage: 'proposal' } };\nexport const ClosedWon: Story = { args: { stage: 'closed-won' } };\nexport const ClosedLost: Story = { args: { stage: 'closed-lost' } };\n", "oldString": "PLACEHOLDER"}]`
+
+**Result:**
+
+```
+ERROR: Your input to the tool was invalid (must be array)
+Please check your input and try again.
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` rm src/app/features/deals/ui/deal-status-badge/deal-status-badge.stories.ts`
+
+Remove the story file so it can be rewritten in full
+
+```bash
+rm src/app/features/deals/ui/deal-status-badge/deal-status-badge.stories.ts
+```
+
+**Result:**
+
+```
+
+
+Command produced no output
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="create_file"><details>
+<summary>Tool use: **create_file**</summary>
+
+Created `deal-status-badge.stories.ts`
+
+**Input:**
+
+- content:
+
+```
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { Component, signal } from '@angular/core';
+import { DealStageLabel, DealStage, DealStatusBadge } from './deal-status-badge';
+
+const stages = Object.keys(DealStageLabel) as DealStage[];
+
+@Component({
+  selector: 'app-story-wrapper',
+  imports: [DealStatusBadge],
+  template: `
+    <div class="flex flex-col gap-4">
+      <label class="flex flex-col gap-2 text-sm font-medium">
+        Select stage
+        <select
+          (change)="stage.set($any($event.target).value)"
+          [value]="stage()"
+          class="border rounded px-2 py-1"
+        >
+          @for (s of stages; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+      </label>
+      <app-deal-status-badge [stage]="stage()" />
+    </div>
+  `,
+})
+class StoryWrapper {
+  stage = signal<DealStage>('new');
+  stages = stages;
+}
+
+const meta: Meta<DealStatusBadge> = {
+  title: 'Features/Deals/DealStatusBadge',
+  component: DealStatusBadge,
+  tags: ['autodocs'],
+  argTypes: {
+    stage: { control: 'select', options: stages },
+  },
+};
+
+export default meta;
+type Story = StoryObj<DealStatusBadge>;
+
+export const Dynamic: Story = {
+  render: () => ({ component: StoryWrapper }),
+};
+
+export const New: Story = { args: { stage: 'new' } };
+export const Negotiation: Story = { args: { stage: 'negotiation' } };
+export const Proposal: Story = { args: { stage: 'proposal' } };
+export const ClosedWon: Story = { args: { stage: 'closed-won' } };
+export const ClosedLost: Story = { args: { stage: 'closed-lost' } };
+
+```
+
+- filePath: `c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.stories.ts`
+
+**Result:**
+
+```
+The following files were successfully edited:
+c:\Projects\infoshare-postdata-angular-design-architecture\src\app\features\deals\ui\deal-status-badge\deal-status-badge.stories.ts
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="generic" data-tool-name="get_errors"><details>
+<summary>Tool use: **get_errors**</summary>
+
+Checked , no problems found
+
+**Input:**
+
+- filePaths:
+
+```
+[
+  "c:\\Projects\\infoshare-postdata-angular-design-architecture\\src\\app\\features\\deals\\ui\\deal-status-badge"
+]
+```
+
+
+**Result:**
+
+```
+No errors found.
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **deal-status-badge.stories.ts**</summary>
+
+@@ lines 1-1 @@
+
+```
+import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { Component, signal } from '@angular/core';
+import { DealStageLabel, DealStage, DealStatusBadge } from './deal-status-badge';
+
+const stages = Object.keys(DealStageLabel) as DealStage[];
+
+@Component({
+  selector: 'app-story-wrapper',
+  imports: [DealStatusBadge],
+  template: `
+    <div class="flex flex-col gap-4">
+      <label class="flex flex-col gap-2 text-sm font-medium">
+        Select stage
+        <select
+          (change)="stage.set($any($event.target).value)"
+          [value]="stage()"
+          class="border rounded px-2 py-1"
+        >
+          @for (s of stages; track s) {
+            <option [value]="s">{{ s }}</option>
+          }
+        </select>
+      </label>
+      <app-deal-status-badge [stage]="stage()" />
+    </div>
+  `,
+})
+class StoryWrapper {
+  stage = signal<DealStage>('new');
+  stages = stages;
+}
+
+const meta: Meta<DealStatusBadge> = {
+  title: 'Features/Deals/DealStatusBadge',
+  component: DealStatusBadge,
+  tags: ['autodocs'],
+  argTypes: {
+    stage: { control: 'select', options: stages },
+  },
+};
+
+export default meta;
+type Story = StoryObj<DealStatusBadge>;
+
+export const Dynamic: Story = {
+  render: () => ({ component: StoryWrapper }),
+};
+
+export const New: Story = { args: { stage: 'new' } };
+export const Negotiation: Story = { args: { stage: 'negotiation' } };
+export const Proposal: Story = { args: { stage: 'proposal' } };
+export const ClosedWon: Story = { args: { stage: 'closed-won' } };
+export const ClosedLost: Story = { args: { stage: 'closed-lost' } };
+
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Starting: *Join individual stories into one story with variants* (1/4)
+</details></tool-use>
+
+_**Agent (copilot/claude-sonnet-5.5)**_
+
+The `<select>` wasn't showing because the story couldn't compile. You had changed  in `deal-status-badge.ts` to a plain `signal`, so `[stage]="..."` in the story had no input to bind to. I haven't run Storybook to confirm the select now appears.
+
+- **`deal-status-badge.ts`:**  is an  again, and  is now exported. This undoes your `signal` edit, so tell me if you wanted that kept for another reason.
+- **`deal-status-badge.stories.ts`:** I rewrote the file in full, so your edits to it are replaced.
+  - **Dynamic story:** `Dynamic` renders the wrapper component directly, without the extra . The wrapper has a labelled `<select>` and the badge, and the options are the keys of : , , , `closed-won`, `closed-lost`.
+  - **Static stories:** `New`, `Negotiation`, `Proposal`, `ClosedWon` and `ClosedLost` use `args` with the same keys.
+  - **Stage control:** the stage control in Storybook is a select over those keys.
+
+The editor reports no errors in either file.
+
+I also created an empty `.stories.ts.new` file by mistake and deleted it right away.
