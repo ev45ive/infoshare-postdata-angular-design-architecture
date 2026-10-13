@@ -23,6 +23,7 @@ export const Primary: Story = {
         
     <ui-card title="Simple card">
 
+
         <!-- <div class="text-2xl mb-1.5">Simple card</div> -->
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
@@ -34,6 +35,9 @@ export const Primary: Story = {
     <ui-card>
         
         <div class="text-2xl mb-2">Simple card</div>
+
+        <button class="-mt-[65.5px] ms-auto">Test</button>  <!-- Hidden coupling -->
+        
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
         repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa

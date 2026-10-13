@@ -14,10 +14,11 @@ import { CardModule } from 'primeng/card';
   // templateUrl: './ui-card.html',
   template: `
     <p-card>
-      <div class="text-2xl leading-loose">
+      
+      <div class="text-2xl leading-loose mb-1">
         {{ title() }}
       </div>
-
+      
       <!-- Content - Composition -->
       <ng-content #content></ng-content>
     </p-card>
