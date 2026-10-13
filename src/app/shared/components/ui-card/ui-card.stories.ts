@@ -1,12 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/angular-vite';
+import { Meta, StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
-import { UiCard } from './ui-card';
+import { ButtonModule } from 'primeng/button';
+import { UiCard, UiCardHeader, UICardActions, UICardImports } from './ui-card';
 
 const meta: Meta<UiCard> = {
   title: 'Shared / UI Card',
   component: UiCard,
   tags: ['autodocs'],
   argTypes: {},
+  decorators: [
+    moduleMetadata({
+      imports: [UICardImports, ButtonModule],
+    }),
+  ],
 };
 
 export default meta;
@@ -21,9 +27,13 @@ export const Primary: Story = {
     props: args,
     template: `<div class="grid gap-5">
         
-    <ui-card title="Simple card title">
+    <ui-card variant="compact" size="xl">
 
         <!-- <div class="text-2xl mb-1.5">Simple card</div> -->
+
+        <ui-card-header title="Simple card title">
+            Custom header
+        </ui-card-header>
 
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
         repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
@@ -41,68 +51,14 @@ export const Primary: Story = {
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error
         repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa
         ratione quam perferendis esse, cupiditate neque quas!
+
+        <ui-card-actions>
+            <!-- <button pButton intent="success" class="mr-5">Save</button> - is layout my responsibility? -->
+            <button pButton intent="danger">Delete</button>
+        </ui-card-actions>
         
     </ui-card>
     
-
-    <!-- 
-    # Encapsulation:
-        - What will stay the same - hide inside - <ui-card>
-        - What will change - expose outside <ui-card title=""> Content </ui-card>
-        
-    # Rate of change:
-        - What changes together lives together
-
-    # Levels:
-        - Semantic role - button / card / form field
-        
-        - Hardcoded
-        - Config
-        - Provider/Inject
-        
-        - Mobile, RWD, Env...
-        
-        - Semantic base theme (primary)
-        - Semantic intent theme (danger)
-
-        - Semantic variant (full, mini)
-        - Semantic state (disabled, hover, selected, active)
-        
-        - Content - label / value / icon / content / ... 
-        
-
-    -->
-
-    <!-- primeng - presentational -->
-    
-    <!-- deal -> deal.status - 'closed-lost' >  -->
-    <!-- <p-badge label="Closed (lost)" class="bg-amber-300 text-brown-600"  -->
-        
-    <!-- Rate of change -->
-
-    <!-- <app-deal-status-badge [status]="deal.status"> -->
-        <!-- compoennt.getDealStatusConfig(deal.status) -> text,color,... -->
-
-        <!-- dealStatusMap - HardCoded -->
-        <!-- dealStatusMap - Config -->
-        <!-- dealStatusMap - CSS mapping -->
-        <!-- dealStatusMap - Provider -->
-        <!-- dealStatusMap - Service - Aync API Config -->
-    
-    <!-- Hardcoded / Duplicated Card Semantics -->
-    <!-- <div class="border surface rounded shadow ... " -->
-        
-    <!-- CSS Card Semantics -->
-    <!-- <div class="ui-card ui-card--modifikator " -->
-        
-    <!-- Prime Component Card Semantics -->
-    <!-- <p-card class="p-card-override"></p-card> -->
-    
-    <!-- APP Component Card Semantics -->
-    <!-- <ui-card> -->
-
-    <!-- Overriding base class ??? -->
-    <!-- <ui-card> -->
 
 </div>`,
   }),

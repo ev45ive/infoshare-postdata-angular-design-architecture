@@ -7,68 +7,81 @@ import { CardModule } from 'primeng/card';
   styles: [
     `
       :host {
-        display: block;
+        --ui-card-title-size: calc(var(--spacing) * 4);
       }
-      .ui-card-header{}
-      .ui-card-image{}
-      .ui-card-footer{}
-      .ui-card-actions{}
+
+      :host([data-variant='compact']) {
+        --ui-card-title-size: calc(var(--spacing) * 2);
+        border: 2px solid yellowgreen;
+      }
     `,
   ],
-  // templateUrl: './ui-card.html',
+  host: { '[attr.data-variant]': 'variant()' },
   template: `
     <p-card>
-      <div class="ui-card-header">
-        <div class="bg-amber-200">
-          <ng-content select="ui-card-title, [ui-card-title]">
-            <div class="text-2xl leading-loose mb-1">
-              {{ title() }}
-            </div>
-          </ng-content>
-        </div>
-
-        <ng-content select="ui-card-header"></ng-content>
-      </div>
-
-      <div class="ui-card-image">
-        <ng-content select="ui-card-image"></ng-content>
-      </div>
-
       <!-- <ng-content select="div,h1,h2,button,.banana,.placki"></ng-content> -->
+
+      <ng-content select="[ui-card-header],ui-card-header"></ng-content>
 
       <!-- Content - Composition -->
       <ng-content #content> No Content </ng-content>
 
-      <ng-content select="ui-card-footer"></ng-content>
-
-      <ng-content select="ui-card-actions"></ng-content>
+      <ng-content
+        select="[ui-card-footer],ui-card-footer, [ui-card-actions],ui-card-actions"
+      ></ng-content>
     </p-card>
   `,
 })
 export class UiCard {
   // Content / Params (optional/default)
-  title = input('');
 
-  //
-  // Configuration driven
-  //
-
-  // Flags:
-
-  // icon = input()
-  // selected = input()
-  // disabled = input()
-  // someRandomFlag = input()
-  // sameFlagAsPrimeNG = input()
-
-  // Configs
-
-  // passThrough = input<PTConfig>()
-  // config = input<UICARDCONFIG>()
-
-  // Orthogonal Variants
-
-  // isBig = input()
-  // isSmall  = input()
-  // size = input<'small|'medium;|'large'>()
+  variant = input<'default' | 'compact' | 'media'>('default');
+  size = input<'sm' | 'md' | 'lg'>('md');
 }
+
+@Component({
+  imports: [CardModule],
+  selector: 'ui-card-header',
+  template: `
+    <div class="ui-card-header-title">
+      <ng-content>{{ title() }}</ng-content>
+    </div>
+  `,
+  styles: `
+    // --ui-card-title-size
+
+    :host {
+      display: block;
+      background-color: lightcyan;
+    }
+
+    .ui-card-header-title {
+      font-size: var(--ui-card-title-size);
+      // color: red !important;
+    }
+  `,
+})
+export class UiCardHeader {
+  title = input('');
+}
+
+@Component({
+  imports: [CardModule],
+  selector: 'ui-card-footer',
+  template: `<ng-content />`,
+})
+export class UiCardFooter {}
+
+@Component({
+  imports: [CardModule],
+  selector: 'ui-card-actions',
+  template: `<div class="py-2">
+    <ng-content />
+
+    <ng-content select="button,[uiButton]" />
+  </div>`,
+})
+export class UiCardActions {}
+
+// index.ts
+export const UICardImports = [UiCard, UiCardActions, UiCardFooter, UiCardHeader];
