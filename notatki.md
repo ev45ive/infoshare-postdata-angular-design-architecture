@@ -74,3 +74,10 @@ npm i --legacy-peer-deps
 
 # Storybook 
 npm run storybook
+
+
+# Design Tokens
+
+https://m3.material.io/foundations/design-tokens/overview
+https://v21.primeng.org/theming/styled#architecture
+
