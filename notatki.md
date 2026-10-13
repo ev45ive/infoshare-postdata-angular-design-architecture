@@ -38,8 +38,6 @@ ng new postdata
     --ai-config vscode 
 
 
-# Storybook vs angular 22
-npm i --legacy-peer-deps
 
 # App Structure Outline
 
@@ -69,3 +67,10 @@ src/app/
         - ui/
         - utils/
 ```
+
+
+# Storybook vs angular 22
+npm i --legacy-peer-deps
+
+# Storybook 
+npm run storybook
