@@ -34,8 +34,9 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
   styles: `
     // API
     :host {
+      // Co to robi?
       --badge-text-color: var(--badge-text-color-override, var(--color-surface-100));
-      --badge-bg-color: var(--badge-text-color-override, var(--color-surface-700));
+      --badge-bg-color: var(--badge-bg-color-override, var(--color-surface-700));
       --badge-border-color: currentColor;
     }
 

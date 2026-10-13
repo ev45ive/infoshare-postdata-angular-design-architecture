@@ -25,6 +25,21 @@ const stages = Object.keys(DealStageLabel) as DealStage[];
       <app-deal-status-badge [stage]="stage()" />
     </div>
   `,
+  styles: [
+    `
+      // :host ::ng-deep   app-deal-status-badge  p-badge {} // HACK!
+
+      // BEtter - missing Why??
+      //   :host {
+      //     --badge-text-color-override: red;
+      //   }
+
+      // Global?
+      //   app-deal-status-badge.bo-ida-swieta {
+      //     --badge-bg-color-override: red;
+      //   }
+    `,
+  ],
 })
 export class StoryWrapper {
   stage = signal<DealStage>('new');
