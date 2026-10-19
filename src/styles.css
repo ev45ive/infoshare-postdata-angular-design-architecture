@@ -8,5 +8,7 @@
 @import './design/tokens.css';
 /* @import './design/debug.css'; */
 
+@import './design/theme-namespaces.css';
+
 /* Same selector as PrimeNG darkModeSelector, so `dark:` utilities and Aura switch together. */
 @custom-variant dark (&:where(.app-dark, .app-dark *));

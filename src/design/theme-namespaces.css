@@ -1,0 +1,159 @@
+@reference '../styles.css';
+
+/*
+  Learning file: one example per Tailwind v4 theme namespace (variable -> utility).
+  Active rules are safe additions or restrictions that match nothing the app uses today.
+  Commented rules show a risky override; the note says what it changes.
+  Tailwind emits a theme variable only when a utility or var() uses it, so unused tokens cost nothing.
+*/
+
+/* ---------- Mechanisms ---------- */
+
+/*
+  Last declaration wins: re-declaring a default variable replaces it.
+  `--x: initial` removes one variable, `--ns-*: initial` removes a namespace, `--*: initial` removes the whole default theme.
+  Removed tokens do not error: their utilities just stop being generated.
+*/
+
+/* @theme static { ... }   always emit the variables, even when unused (e.g. for JS or runtime var() reads) */
+/* @theme default { ... }  marks values as overridable defaults; for shared libraries, not for apps */
+
+/* ---------- color (--color-*: bg-, text-, border-, ring-, fill-, ...) ---------- */
+
+@theme {
+  /* --color-*: unset; */
+  /* --color-*: initial; */
+
+  /* Restrict: drop palettes no source file uses; bg-lime-500 and friends stop existing. */
+  --color-yellow-*: initial;
+  --color-lime-*: initial;
+  --color-cyan-*: initial;
+  --color-rose-*: initial;
+  --color-zinc-*: initial;
+  --color-stone-*: initial;
+  --color-mauve-*: initial;
+  --color-olive-*: initial;
+  --color-mist-*: initial;
+  --color-taupe-*: initial;
+
+  /* Add: a brand-new name creates bg-brand, text-brand, border-brand, ... */
+  --color-brand: oklch(0.55 0.2 275);
+}
+
+/* inline: the utility emits the referenced variable instead of an alias, so the palette step stays swappable. */
+@theme inline {
+  --color-link: var(--color-sky-700);
+  --color-danger: var(--color-red-600);
+}
+
+/*
+  Strict mode: remove every default palette, then re-add what you keep.
+  Breaks every sky-*, amber-*, gray-* ... class in the repo until they are re-declared; must come before tailwindcss-primeui.
+*/
+/* @theme { --color-*: initial; --color-white: #fff; --color-black: #000; --color-transparent: transparent; } */
+
+/* ---------- font (--font-*: font-sans, font-serif, font-mono) ---------- */
+
+@theme {
+  --font-heading: ui-serif, Georgia, serif; /* adds font-heading */
+}
+
+/* --font-sans: 'Inter', sans-serif;   replaces font-sans, which Tailwind preflight also applies to <html>: changes the whole page */
+
+/* ---------- text (--text-*: font-size, with optional --text-*--line-height / --font-weight / --letter-spacing) ---------- */
+
+@theme {
+  --text-label: 0.75rem; /* adds text-label */
+  --text-label--line-height: 1rem;
+  --text-label--font-weight: 600;
+}
+
+/* --text-sm: 0.8125rem;   replaces text-sm everywhere, including line-height unless --text-sm--line-height is also set */
+
+/* ---------- font-weight, tracking, leading ---------- */
+
+@theme {
+  --tracking-label: 0.08em; /* adds tracking-label */
+}
+
+/* --font-weight-bold: 600;     font-bold becomes semibold */
+/* --leading-*: initial;        removes leading-tight, leading-snug, ...; leading-4 style numeric utilities remain */
+
+/* ---------- breakpoint (--breakpoint-*: sm:, md:, ...; also max-md:) ---------- */
+
+@theme {
+  --breakpoint-3xl: 120rem; /* adds the 3xl: variant, ordered after 2xl: */
+}
+
+/* --breakpoint-md: 50rem;   moves md: for every usage; the order of variants is by value, keep them ascending */
+/* --breakpoint-*: initial;  removes all default breakpoints; add your own afterwards */
+
+/* ---------- container (--container-*: max-w-md, and @md: container-query variants) ---------- */
+
+@theme {
+  --container-panel: 28rem; /* adds max-w-panel and the @panel: variant */
+}
+
+/* --container-md: 30rem;   changes max-w-md and @md: together; they share this variable */
+
+/* ---------- spacing (--spacing and --spacing-*: p-, m-, gap-, w-, h-, inset-, ...) ---------- */
+
+@theme {
+  --spacing-gutter: 1.5rem; /* adds p-gutter, gap-gutter, w-gutter, ... */
+  --spacing-panels: 1.5rem; /* adds p-gutter, gap-gutter, w-gutter, ... */
+}
+
+/* --spacing: 3px;   rescales every numeric spacing utility (p-4 = 12px); a scope can also set it at runtime */
+/* --spacing-*: initial;   removes only named steps such as gutter; numeric ones come from --spacing */
+
+/* ---------- radius (--radius-*: rounded-*) ---------- */
+
+@theme {
+  --radius-tile: 0.75rem; /* adds rounded-tile */
+}
+
+/* --radius-lg: 1rem;      every rounded-lg grows */
+/* --radius-*: initial;    removes rounded-sm ... rounded-3xl; rounded-full and rounded-none stay */
+
+/* ---------- shadow, inset-shadow, drop-shadow, text-shadow ---------- */
+
+@theme {
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.12); /* shadow-card */
+  --inset-shadow-pressed: inset 0 2px 4px rgb(0 0 0 / 0.2); /* inset-shadow-pressed */
+  --drop-shadow-soft: 0 2px 4px rgb(0 0 0 / 0.25); /* drop-shadow-soft (filter, follows alpha) */
+  --text-shadow-soft: 0 1px 2px rgb(0 0 0 / 0.25); /* text-shadow-soft */
+}
+
+/* --shadow-*: initial;   removes shadow-sm ... shadow-2xl, so flat designs cannot reach for them by accident */
+
+/* ---------- blur, perspective, aspect ---------- */
+
+@theme {
+  --blur-soft: 6px; /* blur-soft */
+  --perspective-near: 400px; /* perspective-near */
+  --aspect-card: 4 / 3; /* aspect-card */
+}
+
+/* ---------- ease, animate ---------- */
+
+@theme {
+  --ease-snappy: cubic-bezier(0.2, 0, 0, 1); /* ease-snappy */
+
+  --animate-wiggle: wiggle 0.4s ease-in-out 2; /* animate-wiggle; keyframes live next to the variable */
+  @keyframes wiggle {
+    0%,
+    100% {
+      rotate: -3deg;
+    }
+    50% {
+      rotate: 3deg;
+    }
+  }
+}
+
+/* --animate-spin: none;   disables animate-spin (PrimeNG icons use their own animation, not this one) */
+
+/* ---------- defaults (--default-*: not utilities, but the values Tailwind falls back to) ---------- */
+
+/* --default-transition-duration: 100ms;   transition utilities without an explicit duration */
+/* --default-font-family: var(--font-heading);   body font when no font-* utility is used */
