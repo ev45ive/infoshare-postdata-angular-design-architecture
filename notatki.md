@@ -95,3 +95,7 @@ https://flexboxfroggy.com/
 # CSS GRID
 https://css-tricks.com/complete-guide-css-grid-layout/
 https://cssgridgarden.com/
+
+
+# Gestalt - CSS has meaning
+https://ixdf.org/literature/topics/gestalt-principles
