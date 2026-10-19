@@ -47,13 +47,16 @@ export class DealsSearch {
   selectedDealId = signal<Deal['id']>('');
 
   // =SUM(A1,B2) + Lazy + Memoized (Cached)
-  selectedDeal = computed(() => {
-    console.log('Deal computed');
+  selectedDeal = computed(
+    () => {
+      console.log('Deal computed');
 
-    const id = this.selectedDealId();
+      const id = this.selectedDealId();
 
-    return this.deals().find((d) => d.id === id);
-  });
+      return this.deals().find((d) => d.id === id);
+    },
+    // { equal: (a, b) => a === b }, // Compares by reference
+  );
 
   selectDealById(id: Deal['id']) {
     this.selectedDealId.set(id);
