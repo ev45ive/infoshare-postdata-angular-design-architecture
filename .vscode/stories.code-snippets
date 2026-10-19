@@ -1,0 +1,123 @@
+{
+  "Story file template": {
+    "prefix": "story-file",
+    "description": "Storybook Angular stories file with default meta and commented block examples",
+    "body": [
+      "import type { Meta, StoryObj } from '@storybook/angular-vite';",
+      "import { ${1:${TM_FILENAME_BASE/(.+)\\.stories/${1:/pascalcase}/}} } from './${TM_FILENAME_BASE/(.+)\\.stories/${1}/}';",
+      "",
+      "const meta: Meta<$1> = {",
+      "  title: '${2:Components/${TM_FILENAME_BASE/(.+)\\.stories/${1:/pascalcase}/}}',",
+      "  component: $1,",
+      "  tags: ['autodocs'],",
+      "  argTypes: {},",
+      "};",
+      "",
+      "export default meta;",
+      "type Story = StoryObj<typeof meta>;",
+      "",
+      "export const Primary: Story = {",
+      "  args: { $3 },",
+      "  render: ({}) => ({ template: '$4' }),",
+      "};",
+      "",
+      "$5",
+      "",
+      "// ====== SNIPPETS: HELP SECTION (remove after use ) ===== ",
+      "//",
+      "// Metadata (moduleMetadata imports): story-metadata",
+      "//",
+      "// Providers (moduleMetadata or applicationConfig): story-providers",
+      "//",
+      "// Controls (argTypes): story-controls",
+      "//",
+      "// Render with template: story-render",
+      "//",
+      "// Wrapper component with signals: story-wrapper",
+      "//",
+      "// ====== SNIPPETS: HELP SECTION (remove after use ) ===== ",
+    ]
+  },
+  "Story args": {
+    "prefix": "story-args",
+    "description": "Named story with args",
+    "body": [
+      "export const ${1:Primary}: Story = {",
+      "  args: {",
+      "    ${2:label: 'Label'},",
+      "  },",
+      "};",
+      "$0"
+    ]
+  },
+  "Story render": {
+    "prefix": "story-render",
+    "description": "Named story with render and template",
+    "body": [
+      "export const ${1:Default}: Story = {",
+      "  render: (args) => ({",
+      "    props: args,",
+      "    template: `<${2:app-${TM_FILENAME_BASE/(.+)\\.stories/${1}/}}/>`,",
+      "  }),",
+      "};",
+      "$0"
+    ]
+  },
+  "Story metadata": {
+    "prefix": "story-metadata",
+    "description": "moduleMetadata decorator with imports (add the import at the top of the file)",
+    "body": [
+      "decorators: [",
+      "  moduleMetadata({",
+      "    imports: [${1:ComponentImports}],",
+      "  }),",
+      "],",
+      "$0"
+    ]
+  },
+  "Story providers": {
+    "prefix": "story-providers",
+    "description": "moduleMetadata providers (add the import at the top of the file)",
+    "body": [
+      "decorators: [",
+      "  moduleMetadata({",
+      "    providers: [{ provide: ${1:ExampleService}, useValue: ${2:mockValue} }],",
+      "  }),",
+      "],",
+      "// Per story instead: decorators: [applicationConfig({ providers: [...] })]",
+      "$0"
+    ]
+  },
+  "Story controls": {
+    "prefix": "story-controls",
+    "description": "argTypes with select, color, boolean and text controls",
+    "body": [
+      "argTypes: {",
+      "  ${1:stage}: { control: 'select', options: [${2:'a', 'b'}] },",
+      "  ${3:backgroundColor}: { control: 'color' },",
+      "  ${4:disabled}: { control: 'boolean' },",
+      "  ${5:label}: { control: 'text' },",
+      "},",
+      "$0"
+    ]
+  },
+  "Story wrapper": {
+    "prefix": "story-wrapper",
+    "description": "Signal-based wrapper component with a Dynamic story (add Component and signal imports at the top)",
+    "body": [
+      "@Component({",
+      "  selector: '${1:app-story-wrapper}',",
+      "  imports: [${2:ComponentName}],",
+      "  template: `<${3:app-component-name} />`,",
+      "})",
+      "export class ${4:StoryWrapper} {",
+      "  value = signal(${5:'default'});",
+      "}",
+      "",
+      "export const ${6:Dynamic}: Story = {",
+      "  render: () => ({ component: $4, props: {} }),",
+      "};",
+      "$0"
+    ]
+  }
+}

@@ -12,8 +12,6 @@ src/app/exercises/routes.ts
 
 !src/app/exercises/routes.example.ts 
 
-# Project snippets (docs!)
-!.vscode/stories.code-snippets
 
 # Node
 /node_modules
@@ -37,6 +35,9 @@ yarn-error.log
 !.vscode/extensions.json
 !.vscode/mcp.json
 .history/*
+
+# Project snippets (docs!)
+!.vscode/stories.code-snippets
 
 # Miscellaneous
 /.angular/cache
