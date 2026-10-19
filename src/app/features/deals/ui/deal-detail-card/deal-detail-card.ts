@@ -11,3 +11,4 @@ import { Component } from '@angular/core';
   template: ` <p>deal-detail-card works!</p> `,
 })
 export class DealDetailCard {}
+

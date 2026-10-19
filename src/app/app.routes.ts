@@ -6,5 +6,11 @@ import { StoryWrapper } from './features/deals/ui/deal-status-badge/deal-status-
 export const routes: Routes = [
   // { path: '', component: ContactsSearch },
   // { path: '', component: TestComponent }
-  { path: '', component: StoryWrapper }
+  // { path: '', component: StoryWrapper }
+
+  { path: '', redirectTo: '/deals', pathMatch: 'full' },
+  {
+    path: 'deals',
+    loadChildren: () => import('./features/deals/routes'),
+  },
 ];
