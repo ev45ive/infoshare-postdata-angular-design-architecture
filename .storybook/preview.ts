@@ -1,32 +1,33 @@
 import type { Preview } from '@storybook/angular-vite';
 import { applicationConfig } from '@storybook/angular-vite';
-import { providePrimeNG } from 'primeng/config';
 import { provideRouter } from '@angular/router';
-import Aura from '@primeuix/themes/aura';
 import '../src/styles.css';
 import './styles.css';
+import { providePrimeNGTheme } from '../src/design/primeng-theme';
 
 const preview: Preview = {
+  initialGlobals: { theme: 'light' },
+  globalTypes: {
+    theme: {
+      description: 'Color scheme',
+      toolbar: {
+        title: 'Theme',
+        icon: 'circlehollow',
+        items: [
+          { value: 'light', title: 'Light' },
+          { value: 'dark', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
   decorators: [
+    (story, context) => {
+      document.documentElement.classList.toggle('app-dark', context.globals['theme'] === 'dark');
+      return story();
+    },
     applicationConfig({
-      providers: [
-        provideRouter([]),
-        providePrimeNG({
-          theme: {
-            preset: Aura,
-            options: {
-              cssLayer: {
-                name: 'primeng',
-                order: 'theme, base, primeng'
-              },
-              // Override font to use sans-serif instead of Times New Roman
-              cssVariables: {
-                'primary-font-family': '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
-              }
-            }
-          }
-        }),
-      ],
+      providers: [provideRouter([]), providePrimeNGTheme()],
     }),
   ],
   parameters: {

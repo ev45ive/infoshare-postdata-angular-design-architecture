@@ -1,0 +1,33 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Design System/Overview" />
+
+# Design system
+
+Engines are reused; the app owns a small seam.
+
+| Layer | Provides | Our part |
+| --- | --- | --- |
+| Aura (`@primeuix/themes`) | palettes, semantic tokens, dark mode, component tokens | `src/design/primeng-theme.ts` |
+| `tailwindcss-primeui` | `primary*`, `surface-0..950` utilities | imported in `src/styles.css` |
+| Tailwind v4 | spacing, radius, variants, utility generation | `@custom-variant dark` |
+| `src/design/tokens.css` | `--app-*` roles to `--p-*`, bridged to utilities | the only file that reads `--p-*` for roles |
+
+## Rules
+
+- Templates use role utilities (`bg-surface`, `text-on-surface`, `border-line`, `rounded-control`) and plugin palettes (`bg-primary`, `bg-surface-100`).
+- Component CSS reads `--app-<component>-<prop>` with a fallback and never sets it on `:host`, so any scope can override it.
+- Layer order is one string, shared by `src/styles.css` and PrimeNG: `theme, base, primeng, components, utilities`.
+- Dark mode is the `.app-dark` class, shared by Aura and Tailwind `dark:`.
+
+## Override levels
+
+| Level | How |
+| --- | --- |
+| Global theme | `definePreset(Aura, {...})` in `primeng-theme.ts`, or a rule in `tokens.css` |
+| Scope | a variable on any ancestor: `[--app-radius:0]`, `[--p-button-border-radius:999px]`, `style="--spacing: 2px"` |
+| Instance | utility or style on the element, `[dt]` for PrimeNG |
+
+## Tailwind theme namespaces
+
+`src/design/theme-namespaces.css` shows how each namespace (`color`, `font`, `text`, `breakpoint`, `container`, `spacing`, `radius`, shadows, `blur`, `perspective`, `aspect`, `ease`, `animate`) is added to, overridden or disabled. Active rules are safe; risky overrides are commented with their effect. See the Theme namespaces story.
