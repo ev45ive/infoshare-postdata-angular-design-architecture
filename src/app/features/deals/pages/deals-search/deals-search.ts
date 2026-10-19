@@ -25,13 +25,11 @@ import { Deal } from '../../model/types';
         <div>
           <app-deal-list
             [items]="deals()"
-            [selectedId]="selectedDeal()?.id"
+            [selectedId]="selectedDealId()"
             (selected)="selectDealById($event)"
             #dealListRef
           />
         </div>
-
-        <!-- {{localRefA.selectItem('123')}} -->
 
         <div>
           <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
@@ -41,22 +39,18 @@ import { Deal } from '../../model/types';
   `,
 })
 export class DealsSearch {
+
   deals = signal<Deal[]>(mockDeals);
 
-  // selectedDeal = signal<Deal | undefined>(undefined);
+  // Request
   selectedDealId = signal<Deal['id']>('');
+  
+  // Result
+  selectedDeal = computed(() => {
+    const id = this.selectedDealId();
 
-  // =SUM(A1,B2) + Lazy + Memoized (Cached)
-  selectedDeal = computed(
-    () => {
-      console.log('Deal computed');
-
-      const id = this.selectedDealId();
-
-      return this.deals().find((d) => d.id === id);
-    },
-    // { equal: (a, b) => a === b }, // Compares by reference
-  );
+    return this.deals().find((d) => d.id === id);
+  });
 
   selectDealById(id: Deal['id']) {
     this.selectedDealId.set(id);
