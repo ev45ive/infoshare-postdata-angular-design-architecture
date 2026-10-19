@@ -31,12 +31,12 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
 @Component({
   imports: [Badge],
   selector: 'app-deal-status-badge',
-  styles: `
+  styles: [`
     // API
     // :host {
     //   // Co to robi?
     //   --badge-text-color: var(--badge-text-color-override, var(--color-surface-100));
-    //   --badge-bg-color: var(--badge-bg-color-override, var(--color-surface-700));
+    //   --badge-bg-color: var(--badge-bg-color-override, 1px); // FIXME: nie mozna zmienic bo psuje X
     //   --badge-border-color: currentColor;
     // }
 
@@ -57,7 +57,7 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
       --badge-text-color: var(--color-surface-100);
       --badge-bg-color: var(--color-surface-700);
     }
-  `,
+  `],
   template: ` <p-badge [value]="stageLabel()" class="border border-solid" />`,
   host: {
     '[attr.data-deal-stage]': 'stage()', // component state reflection
