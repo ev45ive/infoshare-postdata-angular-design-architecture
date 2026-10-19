@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input, Signal, WritableSignal } from '@angular/core';
+import { Deal } from '../../model/types';
 
 @Component({
   imports: [],
@@ -10,4 +11,8 @@ import { Component } from '@angular/core';
   `,
   template: ` <p>deal-list works!</p> `,
 })
-export class DealList {}
+export class DealList {
+  // items = input<WritableSignal<Deal[]>>(); // WRONG: this cannot be writable from here!
+
+  items = input<Deal[]>();
+}

@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { DealList } from '../../ui/deal-list/deal-list';
 import { DealListItem } from '../../ui/deal-list-item/deal-list-item';
 import { DealDetailCard } from '../../ui/deal-detail-card/deal-detail-card';
 import { Button, ButtonDirective } from 'primeng/button';
+import { mockDeals } from '../../data/mock-deals';
+import { Deal } from '../../model/types';
 
 @Component({
   imports: [DealList, DealListItem, DealDetailCard, ButtonDirective],
@@ -21,13 +23,27 @@ import { Button, ButtonDirective } from 'primeng/button';
       </div>
       <div class="grid grid-cols-[300px_1fr]">
         <div>
-          <app-deal-list></app-deal-list>
+          <app-deal-list [items]="deals()"></app-deal-list>
         </div>
         <div>
-          <app-deal-detail-card></app-deal-detail-card>
+          <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
         </div>
       </div>
     </div>
   `,
 })
-export class DealsSearch {}
+export class DealsSearch {
+  deals = signal(mockDeals);
+
+  selectedDeal = signal(mockDeals[0]);
+
+  selectDealById(id: Deal['id']) {
+    const result = this.deals().find((d) => d.id === id); // Deal | undefined
+
+    if (!result) return; // Type Guard / Function Guard
+    // if (!result) throw new Error('');
+
+    // Happy path:
+    this.selectedDeal.set(result);
+  }
+}
