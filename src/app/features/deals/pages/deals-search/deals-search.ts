@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { DealList } from '../../ui/deal-list/deal-list';
 import { DealListItem } from '../../ui/deal-list-item/deal-list-item';
 import { DealDetailCard } from '../../ui/deal-detail-card/deal-detail-card';
@@ -27,7 +27,7 @@ import { Deal } from '../../model/types';
             [items]="deals()"
             [selectedId]="selectedDeal()?.id"
             (selected)="selectDealById($event)"
-            #localRefA
+            #dealListRef
           />
         </div>
 
@@ -43,10 +43,19 @@ import { Deal } from '../../model/types';
 export class DealsSearch {
   deals = signal<Deal[]>(mockDeals);
 
-  selectedDeal = signal<Deal | undefined>(undefined);
+  // selectedDeal = signal<Deal | undefined>(undefined);
+  selectedDealId = signal<Deal['id']>('');
+
+  // =SUM(A1,B2) + Lazy + Memoized (Cached)
+  selectedDeal = computed(() => {
+    console.log('Deal computed');
+
+    const id = this.selectedDealId();
+
+    return this.deals().find((d) => d.id === id);
+  });
 
   selectDealById(id: Deal['id']) {
-    const result = this.deals().find((d) => d.id === id);
-    this.selectedDeal.set(result);
+    this.selectedDealId.set(id);
   }
 }
