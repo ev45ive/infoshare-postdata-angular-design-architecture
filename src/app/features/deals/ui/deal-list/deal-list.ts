@@ -1,4 +1,4 @@
-import { Component, input, Signal, WritableSignal } from '@angular/core';
+import { Component, input, output, signal, Signal, WritableSignal } from '@angular/core';
 import { Deal } from '../../model/types';
 
 @Component({
@@ -9,10 +9,37 @@ import { Deal } from '../../model/types';
       display: block;
     }
   `,
-  template: ` <p>deal-list works!</p> `,
+  template: `
+    <div class="grid gap-2 border">
+      @for (item of items(); track $index) {
+        <div
+          class="grid gap-2 px-2 p-5"
+          (click)="selectItem(item.id)"
+          [class.bg-blue-500]="selectedId() === item.id"
+        >
+          {{ item.title }}
+        </div>
+      } @empty {
+        <p class="p-5">No deals found</p>
+      }
+    </div>
+  `,
 })
 export class DealList {
   // items = input<WritableSignal<Deal[]>>(); // WRONG: this cannot be writable from here!
 
+  // private selectedId = signal('d1'); // Local State - Stateful component - who needs this? who changes this?
+  // this.selectedId.set(id);
+
   items = input<Deal[]>();
+
+  // Selection - Controlled / Stateless / Presentational component
+  selectedId = input<Deal['id']>();
+  selected = output<Deal['id']>();
+
+  selectItem(id: Deal['id']) {
+    this.selected.emit(id);
+  }
+
+  // Data Source (changes)
 }

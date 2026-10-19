@@ -23,7 +23,7 @@ import { CurrencyPipe } from '@angular/common';
     <!-- <span class="text-2xl">{{ deal().title }}</span> -->
 
     @if (deal(); as deal) {
-      <div class="grid gap-5">
+      <div class="grid gap-5 border">
         <div class="flex justify-between gap-x-5 flex-wrap-reverse">
           <h2 class="text-2xl flex-[1_1_60%]">{{ deal.title }}</h2>
           <div class="flex gap-2 ms-auto ">
@@ -66,7 +66,7 @@ import { CurrencyPipe } from '@angular/common';
         </div>
       </div>
     } @else {
-      <div class="grid p-10">No deal selected</div>
+      <div class="grid p-5">No deal selected</div>
     }
   `,
 })

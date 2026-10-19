@@ -16,15 +16,23 @@ import { Deal } from '../../model/types';
   `,
   template: `
     <!-- .grid>.flex.justify-between>h1{Deals}+button[p-button]{New Deal}^.grid.grid-cols-300px_1fr>div>app-deal-list^div>deal-detail-card -->
-    <div class="grid gap-5 p-5">
+    <div class="grid gap-5 p-5 border">
       <div class="flex justify-between gap-5">
         <h1 class="text-2xl">Deals</h1>
         <button pButton="">New Deal</button>
       </div>
-      <div class="grid grid-cols-[300px_1fr]">
+      <div class="grid gap-5 grid-cols-[300px_1fr]">
         <div>
-          <app-deal-list [items]="deals()"></app-deal-list>
+          <app-deal-list
+            [items]="deals()"
+            [selectedId]="selectedDeal()?.id"
+            (selected)="selectDealById($event)"
+            #localRefA
+          />
         </div>
+
+        <!-- {{localRefA.selectItem('123')}} -->
+
         <div>
           <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
         </div>
@@ -33,17 +41,12 @@ import { Deal } from '../../model/types';
   `,
 })
 export class DealsSearch {
-  deals = signal(mockDeals);
+  deals = signal<Deal[]>(mockDeals);
 
-  selectedDeal = signal(mockDeals[0]);
+  selectedDeal = signal<Deal | undefined>(undefined);
 
   selectDealById(id: Deal['id']) {
-    const result = this.deals().find((d) => d.id === id); // Deal | undefined
-
-    if (!result) return; // Type Guard / Function Guard
-    // if (!result) throw new Error('');
-
-    // Happy path:
+    const result = this.deals().find((d) => d.id === id);
     this.selectedDeal.set(result);
   }
 }
