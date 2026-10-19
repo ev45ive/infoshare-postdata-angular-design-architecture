@@ -22,10 +22,17 @@ import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
         </div>
       </div>
 
+      <div class="overflow-y-auto line-clamp-3">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum cupiditate exercitationem
+        similique quisquam totam aliquam accusantium, quae dicta perferendis fugiat adipisci
+        adipisci assumenda sit quasi, obcaecati nemo ad, odit at. A!
+      </div>
+
       <!-- Emmet + Tailwind  -->
       <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold{Label}+div{Content} -->
       <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold+div -->
-      <div class="grid grid-cols-2 gap-5">
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
         <div class="grid gap-2">
           <div class="font-semibold">Value</div>
           <div>123$</div>
@@ -40,16 +47,6 @@ import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
         </div>
       </div>
 
-      <div class="overflow-y-auto">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum cupiditate exercitationem
-        similique quisquam totam aliquam accusantium, quae dicta perferendis fugiat adipisci
-        assumenda sit quasi, obcaecati nemo ad, odit at. A! Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Cum cupiditate exercitationem similique quisquam totam aliquam
-        accusantium, quae dicta perferendis fugiat adipisci assumenda sit quasi, obcaecati nemo ad,
-        odit at. A! Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum cupiditate
-        exercitationem similique quisquam totam aliquam accusantium, quae dicta perferendis fugiat
-        adipisci assumenda sit quasi, obcaecati nemo ad, odit at. A!
-      </div>
     </div>
   `,
 })
