@@ -26,18 +26,7 @@ const stages = Object.keys(DealStageLabel) as DealStage[];
     </div>
   `,
   styles: [
-    `
-      // :host ::ng-deep   app-deal-status-badge  p-badge {} // HACK!
-
-      // BEtter - missing Why??
-      //   :host {
-      //     --badge-text-color-override: red;
-      //   }
-
-      // Global?
-      //   app-deal-status-badge.bo-ida-swieta {
-      //     --badge-bg-color-override: red;
-      //   }
+    ` 
     `,
   ],
 })

@@ -28,6 +28,20 @@ export const DealStageClasses: Record<DealStage, string> = {
 
 const UnknownStageClasses = 'bg-surface-100 text-surface-700';
 
+
+
+/** 
+ * Displays a badge for a deal stage, or “Unknown” when the stage is null.
+ *
+ * @see {@link ./docs/badges.md}
+ * 
+ * @example
+ * ```html
+ * <app-deal-status-badge [stage]="'negotiation'" />
+ * <app-deal-status-badge [stage]="null" />
+ * ```
+ * @author Stachu!
+ */
 @Component({
   imports: [Badge],
   selector: 'app-deal-status-badge',
@@ -66,7 +80,9 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
   },
 })
 export class DealStatusBadge {
-  stage = input<DealStage | null>(null);
+  // stage = input<DealStage | null>(null); // optional + defautl
+
+  stage = input.required<DealStage | null>();
 
   className = computed(() => `bg-text-${this.stage()}`); // Todo - hardcoded map/dict/list / whitelist.md
 
