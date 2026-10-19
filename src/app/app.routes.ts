@@ -13,4 +13,8 @@ export const routes: Routes = [
     path: 'deals',
     loadChildren: () => import('./features/deals/routes'),
   },
+  {
+    path: 'exercises',
+    loadChildren: () => import('./exercises/routes'),
+  },
 ];

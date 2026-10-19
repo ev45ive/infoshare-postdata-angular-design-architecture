@@ -6,6 +6,12 @@
 /out-tsc
 /bazel-out
 
+# Exercises -> copy example 
+src/app/exercises/*
+src/app/exercises/routes.ts
+
+!src/app/exercises/routes.example.ts 
+
 # Node
 /node_modules
 npm-debug.log
