@@ -551,16 +551,16 @@ export interface components {
             limit?: number;
         };
         Deal: {
-            id?: string;
-            title?: string;
-            value?: number;
+            id: string;
+            title: string;
+            value: number;
             /** @enum {string} */
-            stage?: "new" | "negotiation" | "proposal" | "closed-won" | "closed-lost";
-            description?: string;
-            contactId?: string;
-            public?: boolean;
+            stage: "new" | "negotiation" | "proposal" | "closed-won" | "closed-lost";
+            description: string;
+            contactId: string;
+            public: boolean;
             /** Format: date-time */
-            createdAt?: string;
+            createdAt: string;
         };
         DealUpdateRequest: {
             title?: string;
