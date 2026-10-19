@@ -1,0 +1,45 @@
+{
+  "Dimension host attribute": {
+    "prefix": "dim-host",
+    "scope": "typescript",
+    "description": "Host binding that reflects an input as a data attribute",
+    "body": [
+      "host: { '[attr.data-${1:variant}]': '${1:variant}()' },"
+    ]
+  },
+  "Dimension input": {
+    "prefix": "dim-input",
+    "scope": "typescript",
+    "description": "Signal input for a dimension with a default value",
+    "body": [
+      "${1:variant} = input<${2:'sm' | 'md' | 'lg'}>('${3:md}');"
+    ]
+  },
+  "Dimension host style": {
+    "prefix": "dim-style",
+    "scope": "typescript",
+    "description": "Host selector styling for a data-attribute value",
+    "body": [
+      ":host([data-${1:variant}='${2:compact}']) {",
+      "  ${3:--ui-card-title-size: calc(var(--spacing) * 2);}",
+      "  border: 2px solid yellowgreen;",
+      "}"
+    ]
+  },
+  "Dimension bundle": {
+    "prefix": "dim-bundle",
+    "scope": "typescript,css",
+    "description": "Host attribute, input and host style for one dimension",
+    "body": [
+      "// @Component host: { '[attr.data-${1:variant}]': '${1:variant}()' },",
+      "// class field:",
+      "// ${1:variant} = input<${2:'sm' | 'md' | 'lg'}>('${3:md}');",
+      "// styles:",
+      "// :host([data-${1:variant}='${4:compact}']) {",
+      "//   ${5:--ui-card-title-size: calc(var(--spacing) * 2);}",
+      "//   border: 2px solid yellowgreen;",
+      "// }",
+      "$0"
+    ]
+  }
+}

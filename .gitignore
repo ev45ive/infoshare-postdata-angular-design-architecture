@@ -38,6 +38,7 @@ yarn-error.log
 
 # Project snippets (docs!)
 !.vscode/stories.code-snippets
+!.vscode/component-variants.code-snippets
 
 # Miscellaneous
 /.angular/cache
