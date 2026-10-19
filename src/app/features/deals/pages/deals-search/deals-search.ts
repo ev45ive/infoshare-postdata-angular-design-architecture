@@ -47,29 +47,22 @@ export class DealsSearch {
   // Result
   selectedDeal = signal<Deal | undefined>(undefined);
 
-  // Effect - Async Call(Me)Back()
+  // Effect
   loadDealEffect = effect(() => {
-    // effect[currentEffectSymbol] = this
+    const id = this.selectedDealId();
+    const dealsData = this.deals();
+
+    console.log(`Request ${id}`);
     
-    const id = this.selectedDealId();  // .get() -> signalSubscibersSet.add(currentEffectSymbol)
+    // await null; // read signals before
     
     setTimeout(() => {
-      this.selectedDeal.set(this.deals().find((d) => d.id === id));
-    }, 1000);
-    
-    // effect[currentEffectSymbol] = null
+      console.log(`Response ${id}`);
+      this.selectedDeal.set(dealsData.find((d) => d.id === id));
+    }, 2000 * Math.random());
   });
 
-  // Synchroniczny - Return!
-  // selectedDeal = computed(() => {
-  //   const id = this.selectedDealId(); // tracked!
-  //   return this.deals().find((d) => d.id === id);
-  // });
-
   selectDealById(id: Deal['id']) {
-    // this.selectedDealId() // no current effect observing - no tracking !
-
-
-    this.selectedDealId.set(id); // Set -> mark observers DIRTY -> schedule effects
+    this.selectedDealId.set(id);
   }
 }

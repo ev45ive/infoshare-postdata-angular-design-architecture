@@ -13,7 +13,9 @@ import { Deal } from '../../model/types';
     <div class="grid gap-2 border">
       @for (item of items(); track $index) {
         <div
+          tabindex="0"
           class="grid gap-2 px-2 p-5"
+          (keydown.Space)="selectItem(item.id)"
           (click)="selectItem(item.id)"
           [class.bg-blue-500]="selectedId() === item.id"
         >
