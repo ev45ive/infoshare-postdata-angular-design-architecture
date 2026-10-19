@@ -1,7 +1,7 @@
 import { Meta, StoryObj, moduleMetadata } from '@storybook/angular-vite';
 
 import { ButtonModule } from 'primeng/button';
-import { UiCard, UiCardHeader, UICardActions, UICardImports } from './ui-card';
+import { UiCard, UICardImports } from './ui-card';
 
 const meta: Meta<UiCard> = {
   title: 'Shared / UI Card',
