@@ -24,9 +24,9 @@ import { CurrencyPipe } from '@angular/common';
 
     @if (deal(); as deal) {
       <div class="grid gap-5">
-        <div class="flex justify-between">
-          <span class="text-2xl">{{ deal.title }}</span>
-          <div class="flex gap-2">
+        <div class="flex justify-between gap-x-5 flex-wrap-reverse">
+          <h2 class="text-2xl flex-[1_1_60%]">{{ deal.title }}</h2>
+          <div class="flex gap-2 ms-auto ">
             <app-deal-status-badge size="full" [stage]="deal.stage" />
             <button [pButton]>Test</button>
           </div>

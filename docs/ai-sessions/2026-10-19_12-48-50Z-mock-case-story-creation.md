@@ -462,3 +462,69 @@ _**Agent (copilot/claude-haiku-5.5)**_
 
 Created 2 todos
 </details></tool-use>
+
+---
+
+_**User (2026-10-19 13:12:02Z)**_
+
+what a11y problems #sym:DealDetailCard  has
+- list
+
+---
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep_search"><details>
+<summary>Tool use: **grep_search**</summary>
+
+Searched for regex `@if \(deal\(\)|<span class="text-2xl">|<button \[pButton\]|overflow-y-auto|class="font-semibold"|font-semibold">|text-deal-public|No deal selected|border-b-2` (`**/src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts`), 11 results
+
+**Input:**
+
+- includePattern: `src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts`
+- isRegexp: `true`
+- query: `@if \(deal\(\)|<span class="text-2xl">|<button \[pButton\]|overflow-y-auto|class="font-semibold"|font-semibold">|text-deal-public|No deal selected|border-b-2`
+
+**Result:**
+
+```
+Found 11 matches in 1 file for "@if \(deal\(\)|<span class="text-2xl">|<button \[pButton\]|overflow-y-auto|class="font-semibold"|font-semibold">|text-deal-public|No deal selected|border-b-2"
+
+src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts
+23:    <!-- <span class="text-2xl">{{ deal().title }}</span> -->
+25:    @if (deal(); as deal) {
+28:          <span class="text-2xl">{{ deal.title }}</span>
+31:            <button [pButton]>Test</button>
+35:        <div class="overflow-y-auto line-clamp-3">
+45:            <div class="font-semibold">Value</div>
+49:            <div class="font-semibold">Contact</div>
+55:            <div class="font-semibold">Public</div>
+57:              class="border-b-2"
+59:                'text-deal-public': deal.public,
+69:      <div class="grid p-10">No deal selected</div>
+```
+</details></tool-use>
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+Static review of the template, no automated scan run:
+
+1. **No heading structure** ([line 28](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L28)): the title is a `<span class="text-2xl">`, so screen reader users cannot find it by heading navigation. Use a heading element such as `<h2>`.
+2. **Labels not linked to values** ([lines 45](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L45), `src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L49`, `src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L55`): "Value", "Contact" and "Public" are styled `<div>`s, so their values are not programmatically associated with them. A `<dl>` with `<dt>`/`<dd>` fixes this.
+3. **Scrollable region not keyboard-accessible** ([line 35](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L35)): `overflow-y-auto` makes the description scrollable, but without `tabindex="0"` and a label keyboard users cannot scroll it.
+4. **Contradictory truncation** (line 35): `line-clamp-3` hides the rest of the description visually, while `overflow-y-auto` implies it should be scrollable. Users cannot reliably read the full text.
+5. **Non-descriptive button** ([line 31](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L31)): `<button>Test</button>` has no meaningful name and no defined action. It should be labelled for its purpose or removed.
+6. **Public state relies on color** ([lines 57-60](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L57-L60)): the text "Yes"/"No" mitigates this, but the contrast of `text-deal-public`, `text-deal-private` and `border-b-2` is unverified. It needs at least 4.5:1 for text.
+7. **Raw ID as content**: "Contact" shows  (for example "c1"), which is not meaningful to a screen reader user.
+8. **Status badge unverified**: `app-deal-status-badge` ([line 30](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L30)) may carry its own issues. Its template was not reviewed.
+9. **No landmark or live region**: the card has no `<section>` with an accessible name, and the "No deal selected" state ([line 69](src/app/features/deals/ui/deal-detail-card/deal-detail-card.ts#L69)) and input changes are not announced.
+
+I can run an axe check in the browser to confirm items 6 and 8 and catch anything missed here.
+
+_**Agent (copilot/claude-haiku-5.5)**_
+
+<tool-use data-tool-type="task" data-tool-name="manage_todo_list"><details>
+<summary>Tool use: **manage_todo_list**</summary>
+
+Created 2 todos
+</details></tool-use>
