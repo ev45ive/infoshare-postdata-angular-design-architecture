@@ -1,12 +1,38 @@
 /* Single layer order shared with PrimeNG; keep identical to CSS_LAYER_ORDER in design/primeng-theme.ts. */
-@layer theme, base, primeng, components, utilities;
+@layer theme, base, primeng, components, overrides, utilities;
 
 @import 'primeicons/primeicons.css';
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
 
+/* @source './app/*.ts'; */
+/* @source './app/*'; */
+
+@source './design/whitelist.txt';
+@source not './docs/*';
+
 @import './design/tokens.css';
 /* @import './design/debug.css'; */
+
+/* import order - last wins */
+
+/* specifity - more specific wins */
+/* !important, [style] */
+
+/* hierarchy - position in DOM  */
+
+@layer components {
+  /* Default component tokens styles */
+}
+
+/* Overrides */
+@layers overrides {
+  /* app-deal-status-badge.special-badge {}
+  .special-feature app-deal-status-badge {} */
+}
+
+@layer theme {
+}
 
 @import './design/theme-namespaces.css';
 

@@ -99,3 +99,6 @@ https://cssgridgarden.com/
 
 # Gestalt - CSS has meaning
 https://ixdf.org/literature/topics/gestalt-principles
+
+# CSS Specifity
+https://css-tricks.com/specifics-on-css-specificity/ 

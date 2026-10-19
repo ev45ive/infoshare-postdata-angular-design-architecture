@@ -26,4 +26,9 @@
   --radius-control: var(--app-radius);
 
   /* add only when 2+ components need consistent role/presentation */
+
+
+  /* --- */
+  --color-stage-new: blue;
+  --color-stage-negotiation: yellow;
 }

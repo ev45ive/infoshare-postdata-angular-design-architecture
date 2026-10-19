@@ -27,6 +27,7 @@
   /* Restrict: drop palettes no source file uses; bg-lime-500 and friends stop existing. */
   --color-yellow-*: initial;
   --color-lime-*: initial;
+  --color-sky-*: initial;
   --color-cyan-*: initial;
   --color-rose-*: initial;
   --color-zinc-*: initial;
