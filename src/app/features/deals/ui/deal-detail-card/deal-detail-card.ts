@@ -8,15 +8,15 @@ import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
   styles: `
     :host {
       display: block;
+      /* padding:10px; - component does  control geometry! */
+      /* margin:10px; - component does not control positioninig! */
     }
   `,
   template: `
-    <p>deal-detail-card works!</p>
-
     <div class="flex justify-between">
       <span class="text-2xl">Test Deal name</span>
       <div class="flex gap-2">
-        <app-deal-status-badge size="full" [stage]="'negotiation'"/>
+        <app-deal-status-badge size="full" [stage]="'negotiation'" />
         <button [pButton]>Test</button>
       </div>
     </div>
