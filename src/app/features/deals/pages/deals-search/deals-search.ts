@@ -48,21 +48,29 @@ export class DealsSearch {
   selectedDeal = signal<Deal | undefined>(undefined);
 
   // Effect
-  loadDealEffect = effect(() => {
+  loadDealEffect = effect((onCleanup) => {
     const id = this.selectedDealId();
     const dealsData = this.deals();
+    
+    if (!id) return;
 
     console.log(`Request ${id}`);
-    
+
     // await null; // read signals before
-    
-    setTimeout(() => {
+
+    const handler = setTimeout(() => {
       console.log(`Response ${id}`);
       this.selectedDeal.set(dealsData.find((d) => d.id === id));
     }, 2000 * Math.random());
+
+    onCleanup(() => clearTimeout(handler)); // Before next run and on destory!
   });
 
   selectDealById(id: Deal['id']) {
     this.selectedDealId.set(id);
   }
+
+  // ngOnInit(){}
+  // ngOnChanges(){}
+  // ngOnDestroy(){}
 }
