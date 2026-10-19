@@ -12,6 +12,9 @@ src/app/exercises/routes.ts
 
 !src/app/exercises/routes.example.ts 
 
+# Project snippets (docs!)
+!.vscode/stories.code-snippets
+
 # Node
 /node_modules
 npm-debug.log
