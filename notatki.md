@@ -102,3 +102,6 @@ https://ixdf.org/literature/topics/gestalt-principles
 
 # CSS Specifity
 https://css-tricks.com/specifics-on-css-specificity/ 
+
+# CSS Selectors
+https://flukeout.github.io/
