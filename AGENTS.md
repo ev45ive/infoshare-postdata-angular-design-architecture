@@ -35,6 +35,15 @@
 
 ---
 
+# Pliki poza projektem - nie czytaj, nie ładuj
+Plik w tych katalogach nie dotyczą projektu, zawierają nieaktualne i błędne informacje.
+Nie ładuj ich nigdy automtycznie, chyba że użytkownik sam je wskaże.
+- ./docs/
+- ./public/demos/
+- ./public/demos/
+
+---
+
 # Projekt
 
 Aplikacja CRM
