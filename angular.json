@@ -11,8 +11,10 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "standalone": true,
           "inlineStyle": true,
-          "style": "scss",
+          "inlineTemplate": true,
+          "style": "css",
           "skipTests": true,
           "displayBlock": true
         },
