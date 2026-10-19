@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { DealList } from '../../ui/deal-list/deal-list';
 import { DealListItem } from '../../ui/deal-list-item/deal-list-item';
 import { DealDetailCard } from '../../ui/deal-detail-card/deal-detail-card';
@@ -39,20 +39,37 @@ import { Deal } from '../../model/types';
   `,
 })
 export class DealsSearch {
-
   deals = signal<Deal[]>(mockDeals);
 
   // Request
   selectedDealId = signal<Deal['id']>('');
-  
-  // Result
-  selectedDeal = computed(() => {
-    const id = this.selectedDealId();
 
-    return this.deals().find((d) => d.id === id);
+  // Result
+  selectedDeal = signal<Deal | undefined>(undefined);
+
+  // Effect - Async Call(Me)Back()
+  loadDealEffect = effect(() => {
+    // effect[currentEffectSymbol] = this
+    
+    const id = this.selectedDealId();  // .get() -> signalSubscibersSet.add(currentEffectSymbol)
+    
+    setTimeout(() => {
+      this.selectedDeal.set(this.deals().find((d) => d.id === id));
+    }, 1000);
+    
+    // effect[currentEffectSymbol] = null
   });
 
+  // Synchroniczny - Return!
+  // selectedDeal = computed(() => {
+  //   const id = this.selectedDealId(); // tracked!
+  //   return this.deals().find((d) => d.id === id);
+  // });
+
   selectDealById(id: Deal['id']) {
-    this.selectedDealId.set(id);
+    // this.selectedDealId() // no current effect observing - no tracking !
+
+
+    this.selectedDealId.set(id); // Set -> mark observers DIRTY -> schedule effects
   }
 }
