@@ -54,8 +54,8 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
       }
       /* Variants / Overrides / State */
       :host([data-deal-stage='new']) {
-        --badge-text-color: var(--color-sky-800, red);
-        --badge-bg-color: var(--color-sky-100, red);
+        --badge-text-color: var(--color-blue-900);
+        --badge-bg-color: var(--color-blue-200);
       }
 
       :host([data-deal-stage='negotiation']) {

@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ButtonDirective, ButtonModule } from 'primeng/button';
 import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
+import { Deal } from '../../model/types';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  imports: [ButtonDirective, ButtonModule, DealStatusBadge],
+  imports: [CurrencyPipe, ButtonDirective, ButtonModule, DealStatusBadge],
   selector: 'app-deal-detail-card',
   styles: `
     :host {
@@ -13,41 +15,62 @@ import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
     }
   `,
   template: `
-    <div class="grid gap-5">
-      <div class="flex justify-between">
-        <span class="text-2xl">Test Deal name</span>
-        <div class="flex gap-2">
-          <app-deal-status-badge size="full" [stage]="'negotiation'" />
-          <button [pButton]>Test</button>
+    <!-- @let dealData = deal(); -->
+
+    <!-- live update on CD -->
+    <!-- {{ dealData() }} -->
+
+    <!-- <span class="text-2xl">{{ deal().title }}</span> -->
+
+    @if (deal(); as deal) {
+      <div class="grid gap-5">
+        <div class="flex justify-between">
+          <span class="text-2xl">{{ deal.title }}</span>
+          <div class="flex gap-2">
+            <app-deal-status-badge size="full" [stage]="deal.stage" />
+            <button [pButton]>Test</button>
+          </div>
+        </div>
+
+        <div class="overflow-y-auto line-clamp-3">
+          {{ deal.description }}
+        </div>
+
+        <!-- Emmet + Tailwind  -->
+        <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold{Label}+div{Content} -->
+        <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold+div -->
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+          <div class="grid gap-2">
+            <div class="font-semibold">Value</div>
+            <div>{{ deal.value | currency }}</div>
+          </div>
+          <div class="grid gap-2">
+            <div class="font-semibold">Contact</div>
+            <div>
+              {{ deal.contactId }}
+            </div>
+          </div>
+          <div class="grid gap-2">
+            <div class="font-semibold">Public</div>
+            <div
+              class="border-b-2"
+              [class]="{
+                'text-deal-public': deal.public,
+                'text-deal-private': !deal.public,
+              }"
+            >
+              {{ deal.public ? 'Yes' : 'No' }}
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="overflow-y-auto line-clamp-3">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum cupiditate exercitationem
-        similique quisquam totam aliquam accusantium, quae dicta perferendis fugiat adipisci
-        adipisci assumenda sit quasi, obcaecati nemo ad, odit at. A!
-      </div>
-
-      <!-- Emmet + Tailwind  -->
-      <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold{Label}+div{Content} -->
-      <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold+div -->
-
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
-        <div class="grid gap-2">
-          <div class="font-semibold">Value</div>
-          <div>123$</div>
-        </div>
-        <div class="grid gap-2">
-          <div class="font-semibold">Contact</div>
-          <div>Anna</div>
-        </div>
-        <div class="grid gap-2">
-          <div class="font-semibold">Stage</div>
-          <div>Banana</div>
-        </div>
-      </div>
-
-    </div>
+    } @else {
+      <div class="grid p-10">No deal selected</div>
+    }
   `,
 })
-export class DealDetailCard {}
+export class DealDetailCard {
+  deal = input<Deal>();
+  // deal = input.required<Deal>();
+}

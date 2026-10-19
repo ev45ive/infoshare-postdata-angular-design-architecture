@@ -25,6 +25,9 @@
   --color-focus: var(--app-focus);
   --radius-control: var(--app-radius);
 
+  --color-deal-private: var(--color-red-500);
+  --color-deal-public: var(--color-green-500);
+
   /* add only when 2+ components need consistent role/presentation */
 
 
