@@ -3,29 +3,32 @@ import { ButtonDirective, ButtonModule } from 'primeng/button';
 import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
 
 @Component({
-  imports: [
-    ButtonDirective,
-    ButtonModule,
-    DealStatusBadge
-  ],
+  imports: [ButtonDirective, ButtonModule, DealStatusBadge],
   selector: 'app-deal-detail-card',
   styles: `
     :host {
       display: block;
     }
   `,
-  template: ` 
-  <div>Test</div>
-  <p>deal-detail-card works!</p> 
-  
+  template: `
+    <p>deal-detail-card works!</p>
 
-  <app-deal-status-badge [stage]="'new'" />
+    <div>
+      <span class="text-2xl inline-block mr-auto w-auto">Test Deal name</span>
+      <app-deal-status-badge [stage]="'new'" class="ml-auto" />
+      <button [pButton]>Test</button>
+    </div>
 
-  <app-deal-status-badge [stage]="'negotiation'" />
-
-
-  <button [pButton]>Test</button>
+    <div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum cupiditate exercitationem
+      similique quisquam totam aliquam accusantium, quae dicta perferendis fugiat adipisci assumenda
+      sit quasi, obcaecati nemo ad, odit at. A! Lorem ipsum dolor sit amet consectetur adipisicing
+      elit. Cum cupiditate exercitationem similique quisquam totam aliquam accusantium, quae dicta
+      perferendis fugiat adipisci assumenda sit quasi, obcaecati nemo ad, odit at. A! Lorem ipsum
+      dolor sit amet consectetur adipisicing elit. Cum cupiditate exercitationem similique quisquam
+      totam aliquam accusantium, quae dicta perferendis fugiat adipisci assumenda sit quasi,
+      obcaecati nemo ad, odit at. A!
+    </div>
   `,
 })
 export class DealDetailCard {}
-
