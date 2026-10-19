@@ -408,6 +408,15 @@ components:
 
     Deal:
       type: object
+      required:
+        - id
+        - title
+        - value
+        - stage
+        - description
+        - contactId
+        - public
+        - createdAt
       properties:
         id:
           type: string

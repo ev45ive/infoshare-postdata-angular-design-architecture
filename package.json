@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "storybook": "ng run postdata:storybook",
-    "build-storybook": "ng run postdata:build-storybook"
+    "build-storybook": "ng run postdata:build-storybook",
+    "openapi": "npx -i openapi-typescript  ./server/openapi.yaml -o ./src/app/core/model/openapi.model.ts"
   },
   "private": true,
   "packageManager": "npm@11.12.1",
