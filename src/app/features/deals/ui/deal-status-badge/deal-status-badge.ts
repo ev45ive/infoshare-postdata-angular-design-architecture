@@ -64,7 +64,7 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
       }
 
       :host([data-size='full']) {
-        --badge-height: 100%;
+        // --badge-height: 100%;
       }
 
       /* Structure */
@@ -76,7 +76,7 @@ const UnknownStageClasses = 'bg-surface-100 text-surface-700';
       }
     `,
   ],
-  template: ` <p-badge [value]="stageLabel()" class="border border-solid" />`,
+  template: ` <p-badge size="xlarge" [value]="stageLabel()" class="border border-solid" />`,
   host: {
     '[attr.data-deal-stage]': 'stage()', // component state reflection
     '[attr.data-size]': 'size()',

@@ -21,7 +21,7 @@ import { Deal } from '../../model/types';
         <h1 class="text-2xl">Deals</h1>
         <button pButton="">New Deal</button>
       </div>
-      <div class="grid gap-5 grid-cols-[300px_1fr]">
+      <div class="grid gap-5 sm:grid-cols-[minmax(300px,1fr)_1fr]">
         <div>
           <app-deal-list
             [items]="deals()"

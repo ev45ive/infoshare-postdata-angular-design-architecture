@@ -105,3 +105,27 @@ https://css-tricks.com/specifics-on-css-specificity/
 
 # CSS Selectors
 https://flukeout.github.io/
+
+
+# CSS 2022 Selectors
+https://css-tricks.com/what-css-do-you-absolutely-have-to-know-in-2022/
+
+https://caniuse.com/?search=container
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Containment/Container_queries
+
+https://web-platform-dx.github.io/baseline/
+
+https://tailwindcss.com/docs/responsive-design#container-queries
+
+https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-parent-state
+
+### Key CSS Selectors & Features Highlighted in 2022
+
+• :has() (Relational Pseudo-Class): Allows you to select a parent or ancestor element based on its children or descendants (e.g., div:has(> p.red)).
+
+• :is() and :where(): Forgiving selector lists that simplify repetitive selector groupings and manage specificity (:is() matches the highest specificity of its arguments, while :where() has zero specificity).
+
+• Cascade Layers (@layer): Reached baseline/interop consensus in 2022, helping developers explicitly control and organize specificity layers without relying on messy selector workarounds.
+
+• Container Queries (@container): Shipped across major browsers in 2022, allowing component-level responsiveness based on the parent container's size rather than the viewport.
