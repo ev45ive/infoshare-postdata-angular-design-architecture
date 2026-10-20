@@ -11,6 +11,7 @@ import { useDeals } from '../../injectables/useDeals';
 import { UiCard } from '../../../../shared/components/ui-card/ui-card';
 import { UiIntent } from '../../../../shared/ui/intent/intent';
 import { CRMAPI } from '@shared/CRMApi';
+import { tap } from 'rxjs';
 
 @Component({
   imports: [
@@ -53,20 +54,18 @@ export class DealsSearch {
 
   api = inject(CRMAPI);
 
-  _ = effect(() => {
+  // ngOnInit(){}
+
+  init = effect(() => {
     // Observable
-    const obs = this.api.fetchDeals();
-
-    // Subscriber<T> -> Req1
-    const sub = obs.subscribe(console.log);
-    sub.unsubscribe(); // AbortControler.abort()
-
-    // Subscriber<T> > -> Req1
-    obs.subscribe({
-      next: (vaLUE) => console.log(vaLUE),
-      error: (e) => console.log(e),
-      complete: () => console.log('Unsubcribed'),
-    });
+    this.api
+      .fetchDeals()
+      .pipe(tap((v) => console.log(v)))
+      .subscribe({
+        next: (vaLUE) => console.log(vaLUE),
+        error: (e) => console.log(e),
+        complete: () => console.log('Unsubcribed'),
+      });
   });
 
   selectedDeal = signal<Deal | undefined>(undefined);

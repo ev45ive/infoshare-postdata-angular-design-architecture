@@ -4,19 +4,6 @@ import { Deal } from '@feature/deals/model/types';
 import { BehaviorSubject, map, tap } from 'rxjs';
 import { paths, components } from '@core/model/openapi.model';
 
-// var -> T
-// fn -> T
-// promise -> request -> ...T
-
-// T -> signal() -> T
-
-// Observable(params)
-//
-//      -> Subscriber -> requestA -> next:T .. next: T .. compelete
-//      -> Subscriber -> requestB -> next:T .. next: T .. error
-
-// Stateless?
-
 type Request = paths['/deals']['get']['responses']['200']['content']['application/json'];
 type PageObject<T> = { items: T[]; total: number; offset: number };
 
@@ -24,37 +11,15 @@ type PageObject<T> = { items: T[]; total: number; offset: number };
 export class CRMAPI {
   http = inject(HttpClient);
 
-  // Command / Query (Subscription) Separation
-
-  // Multi-Cast Observable - N subscribes <-  1 next()
-  //   private _updates = new BehaviorSubject<Deal[]>([]); // updates.next
-  //   updates = this._updates.asObservable(); // Readonly
-
   fetchDeals() {
-    // Unicast Observable<T> - Recipe - 1-1
-    // ^--------A--B--C-|>
-    // ^--------X>
-
-    // ^--------O-|>
-    // .pipe( delay(200) )
-    // ^-----------O-|>
-
     return this.http
       .get<PageObject<Deal>>('/deals', {
         params: {},
         headers: {},
       })
       .pipe(
-        // ^--------O-|>
-        // Step2
-        tap((v) => console.log(v)),
-
-        // ^--------A-|>
-
-        // Step3
+    
         map((res) => res.items),
-
-        // ^--------B-|>
       );
   }
 
