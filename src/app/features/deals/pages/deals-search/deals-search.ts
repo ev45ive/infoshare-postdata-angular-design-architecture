@@ -83,10 +83,10 @@ export class DealsSearch {
   selectedDealResource = useDeal(this.selectedDealId);
 
   selectDealById(id: Deal['id']) {
-    this.router.navigate([], {
-      queryParams: { id },
-      queryParamsHandling: 'merge',
-      relativeTo: this.route,
-    });
+    // this.router.navigate([], {
+    //   queryParams: { id },
+    //   queryParamsHandling: 'merge',
+    //   relativeTo: this.route,
+    // });
   }
 }

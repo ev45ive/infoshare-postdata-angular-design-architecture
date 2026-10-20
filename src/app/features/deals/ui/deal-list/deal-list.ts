@@ -1,9 +1,11 @@
 import { Component, input, output, signal, Signal, WritableSignal } from '@angular/core';
 import { Deal } from '../../model/types';
 import { UiCard } from '../../../../shared/components/ui-card/ui-card';
+import { UILink } from '../../../../shared/ui/link';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  imports: [UiCard],
+  imports: [UiCard, UILink, RouterLink, RouterLinkActive],
   selector: 'app-deal-list',
   styles: `
     :host {
@@ -14,22 +16,23 @@ import { UiCard } from '../../../../shared/components/ui-card/ui-card';
     <ui-card>
       <div ui-card-list>
         @for (item of items(); track $index) {
-          <div
+          <a
+            [routerLink]="[]"
+            [queryParams]="{ id: item.id }"
+            
+            routerLinkActive="bg-blue-500!"
             tabindex="0"
             class="grid gap-2 px-2 p-5"
             (keydown.Space)="selectItem(item.id)"
-            (click)="selectItem(item.id)"
-
-            
-            [class.bg-blue-500]="selectedId() === item.id"
           >
+            <!-- (click)="selectItem(item.id)"
+            [class.bg-blue-500]="selectedId() === item.id" -->
             {{ item.title }}
-          </div>
+          </a>
         } @empty {
           <p class="p-5">No deals found</p>
         }
       </div>
-
     </ui-card>
   `,
 })
