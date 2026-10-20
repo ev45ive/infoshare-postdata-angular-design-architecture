@@ -16,6 +16,7 @@
     "paths": {
       // "./src/app/core/api.ts": ["./src/app/core/mock.api.ts"]
       // "@core/*": ["./src/app/core/*"],
+      "@core/*": ["./src/app/core/*"],
 
       // TODO: eslint boundary plugin:
       "@core/tokens": ["./src/app/core/tokens.ts"],
