@@ -19,6 +19,8 @@ import { UiCard } from '../../../../shared/components/ui-card/ui-card';
             class="grid gap-2 px-2 p-5"
             (keydown.Space)="selectItem(item.id)"
             (click)="selectItem(item.id)"
+
+            
             [class.bg-blue-500]="selectedId() === item.id"
           >
             {{ item.title }}
