@@ -1,14 +1,24 @@
 import { Component, input } from '@angular/core';
 import { CardModule } from 'primeng/card';
 
+/**
+ *  Card HEader
+ * @example
+ * ```html
+ * <ui-card>
+ *     <ui-card-header title="banana" />
+ *  /<ui-card>
+ * ```
+ */
 @Component({
   imports: [CardModule],
   selector: 'ui-card',
   styles: [
     `
       :host {
-        --ui-card-title-size: calc(var(--spacing) * 4);
         display: block;
+        --ui-card-title-size: calc(var(--spacing) * 4);
+        --p-card-body-padding: calc(var(--spacing) * 4);
       }
 
       :host([data-variant='compact']) {
@@ -18,14 +28,14 @@ import { CardModule } from 'primeng/card';
       :host {
         &:has([ui-card-list]) {
           /* border: 1px solid red !important; */
-          --p-card-body-padding: 0px;
+          --p-card-body-padding: 0;
         }
       }
     `,
   ],
   host: { '[attr.data-variant]': 'variant()' },
   template: `
-    <p-card>
+    <div class="grid gap-5 shadow-md p-(--p-card-body-padding) rounded-xl">
       <!-- <ng-content select="div,h1,h2,button,.banana,.placki"></ng-content> -->
 
       <ng-content select="[ui-card-header],ui-card-header"></ng-content>
@@ -33,10 +43,16 @@ import { CardModule } from 'primeng/card';
       <!-- Content - Composition -->
       <ng-content #content> No Content </ng-content>
 
-      <ng-content
-        select="[ui-card-footer],ui-card-footer, [ui-card-actions],ui-card-actions"
-      ></ng-content>
-    </p-card>
+      <div class="ui-card-actions flex items-center">
+        <ng-content select="[card-actions], ui-card-actions" />
+      </div>
+
+      <ng-content select="[ui-card-footer],ui-card-footer, ui-card-actions">
+        <!-- ui-card-actions -->
+        <!-- ui-card-paginati0n -->
+        <!-- ui-card-cos inneg -->
+      </ng-content>
+    </div>
   `,
 })
 export class UiCard {
@@ -46,27 +62,29 @@ export class UiCard {
   size = input<'sm' | 'md' | 'lg'>('md');
 }
 
+/**
+ *  Card HEader
+ * @example
+ * ```html
+      <div ui-card-actions]" />
+      <div ui-card-subtitle" />
+    ```
+ */
 @Component({
   imports: [CardModule],
   selector: 'ui-card-header',
   template: `
-    <div class="ui-card-header-title">
-      <ng-content>{{ title() }}</ng-content>
+    <div class="grid gap-2">
+      <ng-content>
+        <h2 class="text-2xl">
+          {{ title() }}
+        </h2>
+      </ng-content>
+      <ng-content select="[ui-card-actions]" />
+      <ng-content select="[ui-card-subtitle]" />
     </div>
   `,
-  styles: `
-    // --ui-card-title-size
-
-    :host {
-      display: block;
-      background-color: lightcyan;
-    }
-
-    .ui-card-header-title {
-      font-size: var(--ui-card-title-size);
-      // color: red !important;
-    }
-  `,
+  styles: ``,
 })
 export class UiCardHeader {
   title = input('');

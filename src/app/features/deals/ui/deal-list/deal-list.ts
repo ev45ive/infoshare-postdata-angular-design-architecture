@@ -28,7 +28,6 @@ import { UiCard } from '../../../../shared/components/ui-card/ui-card';
         }
       </div>
 
-      <button pButton>New Deal</button>
     </ui-card>
   `,
 })
