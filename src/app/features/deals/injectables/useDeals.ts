@@ -2,6 +2,8 @@ import { Signal, signal, effect, inject, computed, isSignal } from '@angular/cor
 import { Deal } from '@feature/deals/model/types';
 import { API_URL, API_TOKEN } from '@core/tokens';
 
+// Type Guards Functions - function isSignal(value: unknown): value is Signal<unknown>
+
 // Util/Helper - https://ngrx.io/guide/signals/signal-method
 const valueOrSignal = <T>(source: T | Signal<T> | (() => T)): Signal<T> =>
   computed(() => {
