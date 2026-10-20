@@ -18,6 +18,8 @@ export function useDeals(id?: Signal<Deal['id']>, initial: Deal[] = []): Signal<
   const APIURL = inject(API_URL);
   const APIToken = inject(API_TOKEN);
 
+
+  /* TODO: Cleanup */
   effect(async (onCleanup) => {
     if (!id) return;
 

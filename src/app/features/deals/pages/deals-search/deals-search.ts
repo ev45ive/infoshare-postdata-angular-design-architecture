@@ -27,6 +27,9 @@ import { useDeals } from '../../injectables/useDeals';
       />
 
       <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
+      
+      <!-- TODO: form -->
+       
     </ui-master-detail>
   `,
 })
