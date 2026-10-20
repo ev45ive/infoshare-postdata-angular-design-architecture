@@ -31,7 +31,6 @@ import { CurrencyPipe } from '@angular/common';
             <h2 class="text-2xl flex-[1_1_60%]">{{ deal.title }}</h2>
             <div class="flex gap-2 ms-auto ">
               <app-deal-status-badge size="full" [stage]="deal.stage" />
-          <button [pButton]>Edit</button>
             </div>
           </div>
 
