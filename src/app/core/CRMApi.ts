@@ -17,10 +17,7 @@ export class CRMAPI {
         params: {},
         headers: {},
       })
-      .pipe(
-    
-        map((res) => res.items),
-      );
+      .pipe(map((res) => res.items));
   }
 
   fetchDeal(id: string) {
