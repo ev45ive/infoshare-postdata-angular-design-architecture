@@ -150,3 +150,7 @@ https://csszengarden.com/219/
 - Services/Hooks (Angular/React)
 - Components (Angular)
 - Utilities (Tailwind)
+
+
+# Bundle Analyzer
+https://www.npmjs.com/package/vite-bundle-analyzer
