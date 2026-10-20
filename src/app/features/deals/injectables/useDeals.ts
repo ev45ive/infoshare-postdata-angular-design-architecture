@@ -66,7 +66,7 @@ export const API_TOKEN = new InjectionToken<string>('API_TOKEN', {
 
 @Service() // Lazy Instantiated app root level Singleton (app lifetime)
 export class DealsService implements DealsSource {
-  _internal = 'secret';
+  //   _internal = 'secret'; // no local state // stateless service
 
   API_URL = inject(API_URL);
   APIToken = inject(API_TOKEN);
@@ -74,4 +74,6 @@ export class DealsService implements DealsSource {
   fetchDeals(): Deal[] {
     return mockDeals;
   }
+
+  ngOnDestory() {}
 }
