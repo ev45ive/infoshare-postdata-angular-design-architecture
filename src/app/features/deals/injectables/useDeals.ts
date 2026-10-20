@@ -11,8 +11,11 @@ import {
 import { Deal } from '../model/types';
 import { mockDeals } from '../data/mock-deals';
 
-export function useDeals(id: Signal<Deal['id']>, initial: Deal[] = []): Signal<Deal[]> {
+export function useDeals(id?: Signal<Deal['id']>, initial: Deal[] = []): Signal<Deal[]> {
   const deals = signal<Deal[]>(initial);
+
+  const APIURL = inject(API_URL);
+  const APIToken = inject(API_TOKEN);
 
   effect(async (onCleanup) => {
     if (!id) return;
@@ -21,8 +24,8 @@ export function useDeals(id: Signal<Deal['id']>, initial: Deal[] = []): Signal<D
     onCleanup(() => huston.abort()); // On effect rerun / component Destory!
 
     try {
-      const resp = await fetch('http://localhost:3000/api/deals', {
-        headers: { Authorization: `Bearer ${'mock_access_u1'}` },
+      const resp = await fetch(`${APIURL}deals`, {
+        headers: { Authorization: `Bearer ${APIToken}` },
         signal: huston.signal,
       });
 
@@ -64,22 +67,24 @@ export const API_TOKEN = new InjectionToken<string>('API_TOKEN', {
 
 // @Injectable({ providedIn: 'root' }) // Singleton
 
-@Service() // Lazy Instantiated app root level Singleton (app lifetime)
-export class DealsService implements DealsSource {
-  //   _internal = 'secret'; // no local state // stateless service
+// @Service() // Lazy Instantiated app root level Singleton (app lifetime)
+// export class DealsService implements DealsSource {
+//   //   _internal = 'secret'; // no local state // stateless service
 
-  API_URL = inject(API_URL);
-  APIToken = inject(API_TOKEN);
+//  constructor( @Inject(API_URL) url: string){}
 
-  fetchDeals(): Deal[] {
-    return mockDeals;
-  }
+//   API_URL = inject(API_URL);
+//   APIToken = inject(API_TOKEN);
 
-  ngOnDestory() {}
-}
+//   fetchDeals(): Deal[] {
+//     return mockDeals;
+//   }
+
+//   ngOnDestory() {}
+// }
 
 // When implmentation split
 
-// export const DealsService = new InjectionToken() 
+// export const DealsService = new InjectionToken()
 // DealsServiceA implements DealsService   // Provided in Deals
 // DealsServiceB implements DealsService   // Provifed in Contracts

@@ -47,7 +47,7 @@ export class DealsSearch {
 
   // dealsService: DealsSource = inject(DealsSource);
   // dealsService = inject(DealsSource); // providers
-  dealsService = inject(DealsService); // singleton
+  // dealsService = inject(DealsService); // singleton
 
   selectedDeal = signal<Deal | undefined>(undefined);
   message = signal<Error | null>(null);
