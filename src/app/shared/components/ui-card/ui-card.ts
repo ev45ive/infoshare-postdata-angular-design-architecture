@@ -8,11 +8,18 @@ import { CardModule } from 'primeng/card';
     `
       :host {
         --ui-card-title-size: calc(var(--spacing) * 4);
+        display: block;
       }
 
       :host([data-variant='compact']) {
         --ui-card-title-size: calc(var(--spacing) * 2);
-        border: 2px solid yellowgreen;
+      }
+
+      :host {
+        &:has([ui-card-list]) {
+          /* border: 1px solid red !important; */
+          --p-card-body-padding: 0px;
+        }
       }
     `,
   ],

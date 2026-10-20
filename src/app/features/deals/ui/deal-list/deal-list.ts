@@ -12,19 +12,23 @@ import { UiCard } from '../../../../shared/components/ui-card/ui-card';
   `,
   template: `
     <ui-card>
-      @for (item of items(); track $index) {
-        <div
-          tabindex="0"
-          class="grid gap-2 px-2 p-5"
-          (keydown.Space)="selectItem(item.id)"
-          (click)="selectItem(item.id)"
-          [class.bg-blue-500]="selectedId() === item.id"
-        >
-          {{ item.title }}
-        </div>
-      } @empty {
-        <p class="p-5">No deals found</p>
-      }
+      <div ui-card-list>
+        @for (item of items(); track $index) {
+          <div
+            tabindex="0"
+            class="grid gap-2 px-2 p-5"
+            (keydown.Space)="selectItem(item.id)"
+            (click)="selectItem(item.id)"
+            [class.bg-blue-500]="selectedId() === item.id"
+          >
+            {{ item.title }}
+          </div>
+        } @empty {
+          <p class="p-5">No deals found</p>
+        }
+      </div>
+
+      <button pButton>New Deal</button>
     </ui-card>
   `,
 })
