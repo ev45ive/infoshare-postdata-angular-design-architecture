@@ -13,7 +13,7 @@ export class CRMAPI {
 
   fetchDeals() {
     return this.http
-      .get<PageObject<Deal>>('/deals', {
+      .get<PageObject<Deal>>('deals', {
         params: {},
         headers: {},
       })
@@ -22,7 +22,7 @@ export class CRMAPI {
 
   fetchDeal(id: string) {
     // Unicast observable - Recipe
-    return this.http.get<Deal>(`/deals/${id}`, {
+    return this.http.get<Deal>(`deals/${id}`, {
       params: {},
       headers: {},
     });

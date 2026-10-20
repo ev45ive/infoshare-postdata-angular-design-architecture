@@ -7,5 +7,5 @@ export const API_URL = new InjectionToken<string>('API_URL', {
 
 export const API_TOKEN = new InjectionToken<string>('API_TOKEN', {
   providedIn: 'root',
-  factory: () => 'mock_access_u1',
+  factory: () => 'mock-access-u1',
 });
