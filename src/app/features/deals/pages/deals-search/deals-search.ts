@@ -69,6 +69,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DealsSearch {
   api = inject(CRMAPI);
+
   route = inject(ActivatedRoute);
   router = inject(Router);
 
@@ -90,3 +91,5 @@ export class DealsSearch {
     // });
   }
 }
+
+// TODO:  useRouteQuery(initial()) -> {query}
