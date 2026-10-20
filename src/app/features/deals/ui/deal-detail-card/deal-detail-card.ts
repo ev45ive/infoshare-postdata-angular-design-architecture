@@ -3,12 +3,9 @@ import { ButtonDirective, ButtonModule } from 'primeng/button';
 import { DealStatusBadge } from '../deal-status-badge/deal-status-badge';
 import { Deal } from '../../model/types';
 import { CurrencyPipe } from '@angular/common';
-import {
-  UiCard,
-  UiCardHeader,
-  UiCardFooter,
-  UiCardActions,
-} from '../../../../shared/components/ui-card/ui-card';
+import { UiCard } from '../../../../shared/ui/card/card';
+import { UiCardHeader, UiCardActions, UiCardFooter } from '../../../../shared/ui/card/card-parts';
+import { UiFieldGrid } from '../../../../shared/ui/field-grid/field-grid';
 
 @Component({
   imports: [
@@ -17,9 +14,10 @@ import {
     ButtonModule,
     DealStatusBadge,
     UiCard,
-    UiCardHeader,
-    UiCardFooter,
     UiCardActions,
+    UiCardHeader,
+    UiFieldGrid,
+    UiCardFooter,
   ],
   selector: 'app-deal-detail-card',
   styles: `
@@ -29,19 +27,10 @@ import {
   `,
   template: `
     @if (deal(); as deal) {
-      <ui-card class="grid gap-5 @container/deal-card">
-        <ui-card-header [title]="deal.title">
-          <div ui-card-subtitle>{{ deal.description }}</div>
-        </ui-card-header>
+      <ui-card class="grid gap-5 @container/deal-card" [title]="deal.title">
+        <div ui-card-subtitle>{{ deal.description }}</div>
 
-        <!--  -->
-
-        <!-- Emmet + Tailwind  -->
-        <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold{Label}+div{Content} -->
-        <!-- .grid.grid-cols-2.gap-5>.grid.gap-2*3>.font-semibold+div -->
-
-        <!-- <div class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-5"> -->
-        <div class="grid grid-cols-1 @sm/deal-card:grid-cols-3 @md/deal-card:grid-cols-4 gap-5">
+        <ui-field-grid [cols]="3">
           <div class="flex gap-2">
             <div class="font-semibold">Value</div>
             <div>{{ deal.value | currency }}</div>
@@ -64,13 +53,15 @@ import {
               {{ deal.public ? 'Yes' : 'No' }}
             </div>
           </div>
-        </div>
-        <ui-card-actions>
+        </ui-field-grid>
+
+        <ui-card-footer>
+          <button actions-start pButton text>Learn more</button>
           <button [pButton]>Edit</button>
-        </ui-card-actions>
+        </ui-card-footer>
       </ui-card>
     } @else {
-      <ui-card>No deal selected</ui-card>
+      <ui-card title="No deal selected" variant="outlined" />
     }
   `,
 })

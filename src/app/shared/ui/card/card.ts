@@ -266,7 +266,8 @@ let nextId = 0;
       :host([data-orientation='horizontal']) .ui-card-media {
         flex: 0 0 40%;
         max-width: 14rem;
-        margin: calc(-1 * var(--ui-card-padding)) 0 calc(-1 * var(--ui-card-padding)) calc(-1 * var(--ui-card-padding));
+        margin: calc(-1 * var(--ui-card-padding)) 0 calc(-1 * var(--ui-card-padding))
+          calc(-1 * var(--ui-card-padding));
         border-radius: var(--ui-card-radius) 0 0 var(--ui-card-radius);
       }
 
@@ -281,7 +282,13 @@ let nextId = 0;
         flex-direction: column;
         gap: var(--ui-card-gap);
       }
-      .ui-card-header:not(:has(.ui-card-title-slot:not(:empty), .ui-card-subtitle-slot:not(:empty), .ui-card-actions:not(:empty))),
+      .ui-card-header:not(
+        :has(
+          .ui-card-title-slot:not(:empty),
+          .ui-card-subtitle-slot:not(:empty),
+          .ui-card-actions:not(:empty)
+        )
+      ),
       .ui-card-body:not(:has(> :not(:empty))) {
         display: none;
       }
@@ -300,7 +307,12 @@ let nextId = 0;
             <div class="ui-card-title-slot empty:hidden">
               <ng-content select="[card-title], ui-card-title">
                 @if (title()) {
-                  <div role="heading" class="text-(length:--ui-card-title-size) font-semibold" [attr.aria-level]="level()" [id]="titleId">
+                  <div
+                    role="heading"
+                    class="text-(length:--ui-card-title-size) font-semibold"
+                    [attr.aria-level]="level()"
+                    [id]="titleId"
+                  >
                     {{ title() }}
                     @if (count() !== undefined) {
                       ({{ count() }})
@@ -320,7 +332,9 @@ let nextId = 0;
           <div class="ui-card-actions relative z-1 flex shrink-0 items-center gap-1 empty:hidden">
             <ng-content select="[card-actions], ui-card-actions" />
             @if (viewTemplate() && mode() === 'view') {
-              <button pButton type="button" text size="small" (click)="mode.set('edit')">Edit</button>
+              <button pButton type="button" text size="small" (click)="mode.set('edit')">
+                Edit
+              </button>
             }
             @if (collapsible()) {
               <button
@@ -328,12 +342,18 @@ let nextId = 0;
                 type="button"
                 text
                 size="small"
-                [attr.aria-label]="(collapse.expanded() ? 'Collapse ' : 'Expand ') + (title() ?? 'card')"
+                [attr.aria-label]="
+                  (collapse.expanded() ? 'Collapse ' : 'Expand ') + (title() ?? 'card')
+                "
                 [attr.aria-expanded]="collapse.expanded()"
                 [attr.aria-controls]="bodyId"
                 (click)="collapse.toggle()"
               >
-                <i class="pi" [class]="collapse.expanded() ? 'pi-chevron-up' : 'pi-chevron-down'" aria-hidden="true"></i>
+                <i
+                  class="pi"
+                  [class]="collapse.expanded() ? 'pi-chevron-up' : 'pi-chevron-down'"
+                  aria-hidden="true"
+                ></i>
               </button>
             }
             @if (dismissible()) {
@@ -361,12 +381,20 @@ let nextId = 0;
               <ng-container [ngTemplateOutlet]="custom.template" />
             } @else {
               @for (width of skeletonWidths; track $index) {
-                <div class="h-3.5 animate-pulse rounded bg-surface-100 dark:bg-surface-800" [class]="width"></div>
+                <div
+                  class="h-3.5 animate-pulse rounded bg-surface-100 dark:bg-surface-800"
+                  [class]="width"
+                ></div>
               }
             }
           </div>
         } @else if (mode() === 'edit' && editTemplate(); as edit) {
-          <div><ng-container [ngTemplateOutlet]="edit.template" [ngTemplateOutletContext]="{ $implicit: close }" /></div>
+          <div>
+            <ng-container
+              [ngTemplateOutlet]="edit.template"
+              [ngTemplateOutletContext]="{ $implicit: close }"
+            />
+          </div>
         } @else if (viewTemplate(); as view) {
           <div><ng-container [ngTemplateOutlet]="view.template" /></div>
         } @else if (items(); as list) {
@@ -374,7 +402,10 @@ let nextId = 0;
             @for (item of list; track $index; let index = $index) {
               <li>
                 @if (itemTemplate(); as tpl) {
-                  <ng-container [ngTemplateOutlet]="tpl.template" [ngTemplateOutletContext]="{ $implicit: item, index }" />
+                  <ng-container
+                    [ngTemplateOutlet]="tpl.template"
+                    [ngTemplateOutletContext]="{ $implicit: item, index }"
+                  />
                 } @else {
                   {{ item }}
                 }
@@ -393,7 +424,9 @@ let nextId = 0;
         <div class="empty:hidden" [hidden]="loading()"><ng-content /></div>
       </div>
 
-      <div class="empty:hidden" [hidden]="!open()"><ng-content select="[card-footer], ui-card-footer" /></div>
+      <div class="empty:hidden" [hidden]="!open()">
+        <ng-content select="[card-footer], ui-card-footer" />
+      </div>
     </div>
   `,
 })
@@ -432,11 +465,16 @@ export class UiCard {
   protected readonly editTemplate = contentChild(UiCardEdit, { descendants: false });
 
   protected readonly resolvedVariant = computed(
-    () => this.variant() ?? this.defaults?.defaults().variant ?? (this.parent ? 'flat' : 'elevated'),
+    () =>
+      this.variant() ?? this.defaults?.defaults().variant ?? (this.parent ? 'flat' : 'elevated'),
   );
-  protected readonly resolvedDensity = computed(() => this.density() ?? this.defaults?.defaults().density ?? 'comfortable');
+  protected readonly resolvedDensity = computed(
+    () => this.density() ?? this.defaults?.defaults().density ?? 'comfortable',
+  );
   /** Heading level used by the default title and `ui-card-title`. */
-  readonly level: Signal<number> = computed(() => Math.min(6, this.headingLevel() ?? (this.parent ? this.parent.level() + 1 : 3)));
+  readonly level: Signal<number> = computed(() =>
+    Math.min(6, this.headingLevel() ?? (this.parent ? this.parent.level() + 1 : 3)),
+  );
 
   protected readonly open = computed(() => !this.collapsible() || this.collapse.expanded());
   protected readonly labelledBy = computed(() =>
