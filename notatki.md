@@ -129,3 +129,24 @@ https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-paren
 • Cascade Layers (@layer): Reached baseline/interop consensus in 2022, helping developers explicitly control and organize specificity layers without relying on messy selector workarounds.
 
 • Container Queries (@container): Shipped across major browsers in 2022, allowing component-level responsiveness based on the parent container's size rather than the viewport.
+
+
+
+# CSS zen garden
+
+https://csszengarden.com/219/
+
+2000:
+- CSS  - Presentation
+- HTML - Semantic model Model  
+- JS   - Interactions
+
+2010
+- JS
+- Templates
+- CSS
+
+2020
+- Services/Hooks (Angular/React)
+- Components (Angular)
+- Utilities (Tailwind)
