@@ -8,11 +8,18 @@ export const routes: Routes = [
   // { path: '', component: TestComponent }
   // { path: '', component: StoryWrapper }
 
-  { path: '', redirectTo: '/deals', pathMatch: 'full' },
+  { path: '', redirectTo: '/contacts', pathMatch: 'full' },
+  
   {
     path: 'deals',
     loadChildren: () => import('./features/deals/routes'),
   },
+  
+  {
+    path: 'contacts',
+    loadChildren: () => import('./features/contacts/routes'),
+  },
+
   {
     path: 'exercises',
     loadChildren: () => import('./exercises/routes'),

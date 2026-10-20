@@ -33,8 +33,6 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   if (req.headers.has('Authorization')) return next(req);
 
 
-  debugger
-  
   return next(
     req.clone({
       setHeaders: {

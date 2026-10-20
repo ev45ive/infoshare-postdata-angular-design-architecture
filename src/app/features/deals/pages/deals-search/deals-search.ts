@@ -71,9 +71,7 @@ export class DealsSearch {
 
   query = signal('');
   selectedDealId = signal<Deal['id']>('d2');
-  
-  
-  
+
   dealsResource = useDeals(this.query);
   selectedDealResource = useDeal(this.selectedDealId);
 
