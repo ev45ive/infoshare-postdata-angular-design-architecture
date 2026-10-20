@@ -10,6 +10,7 @@ import { UIMasterDetail } from '../../../../shared/ui/layout/master-detail/maste
 import { useDeals } from '../../injectables/useDeals';
 import { UiCard } from '../../../../shared/components/ui-card/ui-card';
 import { UiIntent } from '../../../../shared/ui/intent/intent';
+import { CRMAPI } from '@shared/CRMApi';
 
 @Component({
   imports: [
@@ -41,7 +42,7 @@ import { UiIntent } from '../../../../shared/ui/intent/intent';
         <ui-card [title]="dealsResource.error()" uiIntent="danger" />
       }
 
-      <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
+      <app-deal-detail-card [deal]="selectedDeal()" />
 
       <!-- TODO: form -->
     </ui-master-detail>
@@ -49,6 +50,24 @@ import { UiIntent } from '../../../../shared/ui/intent/intent';
 })
 export class DealsSearch {
   selectedDealId = signal<Deal['id']>('d2');
+
+  api = inject(CRMAPI);
+
+  _ = effect(() => {
+    // Observable
+    const obs = this.api.fetchDeals();
+
+    // Subscriber<T> -> Req1
+    const sub = obs.subscribe(console.log);
+    sub.unsubscribe(); // AbortControler.abort()
+
+    // Subscriber<T> > -> Req1
+    obs.subscribe({
+      next: console.log,
+      error: console.log,
+      complete: () => console.log('Unsubcribed'),
+    });
+  });
 
   selectedDeal = signal<Deal | undefined>(undefined);
 
