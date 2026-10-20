@@ -22,6 +22,7 @@ import {
   takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
 import { httpResource } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   imports: [
@@ -68,14 +69,24 @@ import { httpResource } from '@angular/common/http';
 })
 export class DealsSearch {
   api = inject(CRMAPI);
+  route = inject(ActivatedRoute);
+  router = inject(Router);
 
-  query = signal('');
-  selectedDealId = signal<Deal['id']>('d2');
+  params = toSignal(this.route.queryParams, {
+    initialValue: { q: '', id: '' },
+  });
+
+  query = computed(() => this.params().q);
+  selectedDealId = computed(() => this.params().id);
 
   dealsResource = useDeals(this.query);
   selectedDealResource = useDeal(this.selectedDealId);
 
   selectDealById(id: Deal['id']) {
-    this.selectedDealId.set(id);
+    this.router.navigate([], {
+      queryParams: { id },
+      queryParamsHandling: 'merge',
+      relativeTo: this.route,
+    });
   }
 }
