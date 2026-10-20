@@ -17,9 +17,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
       <div ui-card-list>
         @for (item of items(); track $index) {
           <a
-            [routerLink]="[]"
-            [queryParams]="{ id: item.id }"
-            
+            [routerLink]="[item.id]"
+            /* [queryParams]="{ id: item.id }" */
             routerLinkActive="bg-blue-500!"
             tabindex="0"
             class="grid gap-2 px-2 p-5"
