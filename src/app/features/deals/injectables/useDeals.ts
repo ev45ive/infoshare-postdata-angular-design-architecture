@@ -1,4 +1,4 @@
-import { Signal, signal, effect, inject, computed, isSignal } from '@angular/core';
+import { Signal, signal, effect, inject, computed, isSignal, resource } from '@angular/core';
 import { Deal } from '@feature/deals/model/types';
 import { API_URL, API_TOKEN } from '@core/tokens';
 
@@ -17,41 +17,20 @@ export function useDeals<T extends { id: string }>(
 ) {
   const id = valueOrSignal(idFn);
 
-  const data = signal<T[]>(initial);
-
-  const error = signal<Error | null>(null);
-  const isLoading = signal<boolean>(false);
-
   const APIURL = inject(API_URL);
   const APIToken = inject(API_TOKEN);
 
-  /* TODO: Cleanup */
-  effect(async (onCleanup) => {
-    if (!id) return;
+  return resource<Deal[], { id: string }>({
+    // Track params
+    params: () => ({ id: id() }),
 
-    const huston = new AbortController();
-    onCleanup(() => huston.abort()); // On effect rerun / component Destory!
-
-    try {
-      isLoading.set(true);
-      error.set(null);
-
+    // Reload
+    loader: async ({ abortSignal, params: { id } }) => {
       const resp = await fetch(`${APIURL}deals`, {
         headers: { Authorization: `Bearer ${APIToken}` },
-        signal: huston.signal,
+        signal: abortSignal,
       });
-
-      // const result:unknown = await resp.json();
-      const result: T[] = await resp.json(); // Trust youre API?
-
-      data.set(result);
-    } catch (e: unknown) {
-      console.error(e);
-      if (e instanceof Error) error.set(e);
-    } finally {
-      isLoading.set(false);
-    }
+      return resp.json(); // Trust youre API?
+    },
   });
-
-  return { value: data, error, isLoading /* refresh */ };
 }

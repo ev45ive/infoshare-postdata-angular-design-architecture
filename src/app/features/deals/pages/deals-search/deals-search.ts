@@ -63,29 +63,17 @@ export class DealsSearch {
 
   dealsResource = useDeals<Deal>(() => this.selectedDealId());
 
-  // Signal - Reponse
+
 
   // Recipe
-  deals$ = this.api.fetchDeals().pipe(
-    // catchError(... -> EMPTY )
-    // tap((v) => console.log(v)),
-  );
+  deals$ = this.api.fetchDeals().pipe();
 
   // Eager effect
   deals = toSignal(this.deals$, { initialValue: [] });
 
   selectedDealId = signal<Deal['id']>('d2');
-  // selectedDeal = signal<Deal | undefined>(undefined);
-
-  // Observable<Observable<Deal>> -> Observable<Deal>
-  // map((id) => this.api.fetchDealById(id))
 
   dealLoading = toObservable(this.selectedDealId).pipe(
-    // mergeMap
-    // concatMap
-    // exhaustMap // throttle // refresh
-    // switchMap -> cancel prev when you get new
-
     switchMap((id) => this.api.fetchDealById(id)),
   );
 
@@ -95,13 +83,5 @@ export class DealsSearch {
     this.selectedDealId.set(id);
   }
 
-  // Request
-  // init = effect((onCleanup) => {
-  //   this.deals$.subscribe({
-  //     next: (vaLUE) => console.log(vaLUE),
-  //     error: (e) => console.log(e),
-  //     complete: () => console.log('Unsubcribed'),
-  //   });
-  //   // onCleanup + unsubscribe
-  // });
+
 }
