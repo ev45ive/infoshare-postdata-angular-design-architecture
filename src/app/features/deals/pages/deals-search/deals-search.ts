@@ -32,29 +32,29 @@ import { UIMasterDetail } from '../../../../shared/ui/layout/master-detail/maste
 export class DealsSearch {
   deals = signal<Deal[]>(mockDeals);
 
-  // Request
-  selectedDealId = signal<Deal['id']>('');
+  selectedDealId = signal<Deal['id']>('d2');
 
-  // Result
   selectedDeal = signal<Deal | undefined>(undefined);
+  message = signal<Error | null>(null);
 
-  // Effect
-  loadDealEffect = effect((onCleanup) => {
+  loadDealEffect = effect(async (onCleanup) => {
     const id = this.selectedDealId();
-    const dealsData = this.deals();
 
+    // No seelction
     if (!id) return;
 
-    console.log(`Request ${id}`);
-
-    // await null; // read signals before
-
-    const handler = setTimeout(() => {
-      console.log(`Response ${id}`);
-      this.selectedDeal.set(dealsData.find((d) => d.id === id));
-    }, 2000 * Math.random());
-
-    onCleanup(() => clearTimeout(handler)); // Before next run and on destory!
+    const huston = new AbortController();
+    onCleanup(() => huston.abort());
+    try {
+      const resp = await fetch('http://localhost:3000/api/deals', {
+        headers: { Authorization: `Bearer ${'mock_access_u1'}` },
+        signal: huston.signal,
+      });
+      resp.json();
+    } catch (e: unknown) {
+      console.error(e);
+      if (e instanceof Error) this.message.set(e);
+    }
   });
 
   selectDealById(id: Deal['id']) {
