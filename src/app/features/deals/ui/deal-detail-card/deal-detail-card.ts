@@ -6,6 +6,7 @@ import { CurrencyPipe } from '@angular/common';
 import { UiCard } from '../../../../shared/ui/card/card';
 import { UiCardHeader, UiCardActions, UiCardFooter } from '../../../../shared/ui/card/card-parts';
 import { UiFieldGrid } from '../../../../shared/ui/field-grid/field-grid';
+import { UILink } from '../../../../shared/ui/link';
 
 @Component({
   imports: [
@@ -18,7 +19,8 @@ import { UiFieldGrid } from '../../../../shared/ui/field-grid/field-grid';
     UiCardHeader,
     UiFieldGrid,
     UiCardFooter,
-  ],
+    UILink
+],
   selector: 'app-deal-detail-card',
   styles: `
     :host {
@@ -57,7 +59,7 @@ import { UiFieldGrid } from '../../../../shared/ui/field-grid/field-grid';
 
         <ui-card-footer>
           <button actions-start pButton text>Learn more</button>
-          <button [pButton]>Edit</button>
+          <button [pButton] uiLink="edit">Edit</button>
         </ui-card-footer>
       </ui-card>
     } @else {
