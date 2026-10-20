@@ -154,3 +154,13 @@ https://csszengarden.com/219/
 
 # Bundle Analyzer
 https://www.npmjs.com/package/vite-bundle-analyzer
+
+
+# RxJS Marble Diagrams // ^--------X>
+
+https://rxjs.dev/guide/operators
+http://rxmarbles.com/
+https://www.learnrxjs.io/
+
+http://rxviz.vercel.com/
+

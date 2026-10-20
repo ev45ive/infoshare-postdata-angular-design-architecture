@@ -63,7 +63,7 @@ export class DealsSearch {
 
     // Subscriber<T> > -> Req1
     obs.subscribe({
-      next: (vaLUE) => console.log(vaLUE.items),
+      next: (vaLUE) => console.log(vaLUE),
       error: (e) => console.log(e),
       complete: () => console.log('Unsubcribed'),
     });
