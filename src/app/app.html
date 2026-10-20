@@ -1,12 +1,16 @@
 <div class="container mx-auto grid gap-5 py-5">
   <div class="flex justify-between gap-5 items-center">
     <h1 class="text-2xl">
-      <a href="/">CRM</a>
+      <a routerLinkActive="underline text-primary!" routerLink="/" [routerLinkActiveOptions]="{exact:true}">CRM</a>
     </h1>
 
     <div class="flex gap-5">
-      <a class="text-link hover:underline" href="/deals">Deals</a>
-      <a class="text-link hover:underline" href="/contacts">Contacts</a>
+      <a class="text-link hover:underline" routerLinkActive="underline text-primary!" routerLink="/deals"
+        >Deals</a
+      >
+      <a class="text-link hover:underline" routerLinkActive="underline text-primary!" routerLink="/contacts"
+        >Contacts</a
+      >
     </div>
   </div>
 </div>
