@@ -5,37 +5,28 @@ import { DealDetailCard } from '../../ui/deal-detail-card/deal-detail-card';
 import { Button, ButtonDirective } from 'primeng/button';
 import { mockDeals } from '../../data/mock-deals';
 import { Deal } from '../../model/types';
+import { UIPageHeader } from '../../../../shared/ui/page/page-header/page-header';
+import { UIMasterDetail } from '../../../../shared/ui/layout/master-detail/master-detail';
 
 @Component({
-  imports: [DealList, DealListItem, DealDetailCard, ButtonDirective],
+  imports: [DealList, DealListItem, DealDetailCard, ButtonDirective, UIPageHeader, UIMasterDetail],
   selector: 'app-deals-search',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
   template: `
-    <!-- .grid>.flex.justify-between>h1{Deals}+button[p-button]{New Deal}^.grid.grid-cols-300px_1fr>div>app-deal-list^div>deal-detail-card -->
-    <div class="grid gap-5 p-5 border">
-      <div class="flex justify-between gap-5">
-        <h1 class="text-2xl">Deals</h1>
-        <button pButton="">New Deal</button>
-      </div>
-      <div class="grid gap-5 sm:grid-cols-[minmax(300px,1fr)_1fr]">
-        <div>
-          <app-deal-list
-            [items]="deals()"
-            [selectedId]="selectedDealId()"
-            (selected)="selectDealById($event)"
-            #dealListRef
-          />
-        </div>
+    <ui-page-header title="Deals">
+      <button pButton outlined>New Deal</button>
+    </ui-page-header>
 
-        <div>
-          <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
-        </div>
-      </div>
-    </div>
+    <ui-master-detail>
+      <app-deal-list
+        ui-master
+        [items]="deals()"
+        [selectedId]="selectedDealId()"
+        (selected)="selectDealById($event)"
+        #dealListRef
+      />
+
+      <app-deal-detail-card [deal]="selectedDeal()"></app-deal-detail-card>
+    </ui-master-detail>
   `,
 })
 export class DealsSearch {
@@ -51,7 +42,7 @@ export class DealsSearch {
   loadDealEffect = effect((onCleanup) => {
     const id = this.selectedDealId();
     const dealsData = this.deals();
-    
+
     if (!id) return;
 
     console.log(`Request ${id}`);

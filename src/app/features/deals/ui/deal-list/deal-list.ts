@@ -1,8 +1,9 @@
 import { Component, input, output, signal, Signal, WritableSignal } from '@angular/core';
 import { Deal } from '../../model/types';
+import { UiCard } from '../../../../shared/components/ui-card/ui-card';
 
 @Component({
-  imports: [],
+  imports: [UiCard],
   selector: 'app-deal-list',
   styles: `
     :host {
@@ -10,7 +11,7 @@ import { Deal } from '../../model/types';
     }
   `,
   template: `
-    <div class="grid gap-2 border">
+    <ui-card>
       @for (item of items(); track $index) {
         <div
           tabindex="0"
@@ -24,7 +25,7 @@ import { Deal } from '../../model/types';
       } @empty {
         <p class="p-5">No deals found</p>
       }
-    </div>
+    </ui-card>
   `,
 })
 export class DealList {
