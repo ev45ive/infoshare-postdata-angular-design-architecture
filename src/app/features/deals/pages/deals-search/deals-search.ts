@@ -11,7 +11,16 @@ import { useDeals } from '../../injectables/useDeals';
 import { UiCard } from '../../../../shared/components/ui-card/ui-card';
 import { UiIntent } from '../../../../shared/ui/intent/intent';
 import { CRMAPI } from '@shared/CRMApi';
-import { tap } from 'rxjs';
+import { catchError, concatMap, exhaustMap, map, mergeMap, switchMap, tap } from 'rxjs';
+import { unsubscribe } from 'diagnostics_channel';
+
+import {
+  toObservable,
+  toSignal,
+  outputFromObservable,
+  rxResource,
+  takeUntilDestroyed,
+} from '@angular/core/rxjs-interop';
 
 @Component({
   imports: [
@@ -50,29 +59,49 @@ import { tap } from 'rxjs';
   `,
 })
 export class DealsSearch {
-  selectedDealId = signal<Deal['id']>('d2');
-
   api = inject(CRMAPI);
 
-  // ngOnInit(){}
-
-  init = effect(() => {
-    // Observable
-    this.api
-      .fetchDeals()
-      .pipe(tap((v) => console.log(v)))
-      .subscribe({
-        next: (vaLUE) => console.log(vaLUE),
-        error: (e) => console.log(e),
-        complete: () => console.log('Unsubcribed'),
-      });
-  });
-
-  selectedDeal = signal<Deal | undefined>(undefined);
-
   dealsResource = useDeals<Deal>(() => this.selectedDealId());
+
+  // Signal - Reponse
+
+  // Recipe
+  deals$ = this.api.fetchDeals().pipe(
+    // catchError(... -> EMPTY )
+    // tap((v) => console.log(v)),
+  );
+
+  // Eager effect
+  deals = toSignal(this.deals$, { initialValue: [] });
+
+  selectedDealId = signal<Deal['id']>('d2');
+  // selectedDeal = signal<Deal | undefined>(undefined);
+
+  // Observable<Observable<Deal>> -> Observable<Deal>
+  // map((id) => this.api.fetchDealById(id))
+
+  dealLoading = toObservable(this.selectedDealId).pipe(
+    // mergeMap
+    // concatMap
+    // exhaustMap // throttle // refresh
+    // switchMap -> cancel prev when you get new
+
+    switchMap((id) => this.api.fetchDealById(id)),
+  );
+
+  selectedDeal = toSignal(this.dealLoading);
 
   selectDealById(id: Deal['id']) {
     this.selectedDealId.set(id);
   }
+
+  // Request
+  // init = effect((onCleanup) => {
+  //   this.deals$.subscribe({
+  //     next: (vaLUE) => console.log(vaLUE),
+  //     error: (e) => console.log(e),
+  //     complete: () => console.log('Unsubcribed'),
+  //   });
+  //   // onCleanup + unsubscribe
+  // });
 }

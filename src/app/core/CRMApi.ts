@@ -20,11 +20,8 @@ export class CRMAPI {
       .pipe(map((res) => res.items));
   }
 
-  fetchDeal(id: string) {
+  fetchDealById(id: string) {
     // Unicast observable - Recipe
-    return this.http.get<Deal>(`deals/${id}`, {
-      params: {},
-      headers: {},
-    });
+    return this.http.get<Deal>(`deals/${id}`, {});
   }
 }
