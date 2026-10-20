@@ -1,23 +1,12 @@
-import {
-  Signal,
-  signal,
-  effect,
-  Injector,
-  InjectionToken,
-  inject,
-  Injectable,
-  Service,
-} from '@angular/core';
-import { Deal } from '../model/types';
-import { mockDeals } from '../data/mock-deals';
-import { API_URL, API_TOKEN } from '../../../core/tokens';
+import { Signal, signal, effect, inject } from '@angular/core';
+import { Deal } from '@feature/deals/model/types';
+import { API_URL, API_TOKEN } from '@core/tokens';
 
 export function useDeals(id?: Signal<Deal['id']>, initial: Deal[] = []): Signal<Deal[]> {
   const deals = signal<Deal[]>(initial);
 
   const APIURL = inject(API_URL);
   const APIToken = inject(API_TOKEN);
-
 
   /* TODO: Cleanup */
   effect(async (onCleanup) => {
