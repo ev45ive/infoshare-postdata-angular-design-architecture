@@ -11,11 +11,10 @@ type PageObject<T> = { items: T[]; total: number; offset: number };
 export class CRMAPI {
   http = inject(HttpClient);
 
-  fetchDeals() {
+  fetchDeals(q = '') {
     return this.http
       .get<PageObject<Deal>>('deals', {
-        params: {},
-        headers: {},
+        params: { q },
       })
       .pipe(map((res) => res.items));
   }

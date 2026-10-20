@@ -7,7 +7,7 @@ import { mockDeals } from '../../data/mock-deals';
 import { Deal } from '../../model/types';
 import { UIPageHeader } from '../../../../shared/ui/page/page-header/page-header';
 import { UIMasterDetail } from '../../../../shared/ui/layout/master-detail/master-detail';
-import { useDeals } from '../../injectables/useDeals';
+import { useDeal, useDeals, useDealsQuery } from '../../injectables/useDeals';
 import { UiCard } from '../../../../shared/components/ui-card/ui-card';
 import { UiIntent } from '../../../../shared/ui/intent/intent';
 import { CRMAPI } from '@shared/CRMApi';
@@ -21,6 +21,7 @@ import {
   rxResource,
   takeUntilDestroyed,
 } from '@angular/core/rxjs-interop';
+import { httpResource } from '@angular/common/http';
 
 @Component({
   imports: [
@@ -52,7 +53,14 @@ import {
         <ui-card [title]="dealsResource.error()" uiIntent="danger" />
       }
 
-      <app-deal-detail-card [deal]="selectedDeal()" />
+      @if (selectedDealResource.isLoading()) {
+        <ui-card title="Loading Deal" uiIntent="info" />
+      }
+      @if (selectedDealResource.error()) {
+        <ui-card [title]="selectedDealResource.error()" uiIntent="danger" />
+      } @else {
+        <app-deal-detail-card [deal]="selectedDealResource.value()" />
+      }
 
       <!-- TODO: form -->
     </ui-master-detail>
@@ -61,27 +69,15 @@ import {
 export class DealsSearch {
   api = inject(CRMAPI);
 
-  dealsResource = useDeals<Deal>(() => this.selectedDealId());
-
-
-
-  // Recipe
-  deals$ = this.api.fetchDeals().pipe();
-
-  // Eager effect
-  deals = toSignal(this.deals$, { initialValue: [] });
-
+  query = signal('');
   selectedDealId = signal<Deal['id']>('d2');
-
-  dealLoading = toObservable(this.selectedDealId).pipe(
-    switchMap((id) => this.api.fetchDealById(id)),
-  );
-
-  selectedDeal = toSignal(this.dealLoading);
+  
+  
+  
+  dealsResource = useDeals(this.query);
+  selectedDealResource = useDeal(this.selectedDealId);
 
   selectDealById(id: Deal['id']) {
     this.selectedDealId.set(id);
   }
-
-
 }
