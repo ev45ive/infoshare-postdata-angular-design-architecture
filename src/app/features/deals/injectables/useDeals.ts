@@ -77,3 +77,9 @@ export class DealsService implements DealsSource {
 
   ngOnDestory() {}
 }
+
+// When implmentation split
+
+// export const DealsService = new InjectionToken() 
+// DealsServiceA implements DealsService   // Provided in Deals
+// DealsServiceB implements DealsService   // Provifed in Contracts

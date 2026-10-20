@@ -31,7 +31,7 @@ import { DealsService, DealsSource, useDeals } from '../../injectables/useDeals'
   `,
   providers: [
     // DealsService, // local lifecycle
-    
+
     // { provide: DealsSourceA, useExisting: DealsService }, // Share 
     // { provide: DealsSourceB, useExisting: DealsService }, // Share
 
@@ -46,8 +46,8 @@ export class DealsSearch {
   // dealsService = new DealsService(new API(), new Session( new API));
 
   // dealsService: DealsSource = inject(DealsSource);
-  // dealsService = inject(DealsService); // singleton
-  dealsService = inject(DealsSource); // providers
+  // dealsService = inject(DealsSource); // providers
+  dealsService = inject(DealsService); // singleton
 
   selectedDeal = signal<Deal | undefined>(undefined);
   message = signal<Error | null>(null);
