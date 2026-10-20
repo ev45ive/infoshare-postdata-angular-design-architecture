@@ -31,8 +31,12 @@ import { DealsService, DealsSource, useDeals } from '../../injectables/useDeals'
   `,
   providers: [
     // DealsService, // local lifecycle
-    // { provide: DealsSource, useExisting: DealsService },
-    // { provide: DealsSource, useClass: DealsService }, // create 
+    
+    // { provide: DealsSourceA, useExisting: DealsService }, // Share 
+    // { provide: DealsSourceB, useExisting: DealsService }, // Share
+
+    // { provide: DealsSourceA, useClass: DealsService }, // create A
+    // { provide: DealsSourceB, useClass: DealsService }, // create B
   ],
 })
 export class DealsSearch {
